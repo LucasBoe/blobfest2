@@ -1,0 +1,12 @@
+{
+  "8cbd603c538547b40949c23ec6981298": "Assets/Plugins/EditorAttributes/Samples/SampleScene.unity",
+  "3b7908e73d72e40cca0c33a00f03b2fc": "Assets/Scenes/BOOT.unity",
+  "a7769e14bb5db4d1e9e501c07657da9a": "Assets/Scenes/GLOBAL.unity",
+  "6e5faaf091b22429696cff1497603357": "Assets/Scenes/MainMenu.unity",
+  "e0b8dab11c65d4fa0b354cf51a5f402c": "Assets/Scenes/MainPlay.unity",
+  "63de4281423684b91b1d2d28d953fb0b": "Assets/Scenes/UI.unity",
+  "2cda990e2423bbf4892e6590ba056729": "Assets/Settings/Scenes/URP2DSceneTemplate.unity",
+  "07845a5477be2b149a6f1cb32b5a3a5b": "Packages/com.dbrizov.naughtyattributes/Samples/DemoScene/DemoScene.unity",
+  "e026d555eae824f65922633f37a14385": "Packages/com.unity.render-pipelines.universal/Editor/SceneTemplates/Basic.unity",
+  "5cae0d87369a2405eaa962b8d920b947": "Packages/com.unity.render-pipelines.universal/Editor/SceneTemplates/Standard.unity"
+}

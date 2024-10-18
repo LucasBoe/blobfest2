@@ -1,0 +1,576 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;\f2\fswiss\fcharset0 Helvetica-BoldOblique;
+\f3\fmodern\fcharset0 Courier-Bold;\f4\fmodern\fcharset0 Courier;\f5\froman\fcharset0 TimesNewRomanPSMT;
+\f6\fmodern\fcharset0 Courier-Oblique;\f7\fswiss\fcharset0 Helvetica-Oblique;\f8\ftech\fcharset77 Symbol;
+}
+{\colortbl;\red255\green255\blue255;\red64\green64\blue64;\red0\green128\blue0;\red187\green187\blue187;
+\red0\green0\blue255;\red41\green128\blue185;\red61\green123\blue123;\red176\green0\blue64;\red104\green120\blue34;
+\red231\green76\blue60;\red102\green102\blue102;}
+{\*\expandedcolortbl;;\csgenericrgb\c25098\c25098\c25098;\csgenericrgb\c0\c50196\c0;\csgenericrgb\c73333\c73333\c73333;
+\csgenericrgb\c0\c0\c100000;\csgenericrgb\c16078\c50196\c72549;\csgenericrgb\c23922\c48235\c48235;\csgenericrgb\c69020\c0\c25098;\csgenericrgb\c40784\c47059\c13333;
+\csgenericrgb\c90588\c29804\c23529;\csgenericrgb\c40000\c40000\c40000;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid101\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid201\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid301\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid4}
+{\list\listtemplateid5\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid401\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid5}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}{\listoverride\listid5\listoverridecount0\ls5}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww27480\viewh16580\viewkind1
+\deftab720
+\pard\pardeftab720\ri-6\sa360\partightenfactor0
+
+\f0\b\fs42 \cf2 How To Use\
+\pard\pardeftab720\ri-6\sl259\slmult1\sa160\partightenfactor0
+
+\f1\b0\fs22 \cf2 Prerequisites: Familiarity with basic C# programming in Unity and knowledge about how to use Unity\'92s built-in attributes.\
+\
+\pard\pardeftab720\ri-6\sl259\slmult1\sa360\partightenfactor0
+
+\f2\i\b\fs28 \cf2 Importing The Namespace\
+\pard\pardeftab720\ri-6\sl259\slmult1\sa160\partightenfactor0
+
+\f1\i0\b0\fs22 \cf2 To start using the editor attributes you must add this using statement in your class:\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f3\b\fs18 \cf3 \expnd0\expndtw0\kerning0
+using
+\f4\b0 \cf4  
+\f3\b \cf5 EditorAttributes
+\f4\b0 \cf2 ;\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f1\fs22 \cf2 \kerning1\expnd0\expndtw0 If you are using\'a0{\field{\*\fldinst{HYPERLINK "https://docs.unity3d.com/2023.3/Documentation/Manual/ScriptCompilationAssemblyDefinitionFiles.html"}}{\fldrslt \cf6 \ul \ulc6 Assembly Definitions}}\'a0in your project make sure you reference the \'93EditorAttributes\'94 Assembly Definition where needed.\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f5 \cf0 \
+\
+\pard\pardeftab720\ri-6\sl259\slmult1\sa360\partightenfactor0
+
+\f2\i\b\fs28 \cf2 Serialization\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\i0\b0\fs24 \cf2 Every member the attribute is attached to must be serializable by Unity (with the exception of the\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/Attributes/MiscellaneousAttributes/button.html"}}{\fldrslt \cf6 Button Attribute}}\'a0which is attached to functions), meaning those members must be either public or private with the\'a0{\field{\*\fldinst{HYPERLINK "https://docs.unity3d.com/2023.3/Documentation/ScriptReference/SerializeField.html"}}{\fldrslt \cf6 \ul \ulc6 SerializeField Attribute}}\'a0and valid to the Unity serializer.\
+Here is a small example of what\'92s valid and what\'92s not:\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f6\i\fs18 \cf7 \expnd0\expndtw0\kerning0
+// Valid, public fields are serialized by default
+\f4\i0 \cf2 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f3\b \cf3 public
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field01;\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f6\i \cf7 // Valid, is still a public field, we just mark it to be hidden in the inspector
+\f4\i0 \cf2 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+\cf9 [HideInInspector]\cf4  
+\f3\b \cf3 public
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field02;\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f6\i \cf7 // Invalid, private fields are not serialized by default
+\f4\i0 \cf2 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field03;\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f6\i \cf7 // Valid, we mark this private field to be serialized by unity
+\f4\i0 \cf2 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+\cf9 [SerializeField]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field04;\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f6\i \cf7 // Valid, is still serialized, we just hide it in the inspector
+\f4\i0 \cf2 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+\cf9 [SerializeField, HideInInspector]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field05;\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f6\i \cf7 // Invalid, static, readonly or const fields are not valid to unity's serializer
+\f4\i0 \cf2 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f3\b \cf3 public
+\f4\b0 \cf4  
+\f3\b \cf3 static
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field06;\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f6\i \cf7 // Invalid, Non-Behaivour classes and structs that are not marked as serializable are not serialized by unity
+\f4\i0 \cf2 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f3\b \cf3 public
+\f4\b0 \cf4  \cf2 CustomRawClass\cf4  \cf2 field07;\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f6\i \cf7 // Invalid, Interfaces are not serialized by unity (which is dumb)
+\f4\i0 \cf2 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f3\b \cf3 public
+\f4\b0 \cf4  \cf2 IInterface\cf4  \cf2 field08;\
+\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f1\fs22 \cf2 \kerning1\expnd0\expndtw0 For more details about unity serialization see\'a0{\field{\*\fldinst{HYPERLINK "https://docs.unity3d.com/Manual/script-Serialization.html"}}{\fldrslt \cf6 \ul \ulc6 this}}
+\f5 \cf0 \
+\
+\pard\pardeftab720\ri-6\sl259\slmult1\sa360\partightenfactor0
+
+\f2\i\b\fs28 \cf2 Attribute Order\
+\pard\pardeftab720\ri-6\sl360\sb100\sa360\partightenfactor0
+
+\f1\i0\b0\fs22 \cf2 The logic of all attributes is executed in the order they are written (left to right), meaning the last attribute can override the functionality of the previous attribute if the functionality is similar. In the following example the\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/Attributes/NumericalAttributes/timefield.html"}}{\fldrslt \cf6 TimeField Attribute}}\'a0will execute before the\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/Attributes/DecorativeAttributes/suffix.html"}}{\fldrslt \cf6 Suffix Attribute}}\'a0meaning the suffix will fail to add because of how the\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/Attributes/NumericalAttributes/timefield.html"}}{\fldrslt \cf6 TimeField Attribute}}\'a0is drawn:
+\fs24 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f3\b\fs18 \cf3 \expnd0\expndtw0\kerning0
+using
+\f4\b0 \cf4  
+\f3\b \cf5 UnityEngine
+\f4\b0 \cf2 ;\
+
+\f3\b \cf3 using
+\f4\b0 \cf4  
+\f3\b \cf5 EditorAttributes
+\f4\b0 \cf2 ;\
+\
+
+\f3\b \cf3 public
+\f4\b0 \cf4  
+\f3\b \cf3 class
+\f4\b0 \cf4  
+\f3\b \cf5 AttributesExample
+\f4\b0 \cf4  \cf2 :\cf4  \cf2 MonoBehaviour\
+\{		\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+\cf4         \cf9 [TimeField(TimeFormat.YearMonthWeek, ConvertTo.Days), Suffix("to days")]\cf2 \
+\cf4         \cf9 [SerializeField]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field;\
+\}\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f5\fs22 \cf0 \kerning1\expnd0\expndtw0 \
+\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f1 \cf2 To fix this we can change the order by putting the\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/Attributes/NumericalAttributes/timefield.html"}}{\fldrslt \cf6 TimeField Attribute}}\'a0after the\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/Attributes/DecorativeAttributes/suffix.html"}}{\fldrslt \cf6 Suffix Attribute}}\'a0or use the\'a0
+\f7\i order
+\f1\i0 \'a0parameter that every attribute has to execute the\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/Attributes/DecorativeAttributes/suffix.html"}}{\fldrslt \cf6 Suffix Attribute}}\'a0first, C# will first go through the attributes with the lowest order from left to right then to the ones with the higher order the same way, the default order of all attributes is 0:\
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f3\b\fs18 \cf3 \expnd0\expndtw0\kerning0
+using
+\f4\b0 \cf4  
+\f3\b \cf5 UnityEngine
+\f4\b0 \cf2 ;\
+
+\f3\b \cf3 using
+\f4\b0 \cf4  
+\f3\b \cf5 EditorAttributes
+\f4\b0 \cf2 ;\
+\
+
+\f3\b \cf3 public
+\f4\b0 \cf4  
+\f3\b \cf3 class
+\f4\b0 \cf4  
+\f3\b \cf5 AttributesExample
+\f4\b0 \cf4  \cf2 :\cf4  \cf2 MonoBehaviour\
+\{\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+\cf4         \cf9 [TimeField(TimeFormat.YearMonthWeek, ConvertTo.Days), Suffix("to days", order = -1)]\cf2 \
+\cf4         \cf9 [SerializeField]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field;\
+\}\
+\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\fs22 \cf2 \kerning1\expnd0\expndtw0 So now the\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/Attributes/DecorativeAttributes/suffix.html"}}{\fldrslt \cf6 Suffix Attribute}}\'a0will be executed first and the\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/Attributes/NumericalAttributes/timefield.html"}}{\fldrslt \cf6 TimeField Attribute}}\'a0will draw the field with the suffix already on it.
+\fs24 \expnd0\expndtw0\kerning0
+\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f5\fs22 \cf0 \kerning1\expnd0\expndtw0 \
+\
+\pard\pardeftab720\ri-6\sa360\partightenfactor0
+
+\f0\b\fs42 \cf2 Good Practices\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f1\b0\fs22 \cf2 Here are a few good practices to follow when using this package.\
+\
+\pard\pardeftab720\li-180\ri-186\sa180\partightenfactor0
+
+\f0\b\fs24 \cf0 \expnd0\expndtw0\kerning0
+Note:\
+\pard\pardeftab720\li-180\ri-186\sa180\partightenfactor0
+
+\f1\b0 \cf0 These are just some general recommendations to follow when using this package, you don\'92t have to abide by them like laws, if you already have a workflow that fits better for you, feel free to use it.\
+\
+\pard\pardeftab720\ri-6\sl259\slmult1\sa360\partightenfactor0
+
+\f2\i\b\fs28 \cf2 \kerning1\expnd0\expndtw0 Using the void struct\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\i0\b0\fs24 \cf2 The\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/GettingStarted/voidstruct.html"}}{\fldrslt \cf6 Void Struct}}\'a0is made to act as a holder for attributes that redraw the property is attached to. While it\'92s not necessary to use the struct for those attributes (any serialized data type can be used), using the struct as a holder makes the code more readable for you and others.\
+When you use the\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/GettingStarted/voidstruct.html"}}{\fldrslt \cf6 Void Struct}}\'a0as a variable it makes it obvious that is a holder and it will be redrawn, it also keeps some consistency in your code rather than using\'a0
+\f4\fs18 \cf10 int
+\f1\fs24 \cf2 \'a0or\'a0
+\f4\fs18 \cf10 float
+\f1\fs24 \cf2 \'a0randomly in your code as holders.\
+Is also a good idea to add a\'a0
+\f7\i holder
+\f1\i0 \'a0suffix or other naming convention to the void fields so when it comes up in something like\'a0
+\f7\i IntelliSense
+\f1\i0 \'a0you know what it is.\
+\pard\pardeftab720\ri-6\sl259\slmult1\sa360\partightenfactor0
+
+\f2\i\b\fs28 \cf2 Managing multiple attributes\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\i0\b0\fs24 \cf2 When an attribute has a lot of parameters or you use multiple attributes on one field, that line of code can become pretty long which is generally a bad thing. Here is an example:\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f3\b\fs18 \cf3 \expnd0\expndtw0\kerning0
+using
+\f4\b0 \cf4  
+\f3\b \cf5 UnityEngine
+\f4\b0 \cf2 ;\
+
+\f3\b \cf3 using
+\f4\b0 \cf4  
+\f3\b \cf5 EditorAttributes
+\f4\b0 \cf2 ;\
+\
+
+\f3\b \cf3 public
+\f4\b0 \cf4  
+\f3\b \cf3 class
+\f4\b0 \cf4  
+\f3\b \cf5 AttributesExample
+\f4\b0 \cf4  \cf2 :\cf4  \cf2 MonoBehaviour\
+\{\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+\cf4         \cf9 [SerializeField]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 bool\cf4  \cf2 condition01;\
+\cf4         \cf9 [SerializeField]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 bool\cf4  \cf2 condition02;\
+\cf4         \cf9 [SerializeField]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 bool\cf4  \cf2 condition03;\
+\
+\cf4         \cf9 [SerializeField, ReadOnly, ConditionalField(ConditionType.AND, new bool[]\cf4  \cf2 \{\cf4  
+\f3\b \cf3 false
+\f4\b0 \cf2 ,\cf4  
+\f3\b \cf3 true
+\f4\b0 \cf2 ,\cf4  
+\f3\b \cf3 false
+\f4\b0 \cf4  \cf2 \},\cf4  \cf2 nameof(condition01),\cf4  \cf2 nameof(condition02),\cf4  \cf2 nameof(condition03))]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field;\
+\}\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\fs24 \cf2 \kerning1\expnd0\expndtw0 Our\'a0
+\f4\fs18 \cf10 int
+\f1\fs24 \cf2 \'a0field got pretty long, let\'92s see what can we do to organize this better.\
+\pard\tx720\pardeftab720\li1080\fi-360\ri-6\sl360\sa180\partightenfactor0
+\ls1\ilvl0
+\f8\fs20 \cf2 \'a5	
+\f1\fs24 \expnd0\expndtw0\kerning0
+We can put the variable on a separate line with all attributes above it:\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\li1080\ri-6\partightenfactor0
+
+\f4\fs18 \cf9 [SerializeField, ReadOnly, ConditionalField(ConditionType.AND, new bool[]\cf4  \cf2 \{\cf4  
+\f3\b \cf3 false
+\f4\b0 \cf2 ,\cf4  
+\f3\b \cf3 true
+\f4\b0 \cf2 ,\cf4  
+\f3\b \cf3 false
+\f4\b0 \cf4  \cf2 \},\cf4  \cf2 nameof(condition01),\cf4  \cf2 nameof(condition02),\cf4  \cf2 nameof(condition03))]\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\li1080\ri-6\sa160\partightenfactor0
+
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field;\
+\pard\tx720\pardeftab720\li1080\fi-360\ri-6\sl360\sa180\partightenfactor0
+\ls2\ilvl0
+\f8\fs20 \cf2 \kerning1\expnd0\expndtw0 \'a5	
+\f1\fs24 \expnd0\expndtw0\kerning0
+Keep the attributes from the package and the built-in Unity ones separate:\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\li1080\ri-6\partightenfactor0
+
+\f4\fs18 \cf9 [ReadOnly, ConditionalField(ConditionType.AND, new bool[]\cf4  \cf2 \{\cf4  
+\f3\b \cf3 false
+\f4\b0 \cf2 ,\cf4  
+\f3\b \cf3 true
+\f4\b0 \cf2 ,\cf4  
+\f3\b \cf3 false
+\f4\b0 \cf4  \cf2 \},\cf4  \cf2 nameof(condition01),\cf4  \cf2 nameof(condition02),\cf4  \cf2 nameof(condition03))]\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\li1080\ri-6\sa160\partightenfactor0
+\cf9 [SerializeField]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field;\
+\pard\tx720\pardeftab720\li1080\fi-360\ri-6\sl360\sa180\partightenfactor0
+\ls3\ilvl0
+\f8\fs20 \cf2 \kerning1\expnd0\expndtw0 \'a5	
+\f1\fs24 \expnd0\expndtw0\kerning0
+Put the attribute with a lot of parameters on a separate line:\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\li1080\ri-6\partightenfactor0
+
+\f4\fs18 \cf9 [ConditionalField(ConditionType.AND, new bool[]\cf4  \cf2 \{\cf4  
+\f3\b \cf3 false
+\f4\b0 \cf2 ,\cf4  
+\f3\b \cf3 true
+\f4\b0 \cf2 ,\cf4  
+\f3\b \cf3 false
+\f4\b0 \cf4  \cf2 \},\cf4  \cf2 nameof(condition01),\cf4  \cf2 nameof(condition02),\cf4  \cf2 nameof(condition03))]\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\li1080\ri-6\sa160\partightenfactor0
+\cf9 [SerializeField, ReadOnly]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field;\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\fs24 \cf2 Any of these methods are valid ways of shortening the line of code, is up to you which one you prefer.\
+\pard\pardeftab720\ri-6\sl259\slmult1\sa360\partightenfactor0
+
+\f2\i\b\fs28 \cf2 \kerning1\expnd0\expndtw0 Using the nameof expression\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\i0\b0\fs24 \cf2 Some attributes need to look for a member in your script and it will ask you to give the name of that member as a\'a0
+\f4\fs18 \cf10 string
+\f1\fs24 \cf2 \'a0parameter, but strings are error prone and you might encounter issues saying,\'a0
+\f7\i that field cannot be found
+\f1\i0 \'a0and spend hours scratching you head when you realize you just made a typo or had a character in the wrong case. Thats why you should use the\'a0{\field{\*\fldinst{HYPERLINK "https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/nameof"}}{\fldrslt \cf6 \ul \ulc6 nameof}}\'a0expression, that allows you to add your variable like a parameter and converts its name to a\'a0
+\f4\fs18 \cf10 string
+\f1\fs24 \cf2 \'a0for the attribute:\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f3\b\fs18 \cf3 \expnd0\expndtw0\kerning0
+using
+\f4\b0 \cf4  
+\f3\b \cf5 UnityEngine
+\f4\b0 \cf2 ;\
+
+\f3\b \cf3 using
+\f4\b0 \cf4  
+\f3\b \cf5 EditorAttributes
+\f4\b0 \cf2 ;\
+\
+
+\f3\b \cf3 public
+\f4\b0 \cf4  
+\f3\b \cf3 class
+\f4\b0 \cf4  
+\f3\b \cf5 AttributesExample
+\f4\b0 \cf4  \cf2 :\cf4  \cf2 MonoBehaviour\
+\{\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+\cf4         \cf9 [SerializeField]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 bool\cf4  \cf2 condition01;\
+\
+\cf4         
+\f6\i \cf7 // Passing the variable as a string (error prone)
+\f4\i0 \cf2 \
+\cf4         \cf9 [SerializeField, EnableField("condition01")]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field01;\
+\
+\cf4         
+\f6\i \cf7 // Using the nameof condition
+\f4\i0 \cf2 \
+\cf4         \cf9 [SerializeField, EnableField(nameof(condition01))]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 field02;\
+\}\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\fs24 \cf2 \
+\pard\pardeftab720\ri-6\sa360\partightenfactor0
+
+\f0\b\fs42 \cf2 \kerning1\expnd0\expndtw0 Void Struct\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\b0\fs22 \cf2 The\'a0
+\f0\b Void
+\f1\b0 \'a0struct is an empty serialized struct to use as a holder property for attributes like the\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/Attributes/GroupingAttributes/verticalgroup.html"}}{\fldrslt \cf6 VerticalGroup Attribute}},\'a0{\field{\*\fldinst{HYPERLINK "https://editorattributesdocs.readthedocs.io/en/latest/Attributes/GroupingAttributes/horizontalgroup.html"}}{\fldrslt \cf6 HorizontalGroup Attribute}}, etc. that completely redraw the property in the inspector.\
+If you are using the\'a0
+\f7\i System
+\f1\i0 \'a0namespace and\'a0
+\f7\i EditorAttributes
+\f1\i0 \'a0namespace in your script then use the\'a0
+\f0\b Void
+\f1\b0 \'a0struct you will notice a naming conflict between\'a0
+\f4\fs18 \cf10 System.Void
+\f1\fs22 \cf2 \'a0and\'a0
+\f4\fs18 \cf10 EditorAttributes.Void
+\f1\fs22 \cf2 , to fix that you will just have to specify which version you want to use, and there are 2 ways to do that.\
+\pard\tx720\pardeftab720\li1080\fi-360\ri-6\sl360\sa180\partightenfactor0
+\ls4\ilvl0
+\fs24 \cf2 1.	\expnd0\expndtw0\kerning0
+Specify the namespace of the version you want to use on that line:\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\li1080\ri-6\partightenfactor0
+
+\f3\b\fs18 \cf3 private
+\f4\b0 \cf4  \cf2 System.Void\cf4  \cf2 systemVoidField;\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\li1080\ri-6\partightenfactor0
+
+\f6\i \cf7 // Or
+\f4\i0 \cf2 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\li1080\ri-6\sa160\partightenfactor0
+
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf2 EditorAttributes.Void\cf4  \cf2 attributesVoidField;\
+\pard\tx720\pardeftab720\li1080\fi-360\ri-6\sl360\sa180\partightenfactor0
+\ls5\ilvl0
+\f1\fs24 \cf2 \kerning1\expnd0\expndtw0 2.	\expnd0\expndtw0\kerning0
+Specify which version you want to use for the whole script under your other usings:\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\li1080\ri-6\partightenfactor0
+
+\f3\b\fs18 \cf3 using
+\f4\b0 \cf4  
+\f3\b \cf5 Void
+\f4\b0 \cf4  \cf11 =\cf4  \cf2 System.Void;\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\li1080\ri-6\partightenfactor0
+
+\f6\i \cf7 // Or
+\f4\i0 \cf2 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\li1080\ri-6\sa160\partightenfactor0
+
+\f3\b \cf3 using
+\f4\b0 \cf4  
+\f3\b \cf5 Void
+\f4\b0 \cf4  \cf11 =\cf4  \cf2 EditorAttributes.Void;\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\fs22 \cf2 \kerning1\expnd0\expndtw0 A common way this conflict can happen is when you use the editor attributes and serialize structs:\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f3\b\fs18 \cf3 \expnd0\expndtw0\kerning0
+using
+\f4\b0 \cf4  
+\f3\b \cf5 System
+\f4\b0 \cf2 ;\
+
+\f3\b \cf3 using
+\f4\b0 \cf4  
+\f3\b \cf5 UnityEngine
+\f4\b0 \cf2 ;\
+
+\f3\b \cf3 using
+\f4\b0 \cf4  
+\f3\b \cf5 EditorAttributes
+\f4\b0 \cf2 ;\
+\
+
+\f3\b \cf3 public
+\f4\b0 \cf4  
+\f3\b \cf3 class
+\f4\b0 \cf4  
+\f3\b \cf5 AttributesExample
+\f4\b0 \cf4  \cf2 :\cf4  \cf2 MonoBehaviour\
+\{\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+\cf4         \cf9 [Serializable]\cf2 \
+\cf4         
+\f3\b \cf3 private
+\f4\b0 \cf4  
+\f3\b \cf3 struct
+\f4\b0 \cf4  
+\f3\b \cf5 ExampleStruct
+\f4\b0 \cf2 \
+\cf4         \cf2 \{\
+\cf4                 
+\f3\b \cf3 public
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 data01;\
+\cf4                 
+\f3\b \cf3 public
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 data02;\
+\cf4         \cf2 \}\
+\
+\cf4         \cf9 [SerializeField]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf2 ExampleStruct\cf4  \cf2 exampleStruct;\
+\
+\cf4         \cf9 [HelpBox("This is a help box")]\cf2 \
+\cf4         \cf9 [SerializeField]\cf4  
+\f3\b \cf3 private
+\f4\b0 \cf4  \cf2 Void\cf4  \cf2 helpBoxHolder;\cf4  
+\f6\i \cf7 // This line will throw an error
+\f4\i0 \cf2 \
+\}\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\fs24 \cf2 \
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\fs22 \cf2 \kerning1\expnd0\expndtw0 We can fix the error either by adding\'a0
+\f4\fs18 \cf10 using\'a0Void\'a0=\'a0EditorAttributes.Void;
+\f1\fs22 \cf2 \'a0between the usings and class declaration or by removing the\'a0
+\f4\fs18 \cf10 using\'a0System;
+\f1\fs22 \cf2 \'a0at the top of the file, then to use the\'a0{\field{\*\fldinst{HYPERLINK "https://learn.microsoft.com/en-us/dotnet/api/system.serializableattribute?view=net-7.0"}}{\fldrslt \cf6 \ul \ulc6 Serializable Attribute}}\'a0we just call the namespace directly:\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f4\fs18 \cf9 \expnd0\expndtw0\kerning0
+[System.Serializable]\cf2 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f3\b \cf3 private
+\f4\b0 \cf4  
+\f3\b \cf3 struct
+\f4\b0 \cf4  
+\f3\b \cf5 ExampleStruct
+\f4\b0 \cf2 \
+\{\
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+\cf4         
+\f3\b \cf3 public
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 data01;\
+\cf4         
+\f3\b \cf3 public
+\f4\b0 \cf4  \cf8 int\cf4  \cf2 data02;\
+\}\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\fs22 \cf2 \kerning1\expnd0\expndtw0 Now which version you want to use if up to personal preferece.\
+\
+\pard\pardeftab720\ri-6\sa360\partightenfactor0
+
+\f0\b\fs42 \cf2 Attributes\
+\pard\pardeftab720\ri-6\sl360\sa360\partightenfactor0
+
+\f1\b0\fs24 \cf2 \expnd0\expndtw0\kerning0
+To see how each attribute works import the package sample or check out the \cf5 \ul \ulc5 online documentation\cf2 \ulnone \
+\pard\pardeftab720\li-180\ri-186\sa180\partightenfactor0
+\cf0 \
+\pard\tx916\tx1832\tx2748\tx3664\tx4580\tx5496\tx6412\tx7328\tx8244\tx9160\tx10076\tx10992\tx11908\tx12824\tx13740\tx14656\pardeftab720\ri-6\partightenfactor0
+
+\f4\fs18 \cf2 \
+}

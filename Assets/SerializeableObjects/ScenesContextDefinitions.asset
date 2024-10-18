@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b687d4d532c6c1e40b77de863c21906f, type: 3}
+  m_Name: ScenesContextDefinitions
+  m_EditorClassIdentifier: 
+  AllowInstancesForBaseType: 1
+  OnlyAllowOneInstancePerChildType: 0
+  Contained:
+  - {fileID: 6655652515792874590}
+  - {fileID: 7434951407580579506}
+  fallback: {fileID: 0}
+--- !u!114 &6655652515792874590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19956c6805fcb4a43973c7ade4f9c307, type: 3}
+  m_Name: MainMenu_Context
+  m_EditorClassIdentifier: 
+  Container: {fileID: 11400000}
+  assetGUID: -17622
+  _scenes:
+  - Scene:
+      asset: {fileID: 102900000, guid: a7769e14bb5db4d1e9e501c07657da9a, type: 3}
+      guid: a7769e14bb5db4d1e9e501c07657da9a
+  - Scene:
+      asset: {fileID: 102900000, guid: 6e5faaf091b22429696cff1497603357, type: 3}
+      guid: 6e5faaf091b22429696cff1497603357
+  bootSteps: {fileID: 7647497715872273728, guid: 1555e79c6c72544e09b55ec1ff99162d, type: 3}
+  isPlayingScene: 0
+--- !u!114 &7434951407580579506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19956c6805fcb4a43973c7ade4f9c307, type: 3}
+  m_Name: Play_Context
+  m_EditorClassIdentifier: 
+  Container: {fileID: 11400000}
+  assetGUID: -17768
+  _scenes:
+  - Scene:
+      asset: {fileID: 102900000, guid: a7769e14bb5db4d1e9e501c07657da9a, type: 3}
+      guid: a7769e14bb5db4d1e9e501c07657da9a
+  - Scene:
+      asset: {fileID: 102900000, guid: 63de4281423684b91b1d2d28d953fb0b, type: 3}
+      guid: 63de4281423684b91b1d2d28d953fb0b
+  - Scene:
+      asset: {fileID: 102900000, guid: e0b8dab11c65d4fa0b354cf51a5f402c, type: 3}
+      guid: e0b8dab11c65d4fa0b354cf51a5f402c
+  bootSteps: {fileID: 7647497715872273728, guid: 1555e79c6c72544e09b55ec1ff99162d, type: 3}
+  isPlayingScene: 1
