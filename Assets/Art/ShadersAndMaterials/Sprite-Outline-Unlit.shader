@@ -18,6 +18,7 @@ Shader "Texture-Outline"
 		[Toggle(UNITY_UI_ALPHACLIP)] _UseUIAlphaClip ("Use Alpha Clip", Float) = 0
 		_MainTex("MainTex", 2D) = "white" {}
 		_OutlineColor("OutlineColor", Color) = (1,1,1,1)
+		[Enum(OnlyOutline,0,AlsoSprite,1)]_OnlyOutline("OnlyOutline", Int) = 0
 		[HideInInspector] _texcoord( "", 2D ) = "white" {}
 
 	}
@@ -97,6 +98,7 @@ Shader "Texture-Outline"
 			uniform float4 _ClipRect;
 			uniform sampler2D _MainTex;
 			uniform float4 _MainTex_ST;
+			uniform int _OnlyOutline;
 			uniform float4 _OutlineColor;
 			float4 _MainTex_TexelSize;
 
@@ -132,7 +134,7 @@ Shader "Texture-Outline"
 				float clampResult8_g59 = clamp( ( tex2D( _MainTex, (uv_MainTex*1.0 + ( appendResult2_g61 * float2( 1,0 ) )) ) + tex2D( _MainTex, (uv_MainTex*1.0 + ( appendResult2_g62 * float2( -1,0 ) )) ) + tex2D( _MainTex, (uv_MainTex*1.0 + ( appendResult2_g63 * float2( 0,1 ) )) ) + tex2D( _MainTex, (uv_MainTex*1.0 + ( appendResult2_g64 * float2( 0,-1 ) )) ) ).a , 0.0 , 1.0 );
 				float2 appendResult2_g60 = (float2(_MainTex_TexelSize.x , _MainTex_TexelSize.y));
 				float4 temp_output_37_0 = ( _OutlineColor * ( clampResult8_g59 - tex2D( _MainTex, (uv_MainTex*1.0 + ( appendResult2_g60 * float2( 0,0 ) )) ).a ) );
-				float4 lerpResult40 = lerp( tex2D( _MainTex, uv_MainTex ) , temp_output_37_0 , temp_output_37_0.a);
+				float4 lerpResult40 = lerp( ( tex2D( _MainTex, uv_MainTex ) * _OnlyOutline ) , temp_output_37_0 , temp_output_37_0.a);
 				
 				half4 color = lerpResult40;
 				
@@ -155,21 +157,25 @@ Shader "Texture-Outline"
 }
 /*ASEBEGIN
 Version=18935
-918;66;824;945;26.77802;336.2639;1.272267;True;False
+0;66;1728;946;828.9393;333.0881;1;True;False
 Node;AmplifyShaderEditor.TexturePropertyNode;5;-1194.806,-132.1904;Inherit;True;Property;_MainTex;MainTex;0;0;Create;True;0;0;0;False;0;False;5cb782f76053a412aaca9a0f83037bd7;5cb782f76053a412aaca9a0f83037bd7;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.ColorNode;36;-536.2951,229.5857;Inherit;False;Property;_OutlineColor;OutlineColor;1;0;Create;True;0;0;0;False;0;False;1,1,1,1;1,1,1,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.FunctionNode;37;-303.382,144.5443;Inherit;True;SampleOutline;-1;;59;5a71788c9530442cab70e2373439963a;0;2;11;SAMPLER2D;0;False;12;COLOR;1,1,1,1;False;1;COLOR;0
 Node;AmplifyShaderEditor.SamplerNode;6;-433.5104,-272.7231;Inherit;True;Property;_TextureSample0;Texture Sample 0;1;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.IntNode;42;-302.9393,4.911926;Inherit;False;Property;_OnlyOutline;OnlyOutline;2;1;[Enum];Create;True;0;2;OnlyOutline;0;AlsoSprite;1;0;False;0;False;0;0;False;0;1;INT;0
 Node;AmplifyShaderEditor.BreakToComponentsNode;38;-29.62698,286.3218;Inherit;True;COLOR;1;0;COLOR;0,0,0,0;False;16;FLOAT;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4;FLOAT;5;FLOAT;6;FLOAT;7;FLOAT;8;FLOAT;9;FLOAT;10;FLOAT;11;FLOAT;12;FLOAT;13;FLOAT;14;FLOAT;15
+Node;AmplifyShaderEditor.SimpleMultiplyOpNode;43;-96.93933,-40.08807;Inherit;False;2;2;0;COLOR;0,0,0,0;False;1;INT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.LerpOp;40;203.5973,74.18423;Inherit;False;3;0;COLOR;0,0,0,0;False;1;COLOR;0,0,0,0;False;2;FLOAT;0;False;1;COLOR;0
 Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;41;453.6851,20.23091;Float;False;True;-1;2;ASEMaterialInspector;0;6;Texture-Outline;5056123faa0c79b47ab6ad7e8bf059a4;True;Default;0;0;Default;2;False;True;2;5;False;-1;10;False;-1;0;1;False;-1;0;False;-1;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;-1;False;True;True;True;True;True;0;True;-9;False;False;False;False;False;False;False;True;True;0;True;-5;255;True;-8;255;True;-7;0;True;-4;0;True;-6;1;False;-1;1;False;-1;7;False;-1;1;False;-1;1;False;-1;1;False;-1;False;True;2;False;-1;True;0;True;-11;False;True;5;Queue=Transparent=Queue=0;IgnoreProjector=True;RenderType=Transparent=RenderType;PreviewType=Plane;CanUseSpriteAtlas=True;False;False;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;0;;0;0;Standard;0;0;1;True;False;;False;0
 WireConnection;37;11;5;0
 WireConnection;37;12;36;0
 WireConnection;6;0;5;0
 WireConnection;38;0;37;0
-WireConnection;40;0;6;0
+WireConnection;43;0;6;0
+WireConnection;43;1;42;0
+WireConnection;40;0;43;0
 WireConnection;40;1;37;0
 WireConnection;40;2;38;3
 WireConnection;41;0;40;0
 ASEEND*/
-//CHKSM=0BC6CAC9EAFBF36224B25177C3BA5DAABAE0C3F1
+//CHKSM=A8F1F3ACD851453BAB2D2B03FC3FEC4995C0DF8E

@@ -14,11 +14,11 @@ public class CellBorderLineRenderer : MonoBehaviour
     }
     private void OnEnable()
     {
-        PlayerEventHandler.Instance.OnPlayerChangedCellEvent.AddListener(ShowCell);
+        //PlayerEventHandler.Instance.OnPlayerChangedCellEvent.AddListener(ShowCell);
     }
     private void OnDisable()
     {
-        PlayerEventHandler.Instance.OnPlayerChangedCellEvent.RemoveListener(ShowCell);
+        //PlayerEventHandler.Instance.OnPlayerChangedCellEvent.RemoveListener(ShowCell);
     }
     public void ShowCell(Cell cell)
     {
@@ -35,5 +35,12 @@ public class CellBorderLineRenderer : MonoBehaviour
         {
             lineRenderer.SetPosition(i, cell.Edges[i]);
         }
+    }
+    private void Update()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        // Convert the screen position to world coordinates using the main camera
+        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        ShowCell(MapDataUtil.GetCellThatContainsPoint(MapHandler.Instance.MapData, worldPosition));
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using Engine;
 using UnityEngine;
 using VoronoiMap;
@@ -82,40 +83,21 @@ public class MapDataUtil
     }
     public static bool IsInPolygon(Vector2[] poly, Vector2 p)
     {
-        Vector2 p1, p2;
+        int n = poly.Length;
         bool inside = false;
 
-        if (poly.Length < 3)
+        // Loop through each edge of the polygon
+        for (int i = 0, j = n - 1; i < n; j = i++)
         {
-            return inside;
-        }
+            Vector2 vi = poly[i];
+            Vector2 vj = poly[j];
 
-        var oldPoint = new Vector2(
-            poly[poly.Length - 1].x, poly[poly.Length - 1].y);
-
-        for (int i = 0; i < poly.Length; i++)
-        {
-            var newPoint = new Vector2(poly[i].x, poly[i].y);
-
-            if (newPoint.x > oldPoint.x)
-            {
-                p1 = oldPoint;
-                p2 = newPoint;
-            }
-            else
-            {
-                p1 = newPoint;
-                p2 = oldPoint;
-            }
-
-            if ((newPoint.x < p.x) == (p.x <= oldPoint.x)
-                && (p.y - (long)p1.y) * (p2.x - p1.x)
-                < (p2.y - (long)p1.y) * (p.x - p1.x))
+            // Check if the point is on the inside of this edge
+            if ((vi.y > p.y) != (vj.y > p.y) &&
+                p.x < (vj.x - vi.x) * (p.y - vi.y) / (vj.y - vi.y) + vi.x)
             {
                 inside = !inside;
             }
-
-            oldPoint = newPoint;
         }
 
         return inside;

@@ -3,21 +3,22 @@ using EditorAttributes;
 using UnityEngine;
 using VoronoiMap;
 
-public class Cell : MonoBehaviour
+public partial class Cell : MonoBehaviour
 {
     [ReadOnly] public long GUID;
     [ReadOnly] public Vector2[] Edges;
     [ReadOnly] public CellType CellType;
     [ReadOnly] public long[] NeightbourGUIDs;
 
+    public CellPixelRenderer cellPixelRenderer;
     public Vector2 Center => transform.position;
 
     internal static Cell CreateFromRawVoronoi(VoronoiCellData voronoiCellData, Transform root)
     {
-        GameObject cellObject = new GameObject(voronoiCellData.GUID.ToString());
-        cellObject.transform.parent = root;
-        cellObject.transform.position = TransformToGamePos(voronoiCellData.Center);
-        Cell cell = cellObject.AddComponent<Cell>();
+        Cell cell = CellSpawner.Instance.SpawnNew();
+        cell.name = voronoiCellData.GUID.ToString();
+        cell.transform.parent = root;
+        cell.transform.position = TransformToGamePos(voronoiCellData.Center);
         cell.Init(voronoiCellData);
         return cell;
     }
@@ -26,6 +27,7 @@ public class Cell : MonoBehaviour
         Edges = TransformToGamePos(voronoiCellData.Edges);
         GUID = voronoiCellData.GUID;
         NeightbourGUIDs = voronoiCellData.NeightbourGUIDs;
+        cellPixelRenderer.GenerateSprites(Edges);
     }
     private void OnDrawGizmosSelected()
     {
@@ -39,7 +41,7 @@ public class Cell : MonoBehaviour
             Gizmos.DrawLine(a, b);
         }
     }
-    #region SPACE TRANSFORMATION
+#region SPACE TRANSFORMATION
     private Vector2[] TransformToGamePos(Vector2[] edges)
     {
         Vector2[] result = new Vector2[edges.Length];
@@ -55,5 +57,5 @@ public class Cell : MonoBehaviour
     {
         return new Vector2(raw.x, raw.y / 2f);
     }
-    #endregion
+#endregion
 }

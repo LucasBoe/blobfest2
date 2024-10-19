@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sprite-Outline-White
+  m_Name: Only-Outline-White
   m_Shader: {fileID: 4800000, guid: 37342ca17278f40408c8b9146686bf88, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -47,7 +47,7 @@ Material:
     m_Floats:
     - _AlphaCutoff: 0.5
     - _ColorMask: 15
-    - _OnlyOutline: 1
+    - _OnlyOutline: 0
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
