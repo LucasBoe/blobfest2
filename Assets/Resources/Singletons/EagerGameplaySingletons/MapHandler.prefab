@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7647497715872273728
+--- !u!1 &5135777454617987805
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7188732244635871912}
-  - component: {fileID: -4470916006315066633}
-  - component: {fileID: -1918029680632603808}
-  - component: {fileID: 8241105955756066474}
+  - component: {fileID: 6922537418825177794}
+  - component: {fileID: 1860743588097351786}
+  - component: {fileID: 2596249590284460023}
   m_Layer: 0
-  m_Name: Bootsteps
+  m_Name: MapHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7188732244635871912
+--- !u!4 &6922537418825177794
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7647497715872273728}
+  m_GameObject: {fileID: 5135777454617987805}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -34,39 +33,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-4470916006315066633
+--- !u!114 &1860743588097351786
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7647497715872273728}
+  m_GameObject: {fileID: 5135777454617987805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcc0b4425745c4739b32705f8fe0824d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ba5eea04927c4e468daaf8eed77b1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-1918029680632603808
+  gizmoDrawer: {fileID: 2596249590284460023}
+  mapData:
+    Cells: []
+--- !u!114 &2596249590284460023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7647497715872273728}
+  m_GameObject: {fileID: 5135777454617987805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a32bbb26fbe24b7ca59624c74f24ea5, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d1f9339b7e878649ad1882354fc4cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8241105955756066474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7647497715872273728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13dbb9440e1ae4160a2f8e5966166fa5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  mapData:
+    Cells: []
+    Fails: []
+  drawBounds: 1
+  drawCells: 1
+  drawFails: 1
+  failStepsToDraw: 10
