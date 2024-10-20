@@ -1,13 +1,13 @@
 #if UNITY_EDITOR
 using System.Text.RegularExpressions;
-using EditorAttributes.Editor;
+using NaughtyAttributes.Editor;
 using UnityEditor;
 using UnityEngine;
 
 namespace Engine
 {
     [CustomEditor(typeof(ContaineableScriptableObject), editorForChildClasses: true)]
-    public class ContaineableScriptableObjectEditor : EditorExtension
+    public class ContaineableScriptableObjectEditor : NaughtyInspector
     {
         private bool showRename = false;
         private string newName;

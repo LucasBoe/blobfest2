@@ -16,7 +16,7 @@ public class MapHandler : SingletonBehaviour<MapHandler>
 
     public void GenerateNewMap()
     {
-        VoronoiMapData voronoiMap = new VoronoiMapData(new Vector2(50, 50), 20);
+        VoronoiMapData voronoiMap = new VoronoiMapData(new Vector2(50, 50), 10);
         voronoiMap.FindNeightbours();
         gizmoDrawer.Map = voronoiMap;
 
@@ -66,7 +66,9 @@ public class MapData
 
         for (int i = 0; i < cellCount; i++)
             Cells[i] = Cell.CreateFromRawVoronoi(voronoiMap.Cells[i], root.transform);
-        
+
+        foreach (var cell in Cells)
+            cell.ChangeBehaviourTo<Forest>();
     }
 }
 

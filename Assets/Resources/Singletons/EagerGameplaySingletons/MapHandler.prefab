@@ -48,6 +48,7 @@ MonoBehaviour:
   gizmoDrawer: {fileID: 2596249590284460023}
   mapData:
     Cells: []
+  MapCenter: {x: 0, y: 0}
 --- !u!114 &2596249590284460023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +64,7 @@ MonoBehaviour:
   mapData:
     Cells: []
     Fails: []
-  drawBounds: 1
-  drawCells: 1
-  drawFails: 1
+  drawBounds: 0
+  drawCells: 0
+  drawFails: 0
   failStepsToDraw: 10

@@ -1,4 +1,4 @@
-using EditorAttributes;
+using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -94,7 +94,7 @@ namespace Engine
             return asset;
         }
 
-        [Button(nameof(GenerateEnum), ConditionResult.ShowHide)]
+        [Button, ShowIf(nameof(GenerateEnum))]
         private void UpdateGeneratedEnum()
         {
             var file = GetGeneratedEnumFile();

@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using EditorAttributes;
+using NaughtyAttributes;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif

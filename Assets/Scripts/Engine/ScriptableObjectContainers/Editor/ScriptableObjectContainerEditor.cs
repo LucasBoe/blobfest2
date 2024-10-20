@@ -1,13 +1,13 @@
 #if UNITY_EDITOR
 using System;
-using EditorAttributes.Editor;
+using NaughtyAttributes.Editor;
 using UnityEditor;
 using UnityEngine;
 
 namespace Engine
 {
     [CustomEditor(typeof(ScriptableObjectContainerBase), editorForChildClasses: true)]
-    public class ScriptableObjectContainerEditor : EditorExtension
+    public class ScriptableObjectContainerEditor : NaughtyInspector
     {
         ScriptableObjectContainerBase container;
         protected override void OnEnable()

@@ -1,5 +1,5 @@
 ﻿using System;
-using EditorAttributes;
+using NaughtyAttributes;
 using UnityEngine;
 using VoronoiMap;
 
@@ -7,11 +7,16 @@ public partial class Cell : MonoBehaviour
 {
     [ReadOnly] public long GUID;
     [ReadOnly] public Vector2[] Edges;
+    [ReadOnly] public Vector2[] POIs;
     [ReadOnly] public CellType CellType;
     [ReadOnly] public long[] NeightbourGUIDs;
 
+
     public CellPixelRenderer cellPixelRenderer;
     public Vector2 Center => transform.position;
+    public Transform ContentTransform;
+
+    private CellBehaviour CurrentBehavior;
 
     internal static Cell CreateFromRawVoronoi(VoronoiCellData voronoiCellData, Transform root)
     {
@@ -27,6 +32,7 @@ public partial class Cell : MonoBehaviour
         Edges = TransformToGamePos(voronoiCellData.Edges);
         GUID = voronoiCellData.GUID;
         NeightbourGUIDs = voronoiCellData.NeightbourGUIDs;
+        POIs = PolygonUtil.GetDynamicRandomPointsInPolygon(Edges, 3).ToArray();
         cellPixelRenderer.GenerateSprites(Edges);
     }
     private void OnDrawGizmosSelected()
@@ -39,6 +45,12 @@ public partial class Cell : MonoBehaviour
             var b = Edges[(i + 1) == Edges.Length ? 0 : i + 1];
 
             Gizmos.DrawLine(a, b);
+        }
+
+        Gizmos.color = Color.yellow;
+        for (int i = 0; i < POIs.Length; i++)
+        {
+            Gizmos.DrawWireSphere(POIs[i], .2f);
         }
     }
 #region SPACE TRANSFORMATION
@@ -57,5 +69,25 @@ public partial class Cell : MonoBehaviour
     {
         return new Vector2(raw.x, raw.y / 2f);
     }
-#endregion
+
+    private void Update()
+    {
+        if (CurrentBehavior != null)
+            CurrentBehavior.Update();
+    }
+
+    internal void ChangeBehaviourTo<T>() where T : CellBehaviour
+    {
+        if (CurrentBehavior != null)
+            CurrentBehavior.Exit();
+
+        CurrentBehavior = (T)Activator.CreateInstance(typeof(T));
+        CurrentBehavior.Init(new BehaviourCellContext()
+        {
+            Cell = this
+        });
+
+        CurrentBehavior.Enter();
+    }
+    #endregion
 }

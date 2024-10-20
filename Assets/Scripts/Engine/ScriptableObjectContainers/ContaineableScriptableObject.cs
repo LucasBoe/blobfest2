@@ -1,4 +1,4 @@
-using EditorAttributes;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Engine
