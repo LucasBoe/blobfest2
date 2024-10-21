@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e73414582b6c4f44889fead7bdd4fdb, type: 3}
+  m_Name: Interface
+  m_EditorClassIdentifier: 
+  audioMixerGroup: {fileID: 0}
+  _sounds:
+  - {fileID: 1095337415136446268}
+--- !u!114 &1095337415136446268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72527e59cbfe0e94e902be4c01aecd1b, type: 3}
+  m_Name: plop_high
+  m_EditorClassIdentifier: 
+  myLibrary: {fileID: 11400000}
+  clip: {fileID: 8300000, guid: f8ad55d7b986e43d88299b81b6368806, type: 3}
+  useMultipleClipVariants: 0
+  clips: []
+  volume: 0.5
+  pitch: 1
+  pitchMin: 0.9
+  pitchMax: 1.1
+  randomizePitch: 1
+  customName: 
