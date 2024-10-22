@@ -12,11 +12,11 @@ public partial class Cell : MonoBehaviour
     [ReadOnly] public long[] NeightbourGUIDs;
 
 
-    public CellPixelRenderer cellPixelRenderer;
+    public CellPixelRenderer HighligtPrrovider;
     public Vector2 Center => transform.position;
     public Transform ContentTransform;
 
-    private CellBehaviour CurrentBehavior;
+    public CellBehaviour CurrentBehavior;
 
     internal static Cell CreateFromRawVoronoi(VoronoiCellData voronoiCellData, Transform root)
     {
@@ -33,7 +33,7 @@ public partial class Cell : MonoBehaviour
         GUID = voronoiCellData.GUID;
         NeightbourGUIDs = voronoiCellData.NeightbourGUIDs;
         POIs = PolygonUtil.GetDynamicRandomPointsInPolygon(Edges, 3).ToArray();
-        cellPixelRenderer.GenerateSprites(Edges);
+        HighligtPrrovider.GenerateSprites(Edges);
     }
     private void OnDrawGizmosSelected()
     {

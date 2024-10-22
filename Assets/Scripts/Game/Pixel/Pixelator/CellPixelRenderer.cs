@@ -8,11 +8,14 @@ public class CellPixelRenderer : MonoBehaviour
     // To create the sprite at runtime
     [SerializeField] private SpriteRenderer fillRenderer, outlineRenderer;
 
+    public SpriteRenderer Fill => fillRenderer;
+    public SpriteRenderer Outline => outlineRenderer;
+
     public void GenerateSprites(Vector2[] polygonVertices, float borderInPixels = 1f)
     {
         this.border = borderInPixels;
 
-        Color randomColor = new Color(Random.value, Random.value, Random.value);
+        Color color = Color.white; // new Color(Random.value, Random.value, Random.value);
 
         // Find bounds of the polygon and expand by the border
         Bounds polygonBounds = GetPolygonBounds(polygonVertices);
@@ -39,7 +42,7 @@ public class CellPixelRenderer : MonoBehaviour
                 // Check if the pixel is inside the polygon
                 if (MapDataUtil.IsInPolygon(polygonVertices, worldPos))
                 {
-                    texture.SetPixel(x, y, randomColor);  // Inside the polygon, paint color
+                    texture.SetPixel(x, y, color);  // Inside the polygon, paint color
                 }
                 else
                 {

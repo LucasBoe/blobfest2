@@ -37,6 +37,11 @@ public class MapHandler : SingletonBehaviour<MapHandler>
             MapCenter += cell.Center;
         }
 
+
+        foreach (var cell in MapData.Cells)
+            if (cell.CellType == CellType.Forest)
+                cell.ChangeBehaviourTo<Forest>();
+
         MapCenter /= MapData.Cells.Length;
 
         OnMapFinishedEvent?.Invoke(MapData);
@@ -66,9 +71,6 @@ public class MapData
 
         for (int i = 0; i < cellCount; i++)
             Cells[i] = Cell.CreateFromRawVoronoi(voronoiMap.Cells[i], root.transform);
-
-        foreach (var cell in Cells)
-            cell.ChangeBehaviourTo<Forest>();
     }
 }
 

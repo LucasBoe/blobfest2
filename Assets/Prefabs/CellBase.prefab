@@ -221,7 +221,7 @@ MonoBehaviour:
   POIs: []
   CellType: 0
   NeightbourGUIDs: 
-  cellPixelRenderer: {fileID: 2644272282525392786}
+  HighligtPrrovider: {fileID: 2644272282525392786}
   ContentTransform: {fileID: 340491361207409960}
 --- !u!114 &2644272282525392786
 MonoBehaviour:

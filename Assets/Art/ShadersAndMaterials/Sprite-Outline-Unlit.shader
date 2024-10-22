@@ -157,9 +157,9 @@ Shader "Texture-Outline"
 }
 /*ASEBEGIN
 Version=18935
-0;66;1728;946;828.9393;333.0881;1;True;False
-Node;AmplifyShaderEditor.TexturePropertyNode;5;-1194.806,-132.1904;Inherit;True;Property;_MainTex;MainTex;0;0;Create;True;0;0;0;False;0;False;5cb782f76053a412aaca9a0f83037bd7;5cb782f76053a412aaca9a0f83037bd7;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
+12.67924;79.69811;2048.604;1048.585;1550.273;418.998;1;True;True
 Node;AmplifyShaderEditor.ColorNode;36;-536.2951,229.5857;Inherit;False;Property;_OutlineColor;OutlineColor;1;0;Create;True;0;0;0;False;0;False;1,1,1,1;1,1,1,1;True;0;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.TexturePropertyNode;5;-1194.806,-132.1904;Inherit;True;Property;_MainTex;MainTex;0;0;Create;True;0;0;0;False;0;False;5cb782f76053a412aaca9a0f83037bd7;5cb782f76053a412aaca9a0f83037bd7;False;white;Auto;Texture2D;-1;0;2;SAMPLER2D;0;SAMPLERSTATE;1
 Node;AmplifyShaderEditor.FunctionNode;37;-303.382,144.5443;Inherit;True;SampleOutline;-1;;59;5a71788c9530442cab70e2373439963a;0;2;11;SAMPLER2D;0;False;12;COLOR;1,1,1,1;False;1;COLOR;0
 Node;AmplifyShaderEditor.SamplerNode;6;-433.5104,-272.7231;Inherit;True;Property;_TextureSample0;Texture Sample 0;1;0;Create;True;0;0;0;False;0;False;-1;None;None;True;0;False;white;Auto;False;Object;-1;Auto;Texture2D;8;0;SAMPLER2D;;False;1;FLOAT2;0,0;False;2;FLOAT;0;False;3;FLOAT2;0,0;False;4;FLOAT2;0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
 Node;AmplifyShaderEditor.IntNode;42;-302.9393,4.911926;Inherit;False;Property;_OnlyOutline;OnlyOutline;2;1;[Enum];Create;True;0;2;OnlyOutline;0;AlsoSprite;1;0;False;0;False;0;0;False;0;1;INT;0
@@ -178,4 +178,4 @@ WireConnection;40;1;37;0
 WireConnection;40;2;38;3
 WireConnection;41;0;40;0
 ASEEND*/
-//CHKSM=A8F1F3ACD851453BAB2D2B03FC3FEC4995C0DF8E
+//CHKSM=6026F23235B2A2EB2C7C87ACD5E9F7E8F378A319

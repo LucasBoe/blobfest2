@@ -2,27 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BehaviourCellContext
-{
-    public Cell Cell { get; set; }
-}
-
-public abstract class CellBehaviour
-{
-    protected BehaviourCellContext Context;
-
-    public void Init(BehaviourCellContext behaviourCellContext)
-    {
-        Context = behaviourCellContext;
-    }
-    public abstract void Enter();
-    public abstract void Exit();
-    public virtual void Update() {}
-}
-
-internal class Forest : CellBehaviour
+internal class Forest : CellBehaviour, ICanReceive<Villager>
 {
     List<Tree> trees = new();
+
+    public bool HasActiveProcedure = false;
+
     public override void Enter()
     {
         trees = SpawnTrees();
@@ -47,5 +32,9 @@ internal class Forest : CellBehaviour
         {
             GameObject.Destroy(tree.gameObject);
         }
+    }
+    public bool CanReceiveCard(Villager card)
+    {
+        return !HasActiveProcedure;
     }
 }
