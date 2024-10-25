@@ -11,9 +11,10 @@ public class CellContentPrefabRefContainer : ScriptableObjectContainer<CellConte
     protected override Type GetGeneratedEnumContainerType() => this.GetType();
 }
 #region GENERATED (ScriptableObjectContainer)
-
     public enum PrefabRefID : long
     {
+        Mill = -151462,
+        Hut = -1056142,
         Tree = -22954,
     }
 #endregion GENERATED (ScriptableObjectContainer)

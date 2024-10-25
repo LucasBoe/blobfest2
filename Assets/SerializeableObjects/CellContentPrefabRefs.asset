@@ -30,4 +30,36 @@ MonoBehaviour:
   AllowInstancesForBaseType: 1
   OnlyAllowOneInstancePerChildType: 0
   Contained:
+  - {fileID: 4538016506357037980}
+  - {fileID: 2494186021907322058}
   - {fileID: -6275763027209015815}
+--- !u!114 &2494186021907322058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d2040ab5bec487ab177420a5582389, type: 3}
+  m_Name: Hut
+  m_EditorClassIdentifier: 
+  Container: {fileID: 11400000}
+  assetGUID: -1056142
+  Prefab: {fileID: 7088122634920410664, guid: 6afa9814a31514aad84dee0aea9de2ee, type: 3}
+--- !u!114 &4538016506357037980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d2040ab5bec487ab177420a5582389, type: 3}
+  m_Name: Mill
+  m_EditorClassIdentifier: 
+  Container: {fileID: 11400000}
+  assetGUID: -151462
+  Prefab: {fileID: 7088122634920410664, guid: 12898adc078d14dd0867cb7721c1a924, type: 3}

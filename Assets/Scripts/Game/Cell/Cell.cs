@@ -1,9 +1,10 @@
 ﻿using System;
+using Engine;
 using NaughtyAttributes;
 using UnityEngine;
 using VoronoiMap;
 
-public partial class Cell : MonoBehaviour
+public partial class Cell : MonoBehaviour, IDelayedStartObserver
 {
     [ReadOnly] public long GUID;
     [ReadOnly] public Vector2[] Edges;
@@ -26,6 +27,11 @@ public partial class Cell : MonoBehaviour
         cell.transform.position = TransformToGamePos(voronoiCellData.Center);
         cell.Init(voronoiCellData);
         return cell;
+    }
+    public void DelayedStart()
+    {
+        if (CurrentBehavior != null)
+            CurrentBehavior.OnDelayedStart();
     }
     private void Init(VoronoiCellData voronoiCellData)
     {
@@ -76,12 +82,23 @@ public partial class Cell : MonoBehaviour
             CurrentBehavior.Update();
     }
 
-    internal void ChangeBehaviourTo<T>() where T : CellBehaviour
+    public void ChangeBehaviourTo<T>() where T : CellBehaviour
+    {
+        ChangeBehaviourTo((T)Activator.CreateInstance(typeof(T)));
+    }
+    public void ChangeBehaviourTo(Type behaviourType)
+    {
+        if (Activator.CreateInstance(behaviourType) is CellBehaviour behaviour)
+        {
+            ChangeBehaviourTo(behaviour);
+        }
+    }
+    private void ChangeBehaviourTo<T>(T behaviour) where T : CellBehaviour
     {
         if (CurrentBehavior != null)
             CurrentBehavior.Exit();
 
-        CurrentBehavior = (T)Activator.CreateInstance(typeof(T));
+        CurrentBehavior = behaviour;
         CurrentBehavior.Init(new BehaviourCellContext()
         {
             Cell = this

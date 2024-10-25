@@ -18,13 +18,8 @@ internal class Procedure
 
     public Event<float> OnProcedureProgressionChangedEvent = new();
 
-    public Procedure(Cell cell, float duration, Card input, Token token = null, Card card = null, Action callback = null)
+    public Procedure(float duration)
     {
-        this.Input = input;
-        this.AssociatedCell = cell;
-        this.rewardToken = token;
-        this.rewardAction = callback;
-
         this.duration = duration;
         StartTime = Time.time;
         FinishTime = StartTime + duration;
@@ -53,5 +48,31 @@ internal class Procedure
             CollectibleSpawner.Instance.SpawnAt(Input, AssociatedCell.Center);
 
         rewardAction?.Invoke();
+    }
+
+    internal Procedure At(Cell cell)
+    {
+        AssociatedCell = cell;
+        return this;
+    }
+    internal Procedure WithInput(Card input)
+    {
+        Input = input;
+        return this;
+    }
+    internal Procedure WithReward(CardID id)
+    {
+        rewardCard = id.ToCard();
+        return this;
+    }
+    internal Procedure WithReward(TokenID id)
+    {
+        rewardToken = id.ToToken();
+        return this;
+    }
+    internal Procedure WithCallback(Action callback)
+    {
+        rewardAction = callback;
+        return this;
     }
 }

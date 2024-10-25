@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4218029022210052335}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.055, y: 0.019, z: -0.1008}
+  m_LocalPosition: {x: 0, y: 0.031, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -108,15 +108,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 270452128239787453, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.017
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 270452128239787453, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.919
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 270452128239787453, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.091900006
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 270452128239787453, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
       propertyPath: m_LocalRotation.w
@@ -157,14 +157,14 @@ PrefabInstance:
     - target: {fileID: 472800184499817178, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -609533670, guid: 584d9bb1a922647b39d530da261c39fb, type: 3}
+      objectReference: {fileID: 21300000, guid: f595f04214aba4004acfaa868237a020, type: 3}
     - target: {fileID: 472800184499817178, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 908754757402535459, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
       propertyPath: m_Name
-      value: Tree
+      value: Hut
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -172,37 +172,8 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 270452128239787453, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6721514977011206601}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 908754757402535459, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
-      insertIndex: 1
-      addedObject: {fileID: 3966073723037453776}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
---- !u!1 &7088122634920410664 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 908754757402535459, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
-  m_PrefabInstance: {fileID: 7981111194351736843}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3966073723037453776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7088122634920410664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f319cd7591f649029c1d89f2b04a796, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 7515701952876073681}
-  treeSprites:
-  - {fileID: -609533670, guid: 584d9bb1a922647b39d530da261c39fb, type: 3}
-  - {fileID: -392021209, guid: 584d9bb1a922647b39d530da261c39fb, type: 3}
---- !u!212 &7515701952876073681 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 472800184499817178, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
-  m_PrefabInstance: {fileID: 7981111194351736843}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7854924947687310774 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 270452128239787453, guid: b6142edd831c14a6fa55003970d34d03, type: 3}

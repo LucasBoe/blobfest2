@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Engine;
 using UnityEngine;
 
 public class Tree : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] Sprite[] treeSprites;
+    private void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        spriteRenderer.sprite = treeSprites.GetRandom();
     }
 }

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-internal class Forest : CellBehaviour, ICanReceive<Villager>
+public class Forest : CellBehaviour, ICanReceive<Villager>
 {
+    public static new CellType AssociatedCellType => CellType.Forest;
+
     List<Tree> trees = new();
 
     public bool HasTrees => trees.Count > 0;
@@ -19,11 +21,8 @@ internal class Forest : CellBehaviour, ICanReceive<Villager>
         List < Tree > trees = new();
         var prefab = PrefabRefID.Tree.TryGetPrefab<Tree>();
 
-        foreach (var poi in Context.Cell.POIs)
-        {
-            var instance = GameObject.Instantiate(prefab, poi, Quaternion.identity, Context.Cell.ContentTransform);
-            trees.Add(instance);
-        }
+        foreach (var poi in Context.Cell.POIs) 
+            Instantiate(prefab, poi, trees);
 
         return trees;
     }
@@ -31,9 +30,7 @@ internal class Forest : CellBehaviour, ICanReceive<Villager>
     public override void Exit()
     {
         foreach (var tree in trees)
-        {
-            GameObject.Destroy(tree.gameObject);
-        }
+            UnityEngine.Object.Destroy(tree.gameObject);
     }
     public bool CanReceiveCard(Villager card) => !HasActiveProcedure && HasTrees;
 
@@ -42,12 +39,15 @@ internal class Forest : CellBehaviour, ICanReceive<Villager>
         if (!CanReceiveCard(card))
             return false;
 
-        activeProcedure = ProcedureHandler.Instance.StartNewProcedure(Context.Cell, 10, card, TokenID.Wood, () =>
-        {
-            var tree = trees[0];
-            trees.Remove(tree);
-            GameObject.Destroy(tree.gameObject);
-        });
+        activeProcedure = ProcedureHandler.Instance.StartNewProcedure(10)
+            .At(Context.Cell)
+            .WithReward(TokenID.Wood)
+            .WithCallback(() =>
+            {
+                var tree = trees[0];
+                trees.Remove(tree);
+                GameObject.Destroy(tree.gameObject);
+            });
 
         CardPlayHandler.Instance.NotifyRefresh();
         return true;

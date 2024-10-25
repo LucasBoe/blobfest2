@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Engine;
 using UnityEngine;
 
@@ -9,16 +10,41 @@ internal class ProcedureHandler : SingletonBehaviour<ProcedureHandler>
 
     public Event<Procedure> OnProcedureStartedEvent = new();
     public Event<Procedure> OnProcedureFinishedEvent = new();
+    private List<Procedure> freshlyCreatedProcedures = new();
 
-    internal Procedure StartNewProcedure(Cell cell, float duration, Card input, TokenID rewardToken, System.Action callback = null)
+    internal Procedure StartNewProcedure(float duration)
     {
-        var newProcedure = new Procedure(cell, duration, input, rewardToken.ToToken(), callback: callback);
-        activeProcedures.Add(newProcedure);
-        OnProcedureStartedEvent?.Invoke(newProcedure);
-        return newProcedure;
+        var proc = new Procedure(duration);
+        freshlyCreatedProcedures.Add(proc);
+        return proc;
     }
-
     private void Update()
+    {
+        StartNewProcedures();
+
+        List<Procedure> finished = UpdateAllActiveAndReturnFinished();
+
+        FinishProcedures(finished);
+    }
+    private void StartNewProcedures()
+    {
+        foreach (var procedure in freshlyCreatedProcedures)
+        {
+            activeProcedures.Add(procedure);
+            OnProcedureStartedEvent?.Invoke(procedure);
+        }
+
+        freshlyCreatedProcedures.Clear();
+    }
+    private void FinishProcedures(List<Procedure> finished)
+    {
+        foreach (var procedure in finished)
+        {
+            activeProcedures.Remove(procedure);
+            OnProcedureFinishedEvent?.Invoke(procedure);
+        }
+    }
+    private List<Procedure> UpdateAllActiveAndReturnFinished()
     {
         List<Procedure> finished = new();
 
@@ -35,10 +61,12 @@ internal class ProcedureHandler : SingletonBehaviour<ProcedureHandler>
             finished.Add(procedure);
         }
 
-        foreach (var procedure in finished)
-        {
-            activeProcedures.Remove(procedure);
-            OnProcedureFinishedEvent?.Invoke(procedure);
-        }
+        return finished;
+    }
+
+    internal void Stop(Procedure procedure)
+    {
+        activeProcedures.Remove(procedure);
+        OnProcedureFinishedEvent?.Invoke(procedure);
     }
 }

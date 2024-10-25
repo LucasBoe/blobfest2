@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Engine;
 using UnityEngine;
 using VoronoiMap;
@@ -16,35 +17,74 @@ public class MapHandler : SingletonBehaviour<MapHandler>
 
     public void GenerateNewMap()
     {
-        VoronoiMapData voronoiMap = new VoronoiMapData(new Vector2(50, 50), 10);
-        voronoiMap.FindNeightbours();
+        var voronoiMap = GenerateVoronoiMap(new Vector2(50, 50), 10);
         gizmoDrawer.Map = voronoiMap;
-
         MapData = new MapData(voronoiMap);
+        MapCenter = CalculateMapCenter(MapData.Cells);
 
-        //Modify Cell Types
-        List<CellType> spawnCellTypePool = new()
-        {
-            CellType.Meadow,
-            CellType.Forest
-        };
-
-        MapCenter = Vector2.zero;
-
-        foreach (var cell in MapData.Cells)
-        {
-            cell.CellType = spawnCellTypePool.GetRandom();
-            MapCenter += cell.Center;
-        }
-
-
-        foreach (var cell in MapData.Cells)
-            if (cell.CellType == CellType.Forest)
-                cell.ChangeBehaviourTo<Forest>();
-
-        MapCenter /= MapData.Cells.Length;
+        RandomizeCellTypes(MapData.Cells);
+        SetVillageCell(MapData.Cells);
+        SetMillCell(MapData.Cells);
+        ApplyCellBehaviors(MapData.Cells);
 
         OnMapFinishedEvent?.Invoke(MapData);
+    }
+
+
+
+    private VoronoiMapData GenerateVoronoiMap(Vector2 size, int seed)
+    {
+        var voronoiMap = new VoronoiMapData(size, seed);
+        voronoiMap.FindNeightbours();
+        return voronoiMap;
+    }
+    private Vector2 CalculateMapCenter(Cell[] cells)
+    {
+        Vector2 center = Vector2.zero;
+        foreach (var cell in cells)
+        {
+            center += cell.Center;
+        }
+
+        return center / cells.Length;
+    }
+    private void RandomizeCellTypes(Cell[] cells)
+    {
+        List<CellType> spawnCellTypePool = new() { CellType.Meadow, CellType.Forest };
+
+        foreach (var cell in cells)
+        {
+            cell.CellType = spawnCellTypePool.GetRandom();
+        }
+    }
+    private void SetVillageCell(Cell[] cells)
+    {
+        cells.OrderBy(c => Vector2.Distance(c.Center, MapCenter))
+             .First()
+             .CellType = CellType.Village;
+    }
+    private void SetMillCell(Cell[] cells)
+    {
+        var ordered = cells.OrderBy(c => Vector2.Distance(c.Center, MapCenter)).ToArray();
+        ordered[Mathf.RoundToInt(ordered.Length / 6f)].CellType = CellType.Mill;
+    }
+    private void ApplyCellBehaviors(Cell[] cells)
+    {
+        // Get all types that inherit from CellBehaviour
+        var behaviourTypes = typeof(CellBehaviour).Assembly.GetTypes()
+            .Where(t => t.IsSubclassOf(typeof(CellBehaviour)) && !t.IsAbstract);
+
+        foreach (var cell in cells)
+        {
+            // Find the behavior type that matches the cell's type
+            var behaviourType = behaviourTypes.FirstOrDefault(bt =>
+                (CellType)bt.GetProperty("AssociatedCellType").GetValue(null) == cell.CellType);
+
+            if (behaviourType != null)
+            {
+                cell.ChangeBehaviourTo(behaviourType);
+            }
+        }
     }
 }
 
@@ -53,6 +93,8 @@ public enum CellType
     Undefined,
     Meadow,
     Forest,
+    Village,
+    Mill,
 }
 
 [System.Serializable]
