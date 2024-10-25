@@ -23,7 +23,7 @@ public class CollectibleSpawner : SingletonBehaviour<CollectibleSpawner>
         SpawnAt(_object, pos);
     }
 
-    private void SpawnAt(ContaineableScriptableObject _object, Vector2 pos)
+    public void SpawnAt(ContaineableScriptableObject _object, Vector2 pos)
     {
         var instance = Instantiate(prefab, pos, Quaternion.identity);
         instance.Init(_object);

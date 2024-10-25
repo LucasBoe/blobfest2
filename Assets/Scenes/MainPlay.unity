@@ -524,13 +524,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 929699940}
+  - component: {fileID: 929699941}
   m_Layer: 0
-  m_Name: ProgressBar
+  m_Name: ProcedureUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &929699940
 Transform:
   m_ObjectHideFlags: 0
@@ -540,14 +541,28 @@ Transform:
   m_GameObject: {fileID: 929699939}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1018725429}
   - {fileID: 1232158394}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1764621350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &929699941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929699939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7486dc680aec24aa69dd267e04121db2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressBar: {fileID: 1018725428}
+  iconRenderer: {fileID: 1232158393}
 --- !u!1 &1018725427
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,6 +950,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1018725429}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &1764621348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1764621350}
+  - component: {fileID: 1764621349}
+  m_Layer: 0
+  m_Name: ProcedureUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1764621349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764621348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f29a1ba43eb4da88fe3452b31a8c7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  procedureUISliceDummy: {fileID: 929699941}
+--- !u!4 &1764621350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764621348}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 929699940}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1222161936367195168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1060,4 +1121,4 @@ SceneRoots:
   - {fileID: 8430645583523676913}
   - {fileID: 643487872}
   - {fileID: 1185425345}
-  - {fileID: 929699940}
+  - {fileID: 1764621350}

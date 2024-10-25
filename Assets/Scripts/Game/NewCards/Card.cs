@@ -11,8 +11,7 @@ public abstract class Card : ContaineableScriptableObject, ICollectibleIconProvi
     {
         return SpriteIcon;
     }
-
-    public abstract void StartValidation(CardValidationContext context);
-    public abstract void EndValidation(CardValidationContext context);
+    public abstract bool TryPlay(CardValidationContext context);
     public abstract bool RefreshValidation(CardValidationContext context);
+    public abstract void EndValidation(CardValidationContext context);
 }

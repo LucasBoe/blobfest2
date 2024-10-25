@@ -6,7 +6,9 @@ internal class Forest : CellBehaviour, ICanReceive<Villager>
 {
     List<Tree> trees = new();
 
-    public bool HasActiveProcedure = false;
+    public bool HasTrees => trees.Count > 0;
+    public bool HasActiveProcedure => activeProcedure != null && activeProcedure.IsRunning;
+    private Procedure activeProcedure;
 
     public override void Enter()
     {
@@ -33,8 +35,21 @@ internal class Forest : CellBehaviour, ICanReceive<Villager>
             GameObject.Destroy(tree.gameObject);
         }
     }
-    public bool CanReceiveCard(Villager card)
+    public bool CanReceiveCard(Villager card) => !HasActiveProcedure && HasTrees;
+
+    public bool TryReceiveCard(Villager card)
     {
-        return !HasActiveProcedure;
+        if (!CanReceiveCard(card))
+            return false;
+
+        activeProcedure = ProcedureHandler.Instance.StartNewProcedure(Context.Cell, 10, card, TokenID.Wood, () =>
+        {
+            var tree = trees[0];
+            trees.Remove(tree);
+            GameObject.Destroy(tree.gameObject);
+        });
+
+        CardPlayHandler.Instance.NotifyRefresh();
+        return true;
     }
 }

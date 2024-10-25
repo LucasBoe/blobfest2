@@ -6,14 +6,19 @@ using UnityEngine;
 
 public class Villager : Card
 {
-    public override void StartValidation(CardValidationContext context)
-    {
-        //
-    }
     public override void EndValidation(CardValidationContext context)
     {
         CellHighlightHandler.Instance.DestroyAllHighlights();
     }
+
+    public override bool TryPlay(CardValidationContext context)
+    {
+        if (context.CurrentPlayerCell.CurrentBehavior is not ICanReceive<Villager> receiver)
+            return false;
+
+        return receiver.TryReceiveCard(this);
+    }
+
     public override bool RefreshValidation(CardValidationContext context)
     {
         CellHighlightHandler.Instance.DestroyAllHighlights();
@@ -75,6 +80,7 @@ public class CellHighlight
 public interface ICanReceive<T> where T : Card
 {
     bool CanReceiveCard(T card);
+    bool TryReceiveCard(T card);
 }
 
 public interface ICanReceiveVillager : ICanReceive<Villager> { }
