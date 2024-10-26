@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CellBehaviour
+public abstract class CellBehaviour : IDealProvider
 {
     public static CellType AssociatedCellType { get; } 
     protected BehaviourCellContext Context;
+    public Deal[] Deals { get; protected set; }
+    public bool HasDeals => Deals != null && Deals.Length > 0; 
 
     public void Init(BehaviourCellContext behaviourCellContext)
     {

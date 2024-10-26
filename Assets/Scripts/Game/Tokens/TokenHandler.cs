@@ -105,19 +105,20 @@ public class TokenHandler : Singleton<TokenHandler>
             }
         }
     }
+    public bool CanAfford(TokenStack requiredStack)
+    {
+        // Find the player's stack for the required token type
+        TokenStack playerStack = Stacks.Find(stack => stack.Token == requiredStack.Token);
+
+        // Check if the player has enough tokens in that stack
+        return playerStack != null && playerStack.Amount >= requiredStack.Amount;
+    }
 }
 
 internal class TokenAnimationRequest
 {
     public Token Token;
     public Vector3 Position;
-}
-
-[System.Serializable]
-public class TokenStack
-{
-    public Token Token;
-    public int Amount;
 }
 
 public static class TokenExtensions
