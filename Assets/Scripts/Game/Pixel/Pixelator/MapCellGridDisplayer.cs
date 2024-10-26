@@ -4,12 +4,13 @@ using System.Linq;
 using Engine;
 using NaughtyAttributes;
 
-public class VoronoiSpriteRenderer : MonoBehaviour, IDelayedStartObserver
+[SingletonSettings(SingletonLifetime.Scene, _canBeGenerated: true, _eager: true)]
+public class MapCellGridDisplayer : SingletonBehaviour<MapCellGridDisplayer>, IDelayedStartObserver
 {
     public int pixelsPerUnit = 16;    // Pixel resolution
     public bool ThickBorders = false;
     [SerializeField, ShowIf("ThickBorders")] public float borderThickness = .5f;   // Thickness of the borders between polygons
-    public Color borderColor = Color.white; // Color of the border lines
+    public Color borderColor = new Color(1,1,1,.2f); // Color of the border lines
 
     [SerializeField] bool fillPolygonsWithRandomColors = false;
 

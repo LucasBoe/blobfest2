@@ -13,7 +13,7 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver
     [ReadOnly] public long[] NeightbourGUIDs;
 
 
-    public CellPixelRenderer HighligtPrrovider;
+    public CellPixelSpriteGenerator HighligtPrrovider;
     public Vector2 Center => transform.position;
     public Transform ContentTransform;
 

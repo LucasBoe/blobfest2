@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using VoronoiMap;
 
+//DEPRECATED
 public class CellBorderLineRenderer : MonoBehaviour
 {
     [SerializeField] LineRenderer lineRenderer;

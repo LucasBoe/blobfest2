@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CellPixelRenderer : MonoBehaviour
+public class CellPixelSpriteGenerator : MonoBehaviour
 {
     public const int PPU = 16;
     private float border = 1f;
