@@ -17,19 +17,27 @@ public class Village : CellBehaviour, DynamicTimeProcecure.IProgressProvider
     {
         Deals = new Deal[] { new Deal(CardID.MakeVillage, TokenID.Grain, 12) };
         huts = SpawnHuts();
+        TryStartNewProcedure();
     }
     public override void OnDelayedStart()
     {
-        StartNewProcedure();
+        TryStartNewProcedure();
     }
-    private void StartNewProcedure()
+    private void TryStartNewProcedure()
     {
+        if (produceVillagersProcedure != null)
+            return;
+
         Debug.Log("Start New Procedure");
 
         produceVillagersProcedure = ProcedureHandler.Instance.StartNewProcedure(this)
             .At(Context.Cell)
             .WithReward(CardID.Villager)
-            .WithCallback(StartNewProcedure);
+            .WithCallback(() =>
+            {
+                produceVillagersProcedure = null;
+                TryStartNewProcedure();
+            });
     }
 
     private List<Transform> SpawnHuts()
@@ -38,7 +46,7 @@ public class Village : CellBehaviour, DynamicTimeProcecure.IProgressProvider
         var prefab = PrefabRefID.Hut.TryGetPrefab<Transform>();
 
         foreach (var poi in Context.Cell.POIs)
-             Instantiate(prefab, poi, huts);
+            Instantiate(prefab, poi, huts);
 
         return huts;
     }
