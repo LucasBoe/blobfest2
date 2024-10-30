@@ -4,16 +4,18 @@ using UnityEngine;
 
 
 
-public class Village : CellBehaviour
+public class Village : CellBehaviour, DynamicTimeProcecure.IProgressProvider
 {
     public static new CellType AssociatedCellType => CellType.Village;
+    public float ProgressMultiplier => .1f;
 
     List<Transform> huts = new();
-    private Procedure produceVillagersProcedure;
+    private ProcedureBase produceVillagersProcedure;
 
 
     public override void Enter()
     {
+        Deals = new Deal[] { new Deal(CardID.MakeVillage, TokenID.Grain, 12) };
         huts = SpawnHuts();
     }
     public override void OnDelayedStart()
@@ -24,7 +26,7 @@ public class Village : CellBehaviour
     {
         Debug.Log("Start New Procedure");
 
-        produceVillagersProcedure = ProcedureHandler.Instance.StartNewProcedure(30)
+        produceVillagersProcedure = ProcedureHandler.Instance.StartNewProcedure(this)
             .At(Context.Cell)
             .WithReward(CardID.Villager)
             .WithCallback(StartNewProcedure);

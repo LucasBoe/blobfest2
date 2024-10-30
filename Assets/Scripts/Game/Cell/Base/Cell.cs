@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Engine;
 using NaughtyAttributes;
 using UnityEngine;
@@ -9,12 +11,15 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver
     [ReadOnly] public long GUID;
     [ReadOnly] public Vector2[] Edges;
     [ReadOnly] public Vector2[] POIs;
-    [ReadOnly] public CellType CellType;
+    [SerializeField, ReadOnly] private CellType cellType;
     [ReadOnly] public long[] NeightbourGUIDs;
 
 
     public CellPixelSpriteGenerator HighligtPrrovider;
     public Vector2 Center => transform.position;
+
+    public CellType CellType { get => cellType; private set => cellType = value; }
+
     public Transform ContentTransform;
 
     public CellBehaviour CurrentBehavior;
@@ -75,13 +80,22 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver
     {
         return new Vector2(raw.x, raw.y / 2f);
     }
+    #endregion
 
     private void Update()
     {
         if (CurrentBehavior != null)
             CurrentBehavior.Update();
     }
+    public void ChangeCellType(CellType cellType, bool refreshBehaviour = true)
+    {
+        CellType = cellType;
 
+        if (!refreshBehaviour)
+            return;
+
+        RefreshBehaviourToMatchTypeFrom(MapDataUtil.GetAllCellBehaviourTypes());
+    }
     public void ChangeBehaviourTo<T>() where T : CellBehaviour
     {
         ChangeBehaviourTo((T)Activator.CreateInstance(typeof(T)));
@@ -106,5 +120,17 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver
 
         CurrentBehavior.Enter();
     }
-    #endregion
+
+    internal void RefreshBehaviourToMatchTypeFrom(IEnumerable<Type> behaviourTypes)
+    {
+        // Find the behavior type that matches the cell's type
+        var behaviourType = behaviourTypes.FirstOrDefault(bt =>
+            (CellType)bt.GetProperty("AssociatedCellType").GetValue(null) == CellType);
+
+        if (behaviourType != null)
+        {
+            ChangeBehaviourTo(behaviourType);
+        }
+
+    }
 }

@@ -6,15 +6,21 @@ using UnityEngine;
 [SingletonSettings(_lifetime: SingletonLifetime.Scene, _canBeGenerated: true, _eager: false)]
 internal class ProcedureHandler : SingletonBehaviour<ProcedureHandler>
 {
-    List<Procedure> activeProcedures = new ();
+    List<ProcedureBase> activeProcedures = new ();
 
-    public Event<Procedure> OnProcedureStartedEvent = new();
-    public Event<Procedure> OnProcedureFinishedEvent = new();
-    private List<Procedure> freshlyCreatedProcedures = new();
+    public Event<ProcedureBase> OnProcedureStartedEvent = new();
+    public Event<ProcedureBase> OnProcedureFinishedEvent = new();
+    private List<ProcedureBase> freshlyCreatedProcedures = new();
 
-    internal Procedure StartNewProcedure(float duration)
+    internal StaticTimeProcedure StartNewProcedure(float duration)
     {
-        var proc = new Procedure(duration);
+        var proc = new StaticTimeProcedure(duration);
+        freshlyCreatedProcedures.Add(proc);
+        return proc;
+    }
+    internal DynamicTimeProcecure StartNewProcedure(DynamicTimeProcecure.IProgressProvider progressProvider)
+    {
+        var proc = new DynamicTimeProcecure(progressProvider);
         freshlyCreatedProcedures.Add(proc);
         return proc;
     }
@@ -22,7 +28,7 @@ internal class ProcedureHandler : SingletonBehaviour<ProcedureHandler>
     {
         StartNewProcedures();
 
-        List<Procedure> finished = UpdateAllActiveAndReturnFinished();
+        List<ProcedureBase> finished = UpdateAllActiveAndReturnFinished();
 
         FinishProcedures(finished);
     }
@@ -36,7 +42,7 @@ internal class ProcedureHandler : SingletonBehaviour<ProcedureHandler>
 
         freshlyCreatedProcedures.Clear();
     }
-    private void FinishProcedures(List<Procedure> finished)
+    private void FinishProcedures(List<ProcedureBase> finished)
     {
         foreach (var procedure in finished)
         {
@@ -44,9 +50,9 @@ internal class ProcedureHandler : SingletonBehaviour<ProcedureHandler>
             OnProcedureFinishedEvent?.Invoke(procedure);
         }
     }
-    private List<Procedure> UpdateAllActiveAndReturnFinished()
+    private List<ProcedureBase> UpdateAllActiveAndReturnFinished()
     {
-        List<Procedure> finished = new();
+        List<ProcedureBase> finished = new();
 
         var time = Time.time;
 
@@ -64,7 +70,7 @@ internal class ProcedureHandler : SingletonBehaviour<ProcedureHandler>
         return finished;
     }
 
-    internal void Stop(Procedure procedure)
+    internal void Stop(ProcedureBase procedure)
     {
         activeProcedures.Remove(procedure);
         OnProcedureFinishedEvent?.Invoke(procedure);

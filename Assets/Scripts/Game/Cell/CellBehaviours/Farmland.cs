@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Forest : CellBehaviour, ICanReceive<Villager>
+public class Farmland : CellBehaviour, ICanReceive<Villager>
 {
-    public static new CellType AssociatedCellType => CellType.Forest;
+    public static new CellType AssociatedCellType => CellType.Farmland;
 
-    List<Tree> trees = new();
+    List<Grain> grain = new();
 
-    public bool HasTrees => trees.Count > 0;
+    public bool HasGrainTrees => grain.Count > 0;
     public bool HasActiveProcedure => activeProcedure != null && activeProcedure.IsRunning;
     private ProcedureBase activeProcedure;
 
     public override void Enter()
     {
-        trees = SpawnTrees();
+        grain = SpawnTrees();
     }
-    private List<Tree> SpawnTrees()
+    private List<Grain> SpawnTrees()
     {
-        List < Tree > trees = new();
-        var prefab = PrefabRefID.Tree.TryGetPrefab<Tree>();
+        List < Grain > trees = new();
+        var prefab = PrefabRefID.Grain.TryGetPrefab<Grain>();
 
         foreach (var poi in Context.Cell.POIs) 
             Instantiate(prefab, poi, trees);
@@ -29,10 +29,10 @@ public class Forest : CellBehaviour, ICanReceive<Villager>
 
     public override void Exit()
     {
-        foreach (var tree in trees)
+        foreach (var tree in grain)
             UnityEngine.Object.Destroy(tree.gameObject);
     }
-    public bool CanReceiveCard(Villager card) => !HasActiveProcedure && HasTrees;
+    public bool CanReceiveCard(Villager card) => !HasActiveProcedure && HasGrainTrees;
 
     public bool TryReceiveCard(Villager card)
     {
@@ -41,12 +41,10 @@ public class Forest : CellBehaviour, ICanReceive<Villager>
 
         activeProcedure = ProcedureHandler.Instance.StartNewProcedure(10)
             .At(Context.Cell)
-            .WithReward(TokenID.Wood)
+            .WithReward(TokenID.Grain)
             .WithCallback(() =>
             {
-                var tree = trees[0];
-                trees.Remove(tree);
-                GameObject.Destroy(tree.gameObject);
+
             });
 
         CardPlayHandler.Instance.NotifyRefresh();

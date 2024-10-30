@@ -10,8 +10,14 @@ public class CollectibleSpawner : SingletonBehaviour<CollectibleSpawner>
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.V))
+        if (Input.GetKeyUp(KeyCode.Alpha1))
             SpawnAtCursor(CardID.Villager.ToCard());
+
+        if (Input.GetKeyUp(KeyCode.Alpha2))
+            SpawnAtCursor(CardID.MakeFarm.ToCard());
+
+        if (Input.GetKeyUp(KeyCode.Alpha3))
+            SpawnAtCursor(CardID.MakeVillage.ToCard());
 
         if (Input.GetKeyUp(KeyCode.H))
             SpawnAtCursor(TokenID.Wood.ToToken());

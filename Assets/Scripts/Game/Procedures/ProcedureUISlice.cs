@@ -5,10 +5,10 @@ internal class ProcedureUISlice : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer progressBar;
     [SerializeField] private SpriteRenderer iconRenderer;
-    private Procedure procedure;
+    private ProcedureBase procedure;
     private Material material;
 
-    public void Init(Procedure procedure)
+    public void Init(ProcedureBase procedure)
     {
         this.procedure = procedure;
         if (procedure.Input != null)

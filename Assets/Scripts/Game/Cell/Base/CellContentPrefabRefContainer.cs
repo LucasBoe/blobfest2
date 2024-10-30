@@ -16,6 +16,7 @@ public class CellContentPrefabRefContainer : ScriptableObjectContainer<CellConte
         Mill = -151462,
         Hut = -1056142,
         Tree = -22954,
+        Grain = -30326,
     }
 #endregion GENERATED (ScriptableObjectContainer)
 

@@ -23,14 +23,12 @@ public class MapHandler : SingletonBehaviour<MapHandler>
         MapCenter = CalculateMapCenter(MapData.Cells);
 
         RandomizeCellTypes(MapData.Cells);
-        SetVillageCell(MapData.Cells);
+        //SetVillageCell(MapData.Cells);
         SetMillCell(MapData.Cells);
         ApplyCellBehaviors(MapData.Cells);
 
         OnMapFinishedEvent?.Invoke(MapData);
     }
-
-
 
     private VoronoiMapData GenerateVoronoiMap(Vector2 size, int seed)
     {
@@ -54,37 +52,27 @@ public class MapHandler : SingletonBehaviour<MapHandler>
 
         foreach (var cell in cells)
         {
-            cell.CellType = spawnCellTypePool.GetRandom();
+            cell.ChangeCellType(spawnCellTypePool.GetRandom(), refreshBehaviour: false);
         }
     }
+    //deprecated as the "make village" card is handed to the player at game start
     private void SetVillageCell(Cell[] cells)
     {
         cells.OrderBy(c => Vector2.Distance(c.Center, MapCenter))
              .First()
-             .CellType = CellType.Village;
+             .ChangeCellType(CellType.Village, refreshBehaviour: false);
     }
     private void SetMillCell(Cell[] cells)
     {
         var ordered = cells.OrderBy(c => Vector2.Distance(c.Center, MapCenter)).ToArray();
-        ordered[Mathf.RoundToInt(ordered.Length / 6f)].CellType = CellType.Mill;
+        ordered[Mathf.RoundToInt(ordered.Length / 6f)].ChangeCellType( CellType.Mill, refreshBehaviour: false);
     }
     private void ApplyCellBehaviors(Cell[] cells)
     {
-        // Get all types that inherit from CellBehaviour
-        var behaviourTypes = typeof(CellBehaviour).Assembly.GetTypes()
-            .Where(t => t.IsSubclassOf(typeof(CellBehaviour)) && !t.IsAbstract);
+        IEnumerable<Type> behaviourTypes = MapDataUtil.GetAllCellBehaviourTypes();
 
         foreach (var cell in cells)
-        {
-            // Find the behavior type that matches the cell's type
-            var behaviourType = behaviourTypes.FirstOrDefault(bt =>
-                (CellType)bt.GetProperty("AssociatedCellType").GetValue(null) == cell.CellType);
-
-            if (behaviourType != null)
-            {
-                cell.ChangeBehaviourTo(behaviourType);
-            }
-        }
+            cell.RefreshBehaviourToMatchTypeFrom(behaviourTypes);
     }
 }
 
@@ -95,6 +83,7 @@ public enum CellType
     Forest,
     Village,
     Mill,
+    Farmland,
 }
 
 [System.Serializable]
@@ -116,7 +105,7 @@ public class MapData
     }
 }
 
-public class MapDataUtil
+public static class MapDataUtil
 {
     public static Cell GetCellThatContainsPoint(MapData map, Vector2 pointInMapSpace)
     {
@@ -147,5 +136,27 @@ public class MapDataUtil
         }
 
         return inside;
+    }
+
+    public static List<Cell> FilterByCellType(this Cell[] cells, params CellType[] types)
+    {
+        List<Cell> validCells = new();
+        foreach (var cell in cells)
+        {
+            if (!types.Contains(cell.CellType))
+                continue;
+
+            validCells.Add(cell);
+        }
+
+        return validCells;
+    }
+
+    internal static IEnumerable<Type> GetAllCellBehaviourTypes()
+    {
+            // Get all types that inherit from CellBehaviour
+            return typeof(CellBehaviour).Assembly.GetTypes()
+                .Where(t => t.IsSubclassOf(typeof(CellBehaviour)) && !t.IsAbstract);
+        
     }
 }

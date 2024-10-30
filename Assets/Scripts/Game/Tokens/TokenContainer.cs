@@ -13,5 +13,6 @@ public class TokenContainer : ScriptableObjectContainer<Token>
     public enum TokenID : long
     {
         Wood = -416798,
+        Grain = -85882,
     }
 #endregion GENERATED (ScriptableObjectContainer)

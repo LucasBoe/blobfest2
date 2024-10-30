@@ -2,41 +2,34 @@
 using Engine;
 using UnityEngine;
 
-internal class Procedure
+public abstract class ProcedureBase
 {
-    public bool IsRunning { get; private set; } = true;
+    public bool IsRunning { get; protected set; } = true;
     public Cell AssociatedCell { get; private set; }
     public Card Input { get; private set; }
-
-    public float StartTime, FinishTime = -1f;
-
-    private float duration;
 
     private Token rewardToken;
     private Card rewardCard;
     private Action rewardAction;
 
+    public float Progression { get; private set; }
+
     public Event<float> OnProcedureProgressionChangedEvent = new();
 
-    public Procedure(float duration)
+    public abstract void Update(float time);
+    protected void SetNewProgression(float progression)
     {
-        this.duration = duration;
-        StartTime = Time.time;
-        FinishTime = StartTime + duration;
-    }
+        Progression = progression;
+        OnProcedureProgressionChangedEvent?.Invoke(Progression);
 
-    internal void Update(float time)
-    {
-        float progression = (time - StartTime) / duration;
-        OnProcedureProgressionChangedEvent?.Invoke(progression);
-
-        if (time > FinishTime)
+        if (Progression >= 1f)
         {
             IsRunning = false;
             FinishProcedure();
         }
     }
-    private void FinishProcedure()
+
+    protected void FinishProcedure()
     {
         if (rewardToken != null)
             CollectibleSpawner.Instance.SpawnAt(rewardToken, AssociatedCell.Center);
@@ -49,30 +42,73 @@ internal class Procedure
 
         rewardAction?.Invoke();
     }
-
-    internal Procedure At(Cell cell)
+    internal ProcedureBase At(Cell cell)
     {
         AssociatedCell = cell;
         return this;
     }
-    internal Procedure WithInput(Card input)
+    internal ProcedureBase WithInput(Card input)
     {
         Input = input;
         return this;
     }
-    internal Procedure WithReward(CardID id)
+    internal ProcedureBase WithReward(CardID id)
     {
         rewardCard = id.ToCard();
         return this;
     }
-    internal Procedure WithReward(TokenID id)
+    internal ProcedureBase WithReward(TokenID id)
     {
         rewardToken = id.ToToken();
         return this;
     }
-    internal Procedure WithCallback(Action callback)
+    internal ProcedureBase WithCallback(Action callback)
     {
         rewardAction = callback;
         return this;
+    }
+}
+
+public class StaticTimeProcedure : ProcedureBase
+{
+    public float StartTime, FinishTime = -1f;
+    private float duration;
+
+    public StaticTimeProcedure(float duration)
+    {
+        this.duration = duration;
+        StartTime = Time.time;
+        FinishTime = StartTime + duration;
+    }
+
+    public override void Update(float time)
+    {
+        float progression = (time - StartTime) / duration;
+        SetNewProgression(progression);
+    }
+}
+
+
+public class DynamicTimeProcecure : ProcedureBase
+{
+    public interface IProgressProvider
+    {
+        public float ProgressMultiplier { get; }
+    }
+
+    private float lastTime;
+    private IProgressProvider progressProvider;
+
+    public DynamicTimeProcecure(IProgressProvider progressProvider)
+    {
+        lastTime = Time.time;
+        this.progressProvider = progressProvider;
+    }
+
+    public override void Update(float time)
+    {
+        float deltaTime = time - lastTime;
+        SetNewProgression(Progression + progressProvider.ProgressMultiplier * deltaTime);
+        lastTime = time;
     }
 }

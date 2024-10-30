@@ -10,9 +10,10 @@ public class CardContainer : ScriptableObjectContainer<Card>
     protected override Type GetGeneratedEnumContainerType() => this.GetType();
 }
 #region GENERATED (ScriptableObjectContainer)
-
     public enum CardID : long
     {
+        MakeVillage = -3582,
+        MakeFarm = -309634,
         Villager = -119086,
     }
 #endregion GENERATED (ScriptableObjectContainer)

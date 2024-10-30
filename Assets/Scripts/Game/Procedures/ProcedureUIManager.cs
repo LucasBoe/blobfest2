@@ -6,7 +6,7 @@ internal class ProcedureUIManager : MonoBehaviour
 {
     [SerializeField] private ProcedureUISlice procedureUISliceDummy;
 
-    private Dictionary<Procedure, ProcedureUISlice> activeSlices = new();
+    private Dictionary<ProcedureBase, ProcedureUISlice> activeSlices = new();
     private void Awake()
     {
         procedureUISliceDummy.gameObject.SetActive(false);
@@ -24,7 +24,7 @@ internal class ProcedureUIManager : MonoBehaviour
         ProcedureHandler.Instance.OnProcedureFinishedEvent.RemoveListener(OnProcedureFinished);
     }
 
-    private void OnProcedureStarted(Procedure procedure)
+    private void OnProcedureStarted(ProcedureBase procedure)
     {
         if (procedureUISliceDummy == null)
         {
@@ -41,7 +41,7 @@ internal class ProcedureUIManager : MonoBehaviour
         activeSlices[procedure] = newSlice;
     }
 
-    private void OnProcedureFinished(Procedure procedure)
+    private void OnProcedureFinished(ProcedureBase procedure)
     {
         if (activeSlices.TryGetValue(procedure, out var slice))
         {
