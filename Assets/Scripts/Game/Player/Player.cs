@@ -5,9 +5,15 @@ using System.Linq;
 using Engine;
 using UnityEngine;
 
-public class Player : CreatureBase
+public class Player : CreatureBase, IPositionProvider, INPCPositionProvider
 {
     public PlayerCellDetector Cells;
+
+    public Vector2 RequestPosition(NPCBehaviour npc)
+    {
+        int positionInPlayerNPCList = NPCHandler.Instance.GetPlayerNPCIndex(npc);
+        return Vector2.MoveTowards(Position, npc.Position, .4f + 0.2f * positionInPlayerNPCList);
+    }
     private void Awake()
     {
         Cells.Init(this);
@@ -47,6 +53,12 @@ public class PlayerCellDetector
             return;
 
         Current = closest;
+        var neightbours = Current.Neightbours;
+        foreach (var item in neightbours)
+        {
+            FogOfWar.Instance.SetCellVisibility(item, true);
+        }
+
         PlayerEventHandler.Instance.OnPlayerChangedCellEvent?.Invoke(Current);
     }
 }

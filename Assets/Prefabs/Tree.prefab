@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 4218029022210052335}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.055, y: 0.019, z: -0.1008}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SortingLayerID: -1022783993
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ffeb6cdbbacd14ee39c9b91ba9dc88a9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cf23b714479440c289031d77dc100bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -198,6 +198,8 @@ MonoBehaviour:
   treeSprites:
   - {fileID: -609533670, guid: 584d9bb1a922647b39d530da261c39fb, type: 3}
   - {fileID: -392021209, guid: 584d9bb1a922647b39d530da261c39fb, type: 3}
+  - {fileID: -362284797, guid: 584d9bb1a922647b39d530da261c39fb, type: 3}
+  - {fileID: 1359533452, guid: 584d9bb1a922647b39d530da261c39fb, type: 3}
 --- !u!212 &7515701952876073681 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 472800184499817178, guid: b6142edd831c14a6fa55003970d34d03, type: 3}

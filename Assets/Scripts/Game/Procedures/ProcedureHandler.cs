@@ -36,6 +36,7 @@ internal class ProcedureHandler : SingletonBehaviour<ProcedureHandler>
     {
         foreach (var procedure in freshlyCreatedProcedures)
         {
+            procedure.OnStartProcedure();
             activeProcedures.Add(procedure);
             OnProcedureStartedEvent?.Invoke(procedure);
         }
@@ -46,6 +47,7 @@ internal class ProcedureHandler : SingletonBehaviour<ProcedureHandler>
     {
         foreach (var procedure in finished)
         {
+            procedure.OnStopProcedure();
             activeProcedures.Remove(procedure);
             OnProcedureFinishedEvent?.Invoke(procedure);
         }
@@ -72,6 +74,7 @@ internal class ProcedureHandler : SingletonBehaviour<ProcedureHandler>
 
     internal void Stop(ProcedureBase procedure)
     {
+        procedure.OnStopProcedure(regular: false);
         activeProcedures.Remove(procedure);
         OnProcedureFinishedEvent?.Invoke(procedure);
     }

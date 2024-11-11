@@ -12,14 +12,21 @@ public abstract class ProcedureBase
     private Card rewardCard;
     private Action rewardAction;
 
-    public float Progression { get; private set; }
+    private bool needsNPC = false;
+    private NPCBehaviour associatedNPC;
+
+    public float Progression { get; private set; } 
 
     public Event<float> OnProcedureProgressionChangedEvent = new();
 
     public abstract void Update(float time);
     protected void SetNewProgression(float progression)
     {
+        if (progression < 1)
+            IsRunning = true;
+
         Progression = progression;
+
         OnProcedureProgressionChangedEvent?.Invoke(Progression);
 
         if (Progression >= 1f)
@@ -28,7 +35,24 @@ public abstract class ProcedureBase
             FinishProcedure();
         }
     }
+    internal void OnStartProcedure()
+    {
+        if (!needsNPC)
+            return;
 
+        if (NPCHandler.Instance.TryRequestFreedNPC(out var npc))
+        {
+            associatedNPC = npc;
+            associatedNPC.Link(AssociatedCell);
+        }
+    }
+    internal void OnStopProcedure(bool regular = true)
+    {
+        if (!needsNPC || associatedNPC == null)
+            return;
+
+        GameObject.Destroy(associatedNPC.gameObject);
+    }
     protected void FinishProcedure()
     {
         if (rewardToken != null)
@@ -65,6 +89,12 @@ public abstract class ProcedureBase
     internal ProcedureBase WithCallback(Action callback)
     {
         rewardAction = callback;
+        return this;
+    }
+
+    internal ProcedureBase WithNPC()
+    {
+        needsNPC = true;
         return this;
     }
 }

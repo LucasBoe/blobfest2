@@ -16,6 +16,7 @@ MonoBehaviour:
   assetGUID: -3582
   SpriteRegular: {fileID: 21300000, guid: da40bb75e4b4c4ce4b4e87497b7e30f0, type: 3}
   SpriteIcon: {fileID: 21300000, guid: a896b5739836945f38cd8df552761cea, type: 3}
+  HasNPC: 0
 --- !u!114 &-3871272578515247723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32,6 +33,7 @@ MonoBehaviour:
   assetGUID: -119086
   SpriteRegular: {fileID: 21300000, guid: fdfe0d3d239df40a2aff3c36aafd539d, type: 3}
   SpriteIcon: {fileID: 21300000, guid: a896b5739836945f38cd8df552761cea, type: 3}
+  HasNPC: 1
 --- !u!114 &-3350308523534543427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,6 +50,7 @@ MonoBehaviour:
   assetGUID: -309634
   SpriteRegular: {fileID: 21300000, guid: ada0896452c564801a88b97f2bcccd30, type: 3}
   SpriteIcon: {fileID: 21300000, guid: a896b5739836945f38cd8df552761cea, type: 3}
+  HasNPC: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -4470916006315066633}
   - component: {fileID: -1918029680632603808}
   - component: {fileID: -7491934252927359468}
+  - component: {fileID: 6675657689385638484}
   - component: {fileID: 8241105955756066474}
   m_Layer: 0
   m_Name: Bootsteps
@@ -76,6 +77,18 @@ MonoBehaviour:
   - {fileID: -8580860634910157316, guid: 9f68cd2b918a542e89e25e5db0aaa545, type: 2}
   StarterCards:
   - {fileID: -6169304890753435576, guid: 596bdce9ef9aa434ba2cdbe478c80a47, type: 2}
+--- !u!114 &6675657689385638484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7647497715872273728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf4edc47e0438418da9ecccea12a2cc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8241105955756066474
 MonoBehaviour:
   m_ObjectHideFlags: 0

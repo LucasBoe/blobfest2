@@ -12,6 +12,7 @@ public class CardHandler : Singleton<CardHandler>
     public Event<CardStack> OnStackUpdatedEvent = new(); // Event for updates
     public Event<CardStack> OnOldStackDeletedEvent = new();
     public Event<CardStack, FloatingCardParameters> OnCardStackAnimateEvent = new();
+    public Event<Card> OnAddCardEvent = new(), OnRemoveCardEvent = new();
 
     private const float CARD_ANIM_DURATION = .5f;
 
@@ -82,6 +83,8 @@ public class CardHandler : Singleton<CardHandler>
             Stacks.Add(newStack);
             OnNewStackCreatedEvent.Invoke(newStack); // Notify about new stack
         }
+
+        OnAddCardEvent?.Invoke(cardID.ToCard());
     }
 
     // Remove a card or reduce the amount in the stack
@@ -104,6 +107,8 @@ public class CardHandler : Singleton<CardHandler>
                 // Stack still has cards, so just update it
                 OnStackUpdatedEvent.Invoke(existingStack); // Notify about stack update
             }
+
+            OnRemoveCardEvent?.Invoke(cardID.ToCard());
         }
     }
 }

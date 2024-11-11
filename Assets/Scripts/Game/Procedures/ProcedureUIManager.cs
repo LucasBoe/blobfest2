@@ -5,6 +5,7 @@ using UnityEngine;
 internal class ProcedureUIManager : MonoBehaviour
 {
     [SerializeField] private ProcedureUISlice procedureUISliceDummy;
+    private const float BAR_OFFSET = .5f;
 
     private Dictionary<ProcedureBase, ProcedureUISlice> activeSlices = new();
     private void Awake()
@@ -32,9 +33,8 @@ internal class ProcedureUIManager : MonoBehaviour
             return;
         }
 
-        // Instantiate a new UISlice for the procedure and place it at the procedure's cell position
         ProcedureUISlice newSlice = Instantiate(procedureUISliceDummy, transform);
-        newSlice.transform.position = procedure.AssociatedCell.Center; // Assuming AssociatedCell has WorldPosition
+        newSlice.transform.position = procedure.AssociatedCell.Center + new Vector2(0, BAR_OFFSET);
         newSlice.gameObject.SetActive(true);
         newSlice.Init(procedure);
 

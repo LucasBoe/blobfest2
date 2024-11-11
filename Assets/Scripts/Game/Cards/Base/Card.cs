@@ -6,6 +6,7 @@ public abstract class Card : ContaineableScriptableObject, ICollectibleIconProvi
 {
     public CardID ID => (CardID)AssetGUID;
     public Sprite SpriteRegular, SpriteIcon;
+    public bool HasNPC = false;
 
     public Sprite GetIcon()
     {

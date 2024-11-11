@@ -6,14 +6,14 @@ using NaughtyAttributes;
 using UnityEngine;
 using VoronoiMap;
 
-public partial class Cell : MonoBehaviour, IDelayedStartObserver
+public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionProvider
 {
     [ReadOnly] public long GUID;
     [ReadOnly] public Vector2[] Edges;
     [ReadOnly] public Vector2[] POIs;
     [SerializeField, ReadOnly] private CellType cellType;
     [ReadOnly] public long[] NeightbourGUIDs;
-
+    [ReadOnly] public Cell[] Neightbours;
 
     public CellPixelSpriteGenerator HighligtPrrovider;
     public Vector2 Center => transform.position;
@@ -45,6 +45,10 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver
         NeightbourGUIDs = voronoiCellData.NeightbourGUIDs;
         POIs = PolygonUtil.GetDynamicRandomPointsInPolygon(Edges, 3).ToArray();
         HighligtPrrovider.GenerateSprites(Edges);
+    }
+    internal void ConnectNeightbours(Cell[] cells)
+    {
+        Neightbours = cells.Where(c => NeightbourGUIDs.Contains(c.GUID)).ToArray();
     }
     private void OnDrawGizmosSelected()
     {
@@ -133,4 +137,5 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver
         }
 
     }
+    public Vector2 RequestPosition(NPCBehaviour npc) => Center;
 }

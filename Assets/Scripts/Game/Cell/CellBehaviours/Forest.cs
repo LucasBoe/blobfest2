@@ -41,12 +41,16 @@ public class Forest : CellBehaviour, ICanReceive<Villager>
 
         activeProcedure = ProcedureHandler.Instance.StartNewProcedure(10)
             .At(Context.Cell)
+            .WithNPC()
             .WithReward(TokenID.Wood)
             .WithCallback(() =>
             {
                 var tree = trees[0];
                 trees.Remove(tree);
                 GameObject.Destroy(tree.gameObject);
+
+                if (trees.Count == 0)
+                    Context.Cell.ChangeCellType(CellType.Meadow);
             });
 
         CardPlayHandler.Instance.NotifyRefresh();

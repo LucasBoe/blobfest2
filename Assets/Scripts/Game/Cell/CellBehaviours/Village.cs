@@ -18,6 +18,7 @@ public class Village : CellBehaviour, DynamicTimeProcecure.IProgressProvider
         Deals = new Deal[] { new Deal(CardID.MakeVillage, TokenID.Grain, 12) };
         huts = SpawnHuts();
         TryStartNewProcedure();
+        CollectibleSpawner.Instance.SpawnAt(CardID.Villager.ToCard(), Context.Cell.Center);
     }
     public override void OnDelayedStart()
     {
