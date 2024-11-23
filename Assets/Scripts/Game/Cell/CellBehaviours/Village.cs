@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -7,18 +8,21 @@ using UnityEngine;
 public class Village : CellBehaviour, DynamicTimeProcecure.IProgressProvider
 {
     public static new CellType AssociatedCellType => CellType.Village;
-    public float ProgressMultiplier => .1f;
+    public float ProgressMultiplier => (1 + directNeightboursthatAreFieldsCount) * .1f;
+    private int directNeightboursthatAreFieldsCount = 0;
 
     List<Transform> huts = new();
     private ProcedureBase produceVillagersProcedure;
 
-
     public override void Enter()
     {
         Deals = new Deal[] { new Deal(CardID.MakeVillage, TokenID.Grain, 12) };
-        huts = SpawnHuts();
+        huts = SpawnHut();
         TryStartNewProcedure();
         CollectibleSpawner.Instance.SpawnAt(CardID.Villager.ToCard(), Context.Cell.Center);
+
+        foreach (var neightbour in Neightbours)
+            neightbour.OnChangedCellTypeEvent.AddListener(OnChangedCellType);
     }
     public override void OnDelayedStart()
     {
@@ -41,20 +45,25 @@ public class Village : CellBehaviour, DynamicTimeProcecure.IProgressProvider
             });
     }
 
-    private List<Transform> SpawnHuts()
+    private List<Transform> SpawnHut()
     {
         List<Transform> huts = new();
         var prefab = PrefabRefID.Hut.TryGetPrefab<Transform>();
-
-        foreach (var poi in Context.Cell.POIs)
-            Instantiate(prefab, poi, huts);
-
+        var poi = Context.Cell.POIs.First();
+        Instantiate(prefab, poi, huts);
         return huts;
+    }
+    private void OnChangedCellType()
+    {
+        directNeightboursthatAreFieldsCount = Neightbours.Where(n => n.CellType == CellType.Farmland).Count();
     }
     public override void Exit()
     {
         foreach (var tree in huts)
             GameObject.Destroy(tree.gameObject);
+
+        foreach (var neightbour in Neightbours)
+            neightbour.OnChangedCellTypeEvent.RemoveListener(OnChangedCellType);
 
         ProcedureHandler.Instance.Stop(produceVillagersProcedure);
     }

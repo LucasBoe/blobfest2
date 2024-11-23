@@ -41,6 +41,7 @@ public class Farmland : CellBehaviour, ICanReceive<Villager>
 
         activeProcedure = ProcedureHandler.Instance.StartNewProcedure(10)
             .At(Context.Cell)
+            .WithNPC()
             .WithReward(TokenID.Grain)
             .WithCallback(() =>
             {

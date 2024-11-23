@@ -23,6 +23,7 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
     public Transform ContentTransform;
 
     public CellBehaviour CurrentBehavior;
+    public Engine.Event OnChangedCellTypeEvent = new();
 
     internal static Cell CreateFromRawVoronoi(VoronoiCellData voronoiCellData, Transform root)
     {
@@ -43,7 +44,7 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
         Edges = TransformToGamePos(voronoiCellData.Edges);
         GUID = voronoiCellData.GUID;
         NeightbourGUIDs = voronoiCellData.NeightbourGUIDs;
-        POIs = PolygonUtil.GetDynamicRandomPointsInPolygon(Edges, 3).ToArray();
+        POIs = NewPolygonUtil.CalculateDynamicPointsInPolygon(Edges, 5).ToArray();
         HighligtPrrovider.GenerateSprites(Edges);
     }
     internal void ConnectNeightbours(Cell[] cells)
@@ -69,20 +70,31 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
         }
     }
 #region SPACE TRANSFORMATION
-    private Vector2[] TransformToGamePos(Vector2[] edges)
+    public static Vector2[] TransformToGamePos(Vector2[] points)
     {
-        Vector2[] result = new Vector2[edges.Length];
+        Vector2[] result = new Vector2[points.Length];
 
-        for (int i = 0; i < edges.Length; i++)
-        {
-            result[i] = TransformToGamePos(edges[i]);
-        }
+        for (int i = 0; i < points.Length; i++)
+            result[i] = TransformToGamePos(points[i]);
 
         return result;
     }
-    private static Vector2 TransformToGamePos(Vector2 raw)
+    public static Vector2[] TransformGameToTopPos(Vector2[] point)
     {
-        return new Vector2(raw.x, raw.y / 2f);
+        Vector2[] result = new Vector2[point.Length];
+
+        for (int i = 0; i < point.Length; i++)
+            result[i] = TransformGameToTopPos(point[i]);
+
+        return result;
+    }
+    public static Vector2 TransformToGamePos(Vector2 point)
+    {
+        return new Vector2(point.x, point.y / 2f);
+    }
+    public static Vector2 TransformGameToTopPos(Vector2 point)
+    {
+        return new Vector2(point.x, point.y * 2f);
     }
     #endregion
 
@@ -95,10 +107,10 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
     {
         CellType = cellType;
 
-        if (!refreshBehaviour)
-            return;
+        if (refreshBehaviour)
+            RefreshBehaviourToMatchTypeFrom(MapDataUtil.GetAllCellBehaviourTypes());
 
-        RefreshBehaviourToMatchTypeFrom(MapDataUtil.GetAllCellBehaviourTypes());
+        OnChangedCellTypeEvent?.Invoke();
     }
     public void ChangeBehaviourTo<T>() where T : CellBehaviour
     {

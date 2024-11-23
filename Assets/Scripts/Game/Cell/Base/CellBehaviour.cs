@@ -6,6 +6,7 @@ public abstract class CellBehaviour : IDealProvider
 {
     public static CellType AssociatedCellType { get; } 
     protected BehaviourCellContext Context;
+    protected Cell[] Neightbours => Context.Cell.Neightbours;
     public Deal[] Deals { get; protected set; }
     public bool HasDeals => Deals != null && Deals.Length > 0; 
 
