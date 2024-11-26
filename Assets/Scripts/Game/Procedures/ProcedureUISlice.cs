@@ -13,7 +13,7 @@ internal class ProcedureUISlice : MonoBehaviour
         this.procedure = procedure;
         if (procedure.Input != null)
         {
-            iconRenderer.sprite = procedure.Input.SpriteIcon;
+            iconRenderer.sprite = procedure.Input.GetIcon();
             iconRenderer.gameObject.SetActive(true);
         }
 

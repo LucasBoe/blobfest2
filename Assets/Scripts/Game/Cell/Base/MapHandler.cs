@@ -24,7 +24,8 @@ public class MapHandler : SingletonBehaviour<MapHandler>
 
         RandomizeCellTypes(MapData.Cells);
         //SetVillageCell(MapData.Cells);
-        SetMillCell(MapData.Cells);
+        SetCellTyeWithMultiplier(MapData.Cells, 3f, CellType.Stonefield);
+        SetCellTyeWithMultiplier(MapData.Cells, 6f, CellType.Mill);
         ApplyCellBehaviors(MapData.Cells);
 
         OnMapFinishedEvent?.Invoke(MapData);
@@ -62,10 +63,10 @@ public class MapHandler : SingletonBehaviour<MapHandler>
              .First()
              .ChangeCellType(CellType.Village, refreshBehaviour: false);
     }
-    private void SetMillCell(Cell[] cells)
+    private void SetCellTyeWithMultiplier(Cell[] cells, float multiplier, CellType type)
     {
         var ordered = cells.OrderBy(c => Vector2.Distance(c.Center, MapCenter)).ToArray();
-        ordered[Mathf.RoundToInt(ordered.Length / 6f)].ChangeCellType( CellType.Mill, refreshBehaviour: false);
+        ordered[Mathf.RoundToInt(ordered.Length / multiplier)].ChangeCellType(type, refreshBehaviour: false);
     }
     private void ApplyCellBehaviors(Cell[] cells)
     {
@@ -84,6 +85,7 @@ public enum CellType
     Village,
     Mill,
     Farmland,
+    Stonefield,
 }
 
 [System.Serializable]

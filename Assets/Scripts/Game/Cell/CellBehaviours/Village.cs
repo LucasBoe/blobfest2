@@ -48,7 +48,7 @@ public class Village : CellBehaviour, DynamicTimeProcecure.IProgressProvider
     private List<Transform> SpawnHut()
     {
         List<Transform> huts = new();
-        var prefab = PrefabRefID.Hut.TryGetPrefab<Transform>();
+        var prefab = PrefabRefID.Houses.TryGetPrefab<Transform>();
         var poi = Context.Cell.POIs.First();
         Instantiate(prefab, poi, huts);
         return huts;
