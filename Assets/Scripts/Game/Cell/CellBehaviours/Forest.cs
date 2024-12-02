@@ -21,7 +21,7 @@ public class Forest : CellBehaviour, ICanReceive<Villager>
         List < Tree > trees = new();
         var prefab = PrefabRefID.Tree.TryGetPrefab<Tree>();
 
-        foreach (var poi in Context.Cell.POIs) 
+        foreach (var poi in Context.Cell.GetPOIS(7)) 
             Instantiate(prefab, poi, trees);
 
         return trees;

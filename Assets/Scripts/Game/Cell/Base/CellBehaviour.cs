@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CellBehaviour : IDealProvider
+public abstract class CellBehaviour : object, IDealProvider
 {
     public static CellType AssociatedCellType { get; } 
     protected BehaviourCellContext Context;

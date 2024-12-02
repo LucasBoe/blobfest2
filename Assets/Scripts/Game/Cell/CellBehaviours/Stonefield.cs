@@ -18,7 +18,7 @@ public class Stonefield : CellBehaviour
         List < Stone > trees = new();
         var prefab = PrefabRefID.Stone.TryGetPrefab<Stone>();
 
-        foreach (var poi in Context.Cell.POIs) 
+        foreach (var poi in Context.Cell.GetPOIS(7)) 
             Instantiate(prefab, poi, trees);
 
         return trees;

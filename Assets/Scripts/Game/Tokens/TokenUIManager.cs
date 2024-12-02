@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TokenUIManager : MonoBehaviour
 {
-    [SerializeField] TokenUISlice TokenUIPrefab; // Reference to a prefab for UI slices
+    [SerializeField] TokenUISlice TokenUISlice; // Reference to a prefab for UI slices
     [SerializeField] Transform TokenRow;
     [SerializeField] Transform lastToken;
     [SerializeField] Sound collectTokenSound; 
@@ -18,11 +18,20 @@ public class TokenUIManager : MonoBehaviour
         TokenHandler.Instance.OnOldStackDeletedEvent.AddListener(OnStackDeleted);
         TokenHandler.Instance.OnTokenStackAnimateEvent.AddListener(SpawnFloatingToken);
     }
+    private void OnDisable()
+    {
+        if (!TokenHandler.InstanceExists)
+            return;
 
+        TokenHandler.Instance.OnNewStackCreatedEvent.RemoveListener(OnNewStack);
+        TokenHandler.Instance.OnStackUpdatedEvent.RemoveListener(OnStackUpdated);
+        TokenHandler.Instance.OnOldStackDeletedEvent.RemoveListener(OnStackDeleted);
+        TokenHandler.Instance.OnTokenStackAnimateEvent.RemoveListener(SpawnFloatingToken);
+    }
     // Called when a new Token stack is created
     private void OnNewStack(TokenStack stack)
     {
-        TokenUISlice newSlice = Instantiate(TokenUIPrefab, TokenRow);
+        TokenUISlice newSlice = Instantiate(TokenUISlice, TokenRow);
         newSlice.Initialize(stack); // Assign and display the stack in the slice
         stackToUISlice[stack] = newSlice; // Map the stack to the UI slice
         lastToken.SetAsLastSibling();
@@ -49,10 +58,13 @@ public class TokenUIManager : MonoBehaviour
     // Method to spawn a floating Token that lerps to its final position in the UI
     public void SpawnFloatingToken(TokenStack stack, FloatingTokenParameters parameters)
     {
+        if (TokenUISlice == null)
+            return;
+
         Vector2 startPosition = Camera.main.WorldToScreenPoint(parameters.WorldOrigin);
         collectTokenSound.PlayAt(parameters.WorldOrigin);
 
-        TokenUISlice newSlice = Instantiate(TokenUIPrefab, startPosition, Quaternion.identity, transform);
+        TokenUISlice newSlice = Instantiate(TokenUISlice, startPosition, Quaternion.identity, transform);
         newSlice.Initialize(stack); // Assign and display the stack in the slice
         Vector2 targetUIPosition = GetTargetUIPosition();
 

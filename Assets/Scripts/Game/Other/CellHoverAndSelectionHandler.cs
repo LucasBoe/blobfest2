@@ -2,13 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Engine;
+using NaughtyAttributes;
 using UnityEngine;
 
 [SingletonSettings(SingletonLifetime.Scene, _canBeGenerated: true, _eager: true)]
 public class CellHoverAndSelectionHandler : SingletonBehaviour<CellHoverAndSelectionHandler>
 {
-    public Cell CurrentHover { get; private set; }
-    public Cell Selected { get; private set; }
+
+    [ShowNativeProperty] public Cell CurrentHover { get; private set; }
+    [ShowNativeProperty] public Cell Selected { get; private set; }
 
     public Event<Cell> OnHoverChangedEvent = new();
     public Event<Cell> OnSelectedChangedEvent = new();
@@ -21,7 +23,6 @@ public class CellHoverAndSelectionHandler : SingletonBehaviour<CellHoverAndSelec
 
         void UpdateHover()
         {
-
             if (Camera.main == null)
                 return;
 
@@ -38,7 +39,8 @@ public class CellHoverAndSelectionHandler : SingletonBehaviour<CellHoverAndSelec
 
         void UpdateSelection()
         {
-            if (!Input.GetMouseButtonUp(1))
+
+            if (!Input.GetMouseButtonUp(0))
                 return;
 
             if (CurrentHover == Selected)

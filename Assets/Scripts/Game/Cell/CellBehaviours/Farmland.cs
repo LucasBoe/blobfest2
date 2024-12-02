@@ -21,7 +21,7 @@ public class Farmland : CellBehaviour, ICanReceive<Villager>
         List < Grain > trees = new();
         var prefab = PrefabRefID.Grain.TryGetPrefab<Grain>();
 
-        foreach (var poi in Context.Cell.POIs) 
+        foreach (var poi in Context.Cell.GetPOIS(3)) 
             Instantiate(prefab, poi, trees);
 
         return trees;

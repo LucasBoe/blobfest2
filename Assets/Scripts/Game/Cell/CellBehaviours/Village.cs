@@ -13,6 +13,7 @@ public class Village : CellBehaviour, DynamicTimeProcecure.IProgressProvider
 
     List<Transform> huts = new();
     private ProcedureBase produceVillagersProcedure;
+    public int GetNumberOfBuildings() => 1;
 
     public override void Enter()
     {
@@ -49,7 +50,7 @@ public class Village : CellBehaviour, DynamicTimeProcecure.IProgressProvider
     {
         List<Transform> huts = new();
         var prefab = PrefabRefID.Houses.TryGetPrefab<Transform>();
-        var poi = Context.Cell.POIs.First();
+        var poi = Context.Cell.GetPOIS(2).First();
         Instantiate(prefab, poi, huts);
         return huts;
     }

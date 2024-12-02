@@ -18,7 +18,13 @@ public class CardUIManager : MonoBehaviour
         CardHandler.Instance.OnOldStackDeletedEvent.AddListener(OnStackDeleted);
         CardHandler.Instance.OnCardStackAnimateEvent.AddListener(SpawnFloatingCard);
     }
-
+    private void OnDisable()
+    {
+        CardHandler.Instance.OnNewStackCreatedEvent.RemoveListener(OnNewStack);
+        CardHandler.Instance.OnStackUpdatedEvent.RemoveListener(OnStackUpdated);
+        CardHandler.Instance.OnOldStackDeletedEvent.RemoveListener(OnStackDeleted);
+        CardHandler.Instance.OnCardStackAnimateEvent.RemoveListener(SpawnFloatingCard);
+    }
     // Called when a new card stack is created
     private void OnNewStack(CardStack stack)
     {

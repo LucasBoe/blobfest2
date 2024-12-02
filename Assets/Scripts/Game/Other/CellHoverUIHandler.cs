@@ -2,18 +2,22 @@
 using System.Collections;
 using System;
 using Engine;
+using Simple.SoundSystem.Core;
 
 public class CellHoverUIHandler : MonoBehaviour
 {
-    [SerializeField] CellLineRenderer cellLineRenderer;
-
+    [SerializeField] private CellLineRenderer cellLineRenderer;
+    [SerializeField] private Sound hoverSound;
     private void OnEnable() => CellHoverAndSelectionHandler.Instance.OnHoverChangedEvent.AddListener(OnHoverChanged);
     private void OnDisable() => CellHoverAndSelectionHandler.Instance.OnHoverChangedEvent.RemoveListener(OnHoverChanged);
 
     private void OnHoverChanged(Cell cell)
     {
         if (cell != null)
+        {
             cellLineRenderer.DrawCellOutline(cell.Edges);
+            hoverSound.Play();
+        }
         else
             cellLineRenderer.DrawCellOutline(null);
     }

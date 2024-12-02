@@ -10,13 +10,14 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
 {
     [ReadOnly] public long GUID;
     [ReadOnly] public Vector2[] Edges;
-    [ReadOnly] public Vector2[] POIs;
+    [ReadOnly] public Vector2[][] POIs;
     [SerializeField, ReadOnly] private CellType cellType;
     [ReadOnly] public long[] NeightbourGUIDs;
     [ReadOnly] public Cell[] Neightbours;
 
     public CellPixelSpriteGenerator HighligtPrrovider;
     public Vector2 Center => transform.position;
+    public const int MAX_POI_COUNT = 10;
 
     public CellType CellType { get => cellType; private set => cellType = value; }
 
@@ -44,8 +45,25 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
         Edges = TransformToGamePos(voronoiCellData.Edges);
         GUID = voronoiCellData.GUID;
         NeightbourGUIDs = voronoiCellData.NeightbourGUIDs;
-        POIs = NewPolygonUtil.CalculateDynamicPointsInPolygon(Edges, 5).ToArray();
+        GeneratePOIS();
         HighligtPrrovider.GenerateSprites(Edges);
+    }
+
+    private void GeneratePOIS()
+    {
+        POIs = new Vector2[MAX_POI_COUNT][];
+        for (int i = 0; i < MAX_POI_COUNT; i++)
+        {
+            if (i <= 1)
+            {
+                POIs[0] = new Vector2[0];
+                POIs[1] = new [] { Center };
+            }
+            else
+            {
+               POIs[i] = NewPolygonUtil.CalculateDynamicPointsInPolygon(Edges, i).ToArray();
+            }
+        }
     }
     internal void ConnectNeightbours(Cell[] cells)
     {
@@ -61,12 +79,6 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
             var b = Edges[(i + 1) == Edges.Length ? 0 : i + 1];
 
             Gizmos.DrawLine(a, b);
-        }
-
-        Gizmos.color = Color.yellow;
-        for (int i = 0; i < POIs.Length; i++)
-        {
-            Gizmos.DrawWireSphere(POIs[i], .2f);
         }
     }
 #region SPACE TRANSFORMATION
@@ -150,4 +162,9 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
 
     }
     public Vector2 RequestPosition(NPCBehaviour npc) => Center;
+
+    public Vector2[] GetPOIS(int i)
+    {
+        return POIs[i];
+    }
 }
