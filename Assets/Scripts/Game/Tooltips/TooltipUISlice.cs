@@ -23,7 +23,6 @@ public class TooltipUISlice : MonoBehaviour
 
     public void Hide(System.Action onComplete)
     {
-        // Add any hide animation logic here if necessary
         gameObject.SetActive(false);
         onComplete?.Invoke();
     }

@@ -5,17 +5,33 @@ using UnityEngine;
 internal class BuildingsModule_CellSelectionUISlice : CellSelectionUISliceModuleBase
 {
     [SerializeField] private BuildingSlotUISlice dummy;
-    private Village village;
-    private List<BuildingSlotUISlice> buildings = new();
+    private Settlement _settlement;
+    private List<BuildingSlotUISlice> uiInstances = new();
     protected override void TryPopulate()
     {
-        buildings = CreateSlots(4);
+        var maxBuildings = _settlement.Buildings.MaxCount;
+        var populated = _settlement.Buildings.Count;
+        
+        uiInstances = CreateSlots(4);
 
-        var populated = village.GetNumberOfBuildings();
-        for (var index = 0; index < buildings.Count; index++)
+        for (var index = 0; index < uiInstances.Count; index++)
         {
-            var building = buildings[index];
-            building.SetState(index < populated ? BuildingSlotUISlice.SlotState.Full : BuildingSlotUISlice.SlotState.Empty);
+            var ui = uiInstances[index];
+            
+            if (index >= maxBuildings)
+            {
+                ui.SetState(BuildingSlotUISlice.SlotState.Blocked);
+                continue;
+            }
+            
+            if (index >= populated)
+            {
+                ui.SetState(BuildingSlotUISlice.SlotState.Empty);
+                continue;
+            }
+            
+            ui.SetState(BuildingSlotUISlice.SlotState.Full);
+            ui.Init(_settlement.Buildings.GetAt(index));
         }
 
         List<BuildingSlotUISlice> CreateSlots(int amount)
@@ -32,10 +48,10 @@ internal class BuildingsModule_CellSelectionUISlice : CellSelectionUISliceModule
     }
     protected override bool CheckShouldBeActive()
     {
-        if (Cell.CurrentBehavior is not Village village)
+        if (Cell.CurrentBehavior is not Settlement village)
             return false;
 
-        this.village = village;
+        this._settlement = village;
         return true;
     }
 }

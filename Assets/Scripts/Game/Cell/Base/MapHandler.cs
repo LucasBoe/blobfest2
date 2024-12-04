@@ -61,7 +61,7 @@ public class MapHandler : SingletonBehaviour<MapHandler>
     {
         cells.OrderBy(c => Vector2.Distance(c.Center, MapCenter))
              .First()
-             .ChangeCellType(CellType.Village, refreshBehaviour: false);
+             .ChangeCellType(CellType.Settlement, refreshBehaviour: false);
     }
     private void SetCellTyeWithMultiplier(Cell[] cells, float multiplier, CellType type)
     {
@@ -82,7 +82,7 @@ public enum CellType
     Undefined,
     Meadow,
     Forest,
-    Village,
+    Settlement,
     Mill,
     Farmland,
     Stonefield,

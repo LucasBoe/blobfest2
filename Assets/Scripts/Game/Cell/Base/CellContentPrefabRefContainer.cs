@@ -18,6 +18,8 @@ public class CellContentPrefabRefContainer : ScriptableObjectContainer<CellConte
         Houses = -1056142,
         Mill = -151462,
         Tree = -22954,
+        None = -61480,
+        StonemasonHut = -64650,
     }
 #endregion GENERATED (ScriptableObjectContainer)
 

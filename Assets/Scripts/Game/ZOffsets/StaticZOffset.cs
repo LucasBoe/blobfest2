@@ -6,13 +6,19 @@ using UnityEngine;
 [ExecuteAlways]
 public class StaticZOffset : MonoBehaviour
 {
+    bool zNeedsUpdate = true;
     // Update is called once per frame
     void Update()
     {
-        if (Application.isPlaying)
-            Destroy(this);
+        if (!zNeedsUpdate)
+            return;
 
         var pos = transform.position;
-        transform.position = pos.With(z: ZOffsetUtil.OffsetFromY(pos.y));   
+        transform.position = pos.With(z: ZOffsetUtil.OffsetFromY(pos.y));
+        zNeedsUpdate = false;
+    }
+    public void SceduleZUpdate()
+    {
+        zNeedsUpdate = true;
     }
 }

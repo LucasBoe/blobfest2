@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ffa6259d9290c4ace9add6b3dd61e764, type: 3}
-  m_Name: MakeVillage
+  m_Name: Settlement
   m_EditorClassIdentifier: 
   Container: {fileID: 11400000}
   assetGUID: -3582
@@ -63,6 +63,23 @@ MonoBehaviour:
   AllowInstancesForBaseType: 0
   OnlyAllowOneInstancePerChildType: 1
   Contained:
-  - {fileID: -6169304890753435576}
   - {fileID: -3350308523534543427}
+  - {fileID: -6169304890753435576}
   - {fileID: -3871272578515247723}
+  - {fileID: 319133233190635619}
+--- !u!114 &319133233190635619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c67fbd17fc64ed587b5fdb79381c7a, type: 3}
+  m_Name: Stonemason
+  m_EditorClassIdentifier: 
+  Container: {fileID: 11400000}
+  assetGUID: -9118
+  SpriteRegular: {fileID: 21300000, guid: e92881a5025b34a12acdc58c9f3f9efd, type: 3}
+  HasNPC: 1

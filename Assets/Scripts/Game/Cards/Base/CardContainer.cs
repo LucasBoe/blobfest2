@@ -12,8 +12,8 @@ public class CardContainer : ScriptableObjectContainer<Card>
 #region GENERATED (ScriptableObjectContainer)
     public enum CardID : long
     {
-        MakeVillage = -3582,
         MakeFarm = -309634,
+        Settlement = -3582,
         Villager = -119086,
     }
 #endregion GENERATED (ScriptableObjectContainer)

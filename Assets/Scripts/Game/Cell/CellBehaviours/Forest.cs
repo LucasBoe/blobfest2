@@ -34,11 +34,8 @@ public class Forest : CellBehaviour, ICanReceive<Villager>
     }
     public bool CanReceiveCard(Villager card) => !HasActiveProcedure && HasTrees;
 
-    public bool TryReceiveCard(Villager card)
+    public void DoReceiveCard(Villager card)
     {
-        if (!CanReceiveCard(card))
-            return false;
-
         activeProcedure = ProcedureHandler.Instance.StartNewProcedure(10)
             .At(Context.Cell)
             .WithNPC()
@@ -54,6 +51,5 @@ public class Forest : CellBehaviour, ICanReceive<Villager>
             });
 
         CardPlayHandler.Instance.NotifyRefresh();
-        return true;
     }
 }
