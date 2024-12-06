@@ -13,11 +13,11 @@ public class TooltipHandler : SingletonBehaviour<TooltipHandler>
         dummy.gameObject.SetActive(false);
     }
 
-    public void Show(Vector2 screenPosition, string content, object requestor)
+    public void ShowUI(Vector2 screenPosition, string content, object requestor)
     {
         Show(screenPosition, content, requestor, uiSpaceParent);
     }
-    public void Show(Vector3 worldPosition, string content, object requestor)
+    public void ShowWorld(Vector3 worldPosition, string content, object requestor)
     {
         Show(worldPosition, content, requestor, worldSpaceParent);
     }

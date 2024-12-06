@@ -7,7 +7,7 @@ public class TooltipUISlice : MonoBehaviour
     [SerializeField] private TMP_Text tooltipText; // Assign the Text component in the Inspector
 
     private TooltipData data;
-    private const float characterRevealDelay = 0.01f;
+    private const float FULL_REVEAL_DURATION = 0.1f;
 
     public void Init(TooltipData data)
     {
@@ -30,11 +30,12 @@ public class TooltipUISlice : MonoBehaviour
     private IEnumerator RevealText(string content)
     {
         tooltipText.text = string.Empty;
+        var wait = new WaitForSeconds(FULL_REVEAL_DURATION / content.Length);
 
         foreach (char c in content)
         {
             tooltipText.text += c;
-            yield return new WaitForSeconds(characterRevealDelay);
+            yield return wait;
         }
     }
 }

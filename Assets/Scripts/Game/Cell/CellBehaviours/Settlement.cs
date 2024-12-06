@@ -100,9 +100,26 @@ public class SettlementBuildingModule
             placementCallback?.Invoke(refID);
     }
     public void Handover(Action<PrefabRefID> placementCallback) => this.placementCallback = placementCallback;
-    public PlacedBuilding GetAt(int index) => PlacedBuildings[index];
+    public PlacedBuilding GetAt(int index)
+    {
+        if (index < 0 || index >= PlacedBuildings.Count)
+            return null;
+        
+        return PlacedBuildings[index];
+    }   
+    public bool TryGetAt(int index, out PlacedBuilding placedBuilding)
+    {
+        if (index < 0 || index >= PlacedBuildings.Count)
+        {
+            placedBuilding = null;
+            return false;
+        }
+
+        placedBuilding = PlacedBuildings[index];
+        return true;
+    }
 }
-public class PlacedBuilding
+public class PlacedBuilding : ICanBeInspected
 {
     public Card Sourcecard;
 

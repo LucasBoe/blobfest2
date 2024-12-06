@@ -48,9 +48,9 @@ public class CellHoverTooltipHandler : Singleton<CellHoverTooltipHandler>
         if (cell == null)
             return;
 
-        // Show the tooltip for the new hovered cell
+        // ShowUI the tooltip for the new hovered cell
         var text = cell.CellType.ToString();
         var position = cell.Center;
-        TooltipHandler.Instance.Show(position, text, this);
+        TooltipHandler.Instance.ShowWorld(position, text, this);
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Engine;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [SingletonSettings(SingletonLifetime.Scene, _canBeGenerated: true, _eager: true)]
 public class CellHoverAndSelectionHandler : SingletonBehaviour<CellHoverAndSelectionHandler>
@@ -30,6 +31,9 @@ public class CellHoverAndSelectionHandler : SingletonBehaviour<CellHoverAndSelec
             Vector2 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
             var hover = MapDataUtil.GetCellThatContainsPoint(MapHandler.Instance.MapData, worldPosition);
 
+            if (IsOverUI())
+                hover = null;
+
             if (CurrentHover == hover)
                 return;
 
@@ -39,8 +43,10 @@ public class CellHoverAndSelectionHandler : SingletonBehaviour<CellHoverAndSelec
 
         void UpdateSelection()
         {
-
             if (!Input.GetMouseButtonUp(0))
+                return;
+            
+            if (IsOverUI())
                 return;
 
             if (CurrentHover == Selected)
@@ -49,5 +55,10 @@ public class CellHoverAndSelectionHandler : SingletonBehaviour<CellHoverAndSelec
             Selected = CurrentHover;
             OnSelectedChangedEvent?.Invoke(Selected);
         }
+    }
+
+    private static bool IsOverUI()
+    {
+        return EventSystem.current.IsPointerOverGameObject();
     }
 }

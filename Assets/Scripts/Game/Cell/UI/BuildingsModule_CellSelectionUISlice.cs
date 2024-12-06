@@ -43,6 +43,13 @@ internal class BuildingsModule_CellSelectionUISlice : CellSelectionUISliceModule
                 var slotInstance = GameObject.Instantiate(dummy, dummy.transform.parent);
                 result.Add(slotInstance);
             }
+
+            for (int i = 0; i < result.Count; i++)
+            {
+                int index = i;
+                result[i].CreateCallback(() => Main.TryInspectAt(index));
+            }
+            
             return result;
         }
     }

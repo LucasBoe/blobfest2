@@ -13,7 +13,7 @@ public class CellSelectionUIManager : MonoBehaviour
 
     private void OnCellSelected(Cell selectedCell)
     {
-        if (_activeSliceInstance is not null) 
+        if (_activeSliceInstance != null) 
             Destroy(_activeSliceInstance.gameObject);
 
         if (selectedCell is null)
