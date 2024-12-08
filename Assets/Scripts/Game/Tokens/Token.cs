@@ -8,7 +8,7 @@ public class Token : ContaineableScriptableObject, ICollectibleIconProvider
 
     public Sprite GetIcon()
     {
-        return Sprite;
+        return PixelSpriteResizer.Instance.GetResizedSprite(Sprite, 12, 12);
     }
 }
 

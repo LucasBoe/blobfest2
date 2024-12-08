@@ -40,7 +40,6 @@ internal class ProcedureUIManager : MonoBehaviour
 
         activeSlices[procedure] = newSlice;
     }
-
     private void OnProcedureFinished(ProcedureBase procedure)
     {
         if (activeSlices.TryGetValue(procedure, out var slice))

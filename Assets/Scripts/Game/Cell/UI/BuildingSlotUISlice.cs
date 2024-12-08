@@ -9,9 +9,9 @@ public class BuildingSlotUISlice : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField] private GameObject blockedRoot, emptyRoot, fullRoot;
     [SerializeField] private Image cardImage, cardOutlineImage, slotOutlineImage;
     
-    private PlacedBuilding associatedBuilding;
+    private BuildingBehaviour _associatedBuildingBehaviour;
     private SlotState slotState;
-    private Action clickCallback;
+    private BuildingsModule_CellSelectionUISlice buildingUISlice;
     public void SetState(BuildingSlotUISlice.SlotState state)
     {
         this.slotState = state;
@@ -26,11 +26,14 @@ public class BuildingSlotUISlice : MonoBehaviour, IPointerEnterHandler, IPointer
         Empty,
         Full,
     }
-    public void Init(PlacedBuilding building)
+    public void Init(BuildingBehaviour buildingBehaviour, BuildingsModule_CellSelectionUISlice buildingUISlice)
     {
-        associatedBuilding = building;
-        cardImage.sprite = associatedBuilding.Sourcecard.SpriteRegular;
-        cardOutlineImage.color = associatedBuilding.Sourcecard.Color;
+        Debug.Log("Init: " + buildingBehaviour.Sourcecard.name);
+        
+        this.buildingUISlice = buildingUISlice;
+        _associatedBuildingBehaviour = buildingBehaviour;
+        cardImage.sprite = _associatedBuildingBehaviour.Sourcecard.SpriteRegular;
+        cardOutlineImage.color = _associatedBuildingBehaviour.Sourcecard.Color;
         slotOutlineImage.color = Color.clear;
     }
     public void OnPointerEnter(PointerEventData eventData)
@@ -48,7 +51,7 @@ public class BuildingSlotUISlice : MonoBehaviour, IPointerEnterHandler, IPointer
         else
         {
             slotOutlineImage.color = Color.white;
-            TooltipHandler.Instance.ShowUI(pos,associatedBuilding.Sourcecard.ID.ToString(), this);
+            TooltipHandler.Instance.ShowUI(pos,_associatedBuildingBehaviour.Sourcecard.ID.ToString(), this);
         }
     }
     public void OnPointerExit(PointerEventData eventData)
@@ -58,10 +61,6 @@ public class BuildingSlotUISlice : MonoBehaviour, IPointerEnterHandler, IPointer
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        clickCallback?.Invoke();
-    }
-    public void CreateCallback(Action callback)
-    {
-        clickCallback = callback;
+        buildingUISlice.Inspect(_associatedBuildingBehaviour);
     }
 }

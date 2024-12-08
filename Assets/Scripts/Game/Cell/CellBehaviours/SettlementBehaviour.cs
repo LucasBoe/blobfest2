@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 
-public class Settlement : CellBehaviour, DynamicTimeProcecure.IProgressProvider, ICanReceive<Stonemason>
+public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>
 {
     public static new CellType AssociatedCellType => CellType.Settlement;
     public SettlementBuildingModule Buildings = new();
@@ -13,23 +13,21 @@ public class Settlement : CellBehaviour, DynamicTimeProcecure.IProgressProvider,
     private int directNeightboursthatAreFieldsCount = 0;
 
     List<Transform> buildingsTransforms = new();
-    private ProcedureBase produceVillagersProcedure;
     public override void Enter()
     {
         Buildings.Handover(AddBuildingVisualsCallback);
         Deals = new Deal[] { new Deal(CardID.Settlement, TokenID.Grain, 12) };
         Buildings.Place(CardID.Settlement.ToCard());
-        TryStartNewProcedure();
-        CollectibleSpawner.Instance.SpawnAt(CardID.Villager.ToCard(), Context.Cell.Center);
 
         foreach (var neightbour in Neightbours)
             neightbour.OnChangedCellTypeEvent.AddListener(OnChangedCellType);
     }
 
-    private void AddBuildingVisualsCallback(PrefabRefID id)
+    private BuildingBehaviour AddBuildingVisualsCallback(BuildingBehaviour prefab)
     {
-        Transform newBuildingVisuals = GameObject.Instantiate(id.TryGetPrefab<Transform>());
-        buildingsTransforms.Add(newBuildingVisuals);
+        BuildingBehaviour instance = GameObject.Instantiate(prefab);
+        instance.GiveContext(Context);
+        buildingsTransforms.Add(instance.transform);
         
         var pois = Context.Cell.GetPOIS(buildingsTransforms.Count);
         for (int i = 0; i < pois.Length; i++)
@@ -38,26 +36,8 @@ public class Settlement : CellBehaviour, DynamicTimeProcecure.IProgressProvider,
             if (buildingsTransforms[i].TryGetComponent<StaticZOffset>(out var zOffset))
                 zOffset.SceduleZUpdate();
         }
-    }
-    public override void OnDelayedStart()
-    {
-        TryStartNewProcedure();
-    }
-    private void TryStartNewProcedure()
-    {
-        if (produceVillagersProcedure != null)
-            return;
 
-        Debug.Log("Start New Procedure");
-
-        produceVillagersProcedure = ProcedureHandler.Instance.StartNewProcedure(this)
-            .At(Context.Cell)
-            .WithReward(CardID.Villager)
-            .WithCallback(() =>
-            {
-                produceVillagersProcedure = null;
-                TryStartNewProcedure();
-            });
+        return instance;
     }
     private void OnChangedCellType()
     {
@@ -65,13 +45,11 @@ public class Settlement : CellBehaviour, DynamicTimeProcecure.IProgressProvider,
     }
     public override void Exit()
     {
-        foreach (var tree in buildingsTransforms)
-            GameObject.Destroy(tree.gameObject);
+        foreach (var building in buildingsTransforms)
+            GameObject.Destroy(building.gameObject);
 
         foreach (var neightbour in Neightbours)
             neightbour.OnChangedCellTypeEvent.RemoveListener(OnChangedCellType);
-
-        ProcedureHandler.Instance.Stop(produceVillagersProcedure);
     }
     public bool CanReceiveCard(Stonemason card)
     {
@@ -85,46 +63,57 @@ public class Settlement : CellBehaviour, DynamicTimeProcecure.IProgressProvider,
 [Serializable]
 public class SettlementBuildingModule
 {
-    private Action<PrefabRefID> placementCallback;
-    public List<PlacedBuilding> PlacedBuildings = new();
+    private Func<BuildingBehaviour, BuildingBehaviour> placementCallback;
+    public List<BuildingBehaviour> PlacedBuildings = new();
     public bool HasEmptySlots => Count < MaxCount;
     public int Count => PlacedBuildings.Count;
     public int MaxCount = 2;
     public void Place(Card card)
     {
-        PlacedBuildings.Add(new PlacedBuilding(card));
-
-        var refID = card.BuildingPrefabRefID;
-        
-        if (refID != PrefabRefID.None)
-            placementCallback?.Invoke(refID);
+        if (BuildingProvider.Instance.TryGetPrefab(card, out var prefab))
+        {
+            var placed = placementCallback?.Invoke(prefab);
+            PlacedBuildings.Add(placed);
+            placed.OnAddBuilding();
+        }
     }
-    public void Handover(Action<PrefabRefID> placementCallback) => this.placementCallback = placementCallback;
-    public PlacedBuilding GetAt(int index)
+    public void Handover(Func<BuildingBehaviour, BuildingBehaviour> placementCallback) => this.placementCallback = placementCallback;
+    public BuildingBehaviour GetAt(int index)
     {
         if (index < 0 || index >= PlacedBuildings.Count)
             return null;
         
         return PlacedBuildings[index];
     }   
-    public bool TryGetAt(int index, out PlacedBuilding placedBuilding)
+    public bool TryGetAt(int index, out BuildingBehaviour buildingBehaviour)
     {
         if (index < 0 || index >= PlacedBuildings.Count)
         {
-            placedBuilding = null;
+            buildingBehaviour = null;
             return false;
         }
 
-        placedBuilding = PlacedBuildings[index];
+        buildingBehaviour = PlacedBuildings[index];
         return true;
     }
 }
-public class PlacedBuilding : ICanBeInspected
+public abstract class BuildingBehaviour : MonoBehaviour, IPositionProvider, IFromToDataProvider, IProcedureProvider
 {
+    protected BehaviourCellContext Context;
     public Card Sourcecard;
-
-    public PlacedBuilding(Card card)
+    public ProcedureBase Procedure { get; protected set; }
+    public Vector2 Position => transform.position;
+    public void GiveContext(BehaviourCellContext context) => Context = context;
+    private void OnDisable() => OnRemoveBuilding();
+    public abstract void OnAddBuilding();
+    protected abstract void OnRemoveBuilding();
+    public virtual bool TryGetFromToData(out FromToData data)
     {
-        Sourcecard = card;
+        data = default;
+        return false;
     }
+}
+public interface IProcedureProvider
+{
+    public ProcedureBase Procedure { get; }
 }

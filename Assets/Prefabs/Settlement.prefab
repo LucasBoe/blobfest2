@@ -66,10 +66,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 908754757402535459, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
       propertyPath: m_Name
-      value: Houses
+      value: Settlement
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 908754757402535459, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 7880518704563499417}
   m_SourcePrefab: {fileID: 100100000, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
+--- !u!1 &7088122634920410664 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 908754757402535459, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
+  m_PrefabInstance: {fileID: 7981111194351736843}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7880518704563499417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7088122634920410664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3edb41c4b7a84b7982ae443e37a008ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sourcecard: {fileID: -6169304890753435576, guid: 596bdce9ef9aa434ba2cdbe478c80a47, type: 2}
+  fieldSprite: {fileID: 21300000, guid: 7a55e1f41645949a8856409f59f28786, type: 3}

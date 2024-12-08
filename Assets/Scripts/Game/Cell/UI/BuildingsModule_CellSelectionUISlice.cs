@@ -1,16 +1,19 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
-internal class BuildingsModule_CellSelectionUISlice : CellSelectionUISliceModuleBase
+public class BuildingsModule_CellSelectionUISlice : CellSelectionUISliceModuleBase
 {
     [SerializeField] private BuildingSlotUISlice dummy;
-    private Settlement _settlement;
+    [SerializeField] private BuildingInspectionModule_CellSelectionUISlice inspection;
+    private SettlementBehaviour _settlementBehaviour;
     private List<BuildingSlotUISlice> uiInstances = new();
     protected override void TryPopulate()
     {
-        var maxBuildings = _settlement.Buildings.MaxCount;
-        var populated = _settlement.Buildings.Count;
+        var maxBuildings = _settlementBehaviour.Buildings.MaxCount;
+        var populated = _settlementBehaviour.Buildings.Count;
         
         uiInstances = CreateSlots(4);
 
@@ -31,7 +34,7 @@ internal class BuildingsModule_CellSelectionUISlice : CellSelectionUISliceModule
             }
             
             ui.SetState(BuildingSlotUISlice.SlotState.Full);
-            ui.Init(_settlement.Buildings.GetAt(index));
+            ui.Init(_settlementBehaviour.Buildings.GetAt(index), this);
         }
 
         List<BuildingSlotUISlice> CreateSlots(int amount)
@@ -43,22 +46,51 @@ internal class BuildingsModule_CellSelectionUISlice : CellSelectionUISliceModule
                 var slotInstance = GameObject.Instantiate(dummy, dummy.transform.parent);
                 result.Add(slotInstance);
             }
-
-            for (int i = 0; i < result.Count; i++)
-            {
-                int index = i;
-                result[i].CreateCallback(() => Main.TryInspectAt(index));
-            }
             
             return result;
         }
+    }   
+    public void Inspect(BuildingBehaviour associatedBuildingBehaviour)
+    {
+        Debug.Log($"Inspect: {associatedBuildingBehaviour.Sourcecard.ID.ToString()}");
+        
+        if (associatedBuildingBehaviour != null)
+            inspection.Show(associatedBuildingBehaviour);
+        else
+            inspection.Hide();
     }
     protected override bool CheckShouldBeActive()
     {
-        if (Cell.CurrentBehavior is not Settlement village)
+        if (Cell.CurrentBehavior is not SettlementBehaviour village)
             return false;
 
-        this._settlement = village;
+        this._settlementBehaviour = village;
         return true;
+    }
+}
+
+[System.Serializable]
+public class BuildingInspectionModule_CellSelectionUISlice
+{
+    [SerializeField] private TMP_Text buildingNameText;
+    [SerializeField] private TokenFromToUIModule tokenFromTo;
+    [SerializeField] private ProcedureUIModule procedureVisualizer;
+    private BuildingBehaviour _buildingBehaviour;
+    public void Show(BuildingBehaviour buildingBehaviour)
+    {
+        this._buildingBehaviour = buildingBehaviour;
+        buildingNameText.text = buildingBehaviour.Sourcecard.ID.ToString();
+        buildingNameText.gameObject.SetActive(true);
+        tokenFromTo.Init(buildingBehaviour);
+        procedureVisualizer.Init(buildingBehaviour);
+        
+        tokenFromTo.Show();
+        procedureVisualizer.Show();
+    }
+    public void Hide()
+    {
+        tokenFromTo.Hide();
+        procedureVisualizer.Hide();
+        buildingNameText.gameObject.SetActive(false);
     }
 }
