@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,6 +37,8 @@ public class BuildingsModule_CellSelectionUISlice : CellSelectionUISliceModuleBa
             ui.SetState(BuildingSlotUISlice.SlotState.Full);
             ui.Init(_settlementBehaviour.Buildings.GetAt(index), this);
         }
+        
+        Inspect(null);
 
         List<BuildingSlotUISlice> CreateSlots(int amount)
         {
@@ -52,10 +55,11 @@ public class BuildingsModule_CellSelectionUISlice : CellSelectionUISliceModuleBa
     }   
     public void Inspect(BuildingBehaviour associatedBuildingBehaviour)
     {
-        Debug.Log($"Inspect: {associatedBuildingBehaviour.Sourcecard.ID.ToString()}");
-        
         if (associatedBuildingBehaviour != null)
+        {
+            int index = uiInstances.FindIndex(u => u.AssociatedBuildingBehaviour == associatedBuildingBehaviour);
             inspection.Show(associatedBuildingBehaviour);
+        }
         else
             inspection.Hide();
     }

@@ -77,6 +77,7 @@ MonoBehaviour:
   - {fileID: -8580860634910157316, guid: 9f68cd2b918a542e89e25e5db0aaa545, type: 2}
   StarterCards:
   - {fileID: -6169304890753435576, guid: 596bdce9ef9aa434ba2cdbe478c80a47, type: 2}
+  - {fileID: -3350308523534543427, guid: 596bdce9ef9aa434ba2cdbe478c80a47, type: 2}
 --- !u!114 &6675657689385638484
 MonoBehaviour:
   m_ObjectHideFlags: 0

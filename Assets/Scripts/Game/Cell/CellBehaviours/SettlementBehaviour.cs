@@ -11,6 +11,7 @@ public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>
     public SettlementBuildingModule Buildings = new();
     public float ProgressMultiplier => (1 + directNeightboursthatAreFieldsCount) * .1f;
     private int directNeightboursthatAreFieldsCount = 0;
+    public  int DirectNeightboursthatAreFieldsCount => directNeightboursthatAreFieldsCount;
 
     List<Transform> buildingsTransforms = new();
     public override void Enter()

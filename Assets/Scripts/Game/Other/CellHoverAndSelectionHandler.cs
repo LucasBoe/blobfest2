@@ -59,6 +59,9 @@ public class CellHoverAndSelectionHandler : SingletonBehaviour<CellHoverAndSelec
 
     private static bool IsOverUI()
     {
+        if (!EventSystem.current)
+            return false;
+        
         return EventSystem.current.IsPointerOverGameObject();
     }
 }

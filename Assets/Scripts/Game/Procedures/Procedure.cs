@@ -1,6 +1,7 @@
 ﻿using System;
 using Engine;
 using UnityEngine;
+using Event = Engine.Event;
 
 public abstract class ProcedureBase
 {
@@ -124,21 +125,23 @@ public class DynamicTimeProcecure : ProcedureBase
     public interface IProgressProvider
     {
         public float ProgressMultiplier { get; }
+        public string ProgressText { get; }
+        public Event OnEfficiencyChangedEvent { get; }
     }
 
     private float lastTime;
-    private IProgressProvider progressProvider;
+    public IProgressProvider ProgressProvider;
 
     public DynamicTimeProcecure(IProgressProvider progressProvider)
     {
         lastTime = Time.time;
-        this.progressProvider = progressProvider;
+        this.ProgressProvider = progressProvider;
     }
 
     public override void Update(float time)
     {
         float deltaTime = time - lastTime;
-        SetNewProgression(Progression + progressProvider.ProgressMultiplier * deltaTime);
+        SetNewProgression(Progression + ProgressProvider.ProgressMultiplier * deltaTime);
         lastTime = time;
     }
 }

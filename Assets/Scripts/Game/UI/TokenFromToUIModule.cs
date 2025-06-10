@@ -42,7 +42,6 @@ public abstract class DataUIModule<T> : MonoBehaviour
     {
         this.Data = data;
     }
-
     public abstract void Show();
     public abstract void Hide();
 }

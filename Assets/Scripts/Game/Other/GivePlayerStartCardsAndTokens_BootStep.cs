@@ -20,4 +20,3 @@ public class GivePlayerStartCardsAndTokens_BootStep : MonoBehaviour, ISceneChang
         yield break;
     }
 }
-

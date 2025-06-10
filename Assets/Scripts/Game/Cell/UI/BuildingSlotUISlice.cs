@@ -9,9 +9,11 @@ public class BuildingSlotUISlice : MonoBehaviour, IPointerEnterHandler, IPointer
     [SerializeField] private GameObject blockedRoot, emptyRoot, fullRoot;
     [SerializeField] private Image cardImage, cardOutlineImage, slotOutlineImage;
     
-    private BuildingBehaviour _associatedBuildingBehaviour;
+    private BuildingBehaviour associatedBuildingBehaviour;
     private SlotState slotState;
     private BuildingsModule_CellSelectionUISlice buildingUISlice;
+    
+    public BuildingBehaviour AssociatedBuildingBehaviour => associatedBuildingBehaviour;
     public void SetState(BuildingSlotUISlice.SlotState state)
     {
         this.slotState = state;
@@ -31,9 +33,9 @@ public class BuildingSlotUISlice : MonoBehaviour, IPointerEnterHandler, IPointer
         Debug.Log("Init: " + buildingBehaviour.Sourcecard.name);
         
         this.buildingUISlice = buildingUISlice;
-        _associatedBuildingBehaviour = buildingBehaviour;
-        cardImage.sprite = _associatedBuildingBehaviour.Sourcecard.SpriteRegular;
-        cardOutlineImage.color = _associatedBuildingBehaviour.Sourcecard.Color;
+        associatedBuildingBehaviour = buildingBehaviour;
+        cardImage.sprite = associatedBuildingBehaviour.Sourcecard.SpriteRegular;
+        cardOutlineImage.color = associatedBuildingBehaviour.Sourcecard.Color;
         slotOutlineImage.color = Color.clear;
     }
     public void OnPointerEnter(PointerEventData eventData)
@@ -51,7 +53,7 @@ public class BuildingSlotUISlice : MonoBehaviour, IPointerEnterHandler, IPointer
         else
         {
             slotOutlineImage.color = Color.white;
-            TooltipHandler.Instance.ShowUI(pos,_associatedBuildingBehaviour.Sourcecard.ID.ToString(), this);
+            TooltipHandler.Instance.ShowUI(pos,associatedBuildingBehaviour.Sourcecard.ID.ToString(), this);
         }
     }
     public void OnPointerExit(PointerEventData eventData)
@@ -61,6 +63,6 @@ public class BuildingSlotUISlice : MonoBehaviour, IPointerEnterHandler, IPointer
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        buildingUISlice.Inspect(_associatedBuildingBehaviour);
+        buildingUISlice.Inspect(associatedBuildingBehaviour);
     }
 }

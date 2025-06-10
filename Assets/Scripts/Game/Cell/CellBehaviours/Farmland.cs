@@ -14,9 +14,13 @@ public class Farmland : CellBehaviour, ICanReceive<Villager>
 
     public override void Enter()
     {
-        grain = SpawnTrees();
+        grain = SpawnGrain();
+        foreach (var neightbour in this.Context.Cell.Neightbours)
+        {
+            neightbour.NotifyRefresh();
+        }
     }
-    private List<Grain> SpawnTrees()
+    private List<Grain> SpawnGrain()
     {
         List < Grain > trees = new();
         var prefab = PrefabRefID.Grain.TryGetPrefab<Grain>();

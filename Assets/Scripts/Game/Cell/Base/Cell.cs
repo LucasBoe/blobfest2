@@ -25,6 +25,7 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
 
     public CellBehaviour CurrentBehavior;
     public Engine.Event OnChangedCellTypeEvent = new();
+    public Engine.Event OnTryRefreshEvent = new();
 
     internal static Cell CreateFromRawVoronoi(VoronoiCellData voronoiCellData, Transform root)
     {
@@ -167,4 +168,5 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
     {
         return POIs[i];
     }
+    public void NotifyRefresh() => OnTryRefreshEvent?.Invoke();
 }
