@@ -10,7 +10,7 @@ public class GenericCard<T> : Card where T : Card
     }
     public override bool TryPlay(CardValidationContext context)
     {
-        if (context.CurrentPlayerCell.CurrentBehavior is not ICanReceive<T> receiver)
+        if (context.CurrentHoverCell.CurrentBehavior is not ICanReceive<T> receiver)
             return false;
 
         if (!receiver.CanReceiveCard(this as T))
@@ -27,7 +27,7 @@ public class GenericCard<T> : Card where T : Card
 
         CellHighlightHandler.Instance.CreateHighlightsFor(validCells, Color.green);
 
-        return validCells.Contains(context.CurrentPlayerCell);
+        return validCells.Contains(context.CurrentHoverCell);
     }
 
     private List<Cell> FindValidCells(CardValidationContext context)

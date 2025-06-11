@@ -1,11 +1,12 @@
 ﻿using Engine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-internal class CardUISlice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+internal class CardUISlice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     [SerializeField] Transform followRoot;
     [SerializeField] Image image, outline;
@@ -14,8 +15,12 @@ internal class CardUISlice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private CardStack stack; // Reference to the card stack
     private bool tween = false;
-    private Vector2 selectedOffset = new Vector2(0, 32f);
+    private Vector2 selectedOffset = new Vector2(0, 16f);
+    private Vector2 dragOffset;
     private bool isSelected = false;
+    
+    [SerializeField, ReadOnly] private Vector2 targetPosition;
+    [SerializeField, ReadOnly] private bool isBeingDragged = false;
 
     private CardValidationRequest activeRequest;
 
@@ -45,11 +50,14 @@ internal class CardUISlice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private void Update()
     {
         outline.color = activeRequest == null ? Color.white : (activeRequest.LastResult ? Color.green : Color.red);
-
-        if (!tween)
+        
+        if (!tween && !isBeingDragged)
             return;
 
-        var targetPosition = (Vector2)transform.position + (isSelected ? selectedOffset : Vector2.zero);
+        if (isBeingDragged)
+            Debug.Log("drag");
+        
+        targetPosition = isBeingDragged ? (Vector2)Input.mousePosition - dragOffset : (Vector2)transform.position + (isSelected ? selectedOffset : Vector2.zero);
         followRoot.position = Vector3.Lerp(followRoot.position, targetPosition, Time.deltaTime * 8f);
     }
     private void OnDestroy()
@@ -60,23 +68,38 @@ internal class CardUISlice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnPointerEnter(PointerEventData eventData)
     {
         isSelected = true;
-
-        activeRequest = CardPlayHandler.Instance.RequestValidation(stack.Card);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         isSelected = false;
+    }
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        Debug.Log("OnBeginDrag");
+        dragOffset = transform.position - Input.mousePosition;
+        isBeingDragged = true;
+        
+        
+        activeRequest = CardPlayHandler.Instance.RequestValidation(stack.Card);
+    }
 
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        Debug.Log("OnEndDrag");
+        isBeingDragged = false;   
+        
         if (activeRequest == null)
             return;
 
+        CardPlayHandler.Instance.TryPlay(activeRequest);
+        
         CardPlayHandler.Instance.RemoveValidationRequest(activeRequest);
         activeRequest = null;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnDrag(PointerEventData eventData)
     {
-        CardPlayHandler.Instance.TryPlay(activeRequest);
+        
     }
 }
 
@@ -87,16 +110,16 @@ internal class CardPlayHandler : Singleton<CardPlayHandler>
 
     protected override void OnCreate()
     {
-        PlayerEventHandler.Instance.OnPlayerChangedCellEvent.AddListener(OnPlayerChangedCell);
+        CellHoverAndSelectionHandler.Instance.OnHoverChangedEvent.AddListener(OnHoverChanged);
         context.Map = MapHandler.Instance.MapData;
     }
     protected override void OnDestroy()
     {
-        PlayerEventHandler.Instance.OnPlayerChangedCellEvent.RemoveListener(OnPlayerChangedCell);
+        CellHoverAndSelectionHandler.Instance.OnHoverChangedEvent.RemoveListener(OnHoverChanged);
     }
-    private void OnPlayerChangedCell(Cell cell)
+    private void OnHoverChanged(Cell cell)
     {
-        context.CurrentPlayerCell = cell;
+        context.CurrentHoverCell = cell;
         RefreshAll();
     }
     internal CardValidationRequest RequestValidation(Card card)
@@ -136,7 +159,7 @@ internal class CardPlayHandler : Singleton<CardPlayHandler>
 
 public class CardValidationContext
 {
-    public Cell CurrentPlayerCell;
+    public Cell CurrentPlayerCel, CurrentHoverCell;
     public MapData Map;
 }
 public class CardValidationRequest

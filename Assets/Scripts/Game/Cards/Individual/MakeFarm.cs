@@ -13,10 +13,10 @@ public class MakeFarm : Card
 
     public override bool TryPlay(CardValidationContext context)
     {
-        if (context.CurrentPlayerCell.CellType != VALID)
+        if (context.CurrentHoverCell.CellType != VALID)
             return false;
 
-        context.CurrentPlayerCell.ChangeCellType(CellType.Farmland);
+        context.CurrentHoverCell.ChangeCellType(CellType.Farmland);
         return true;
     }
 
@@ -28,6 +28,6 @@ public class MakeFarm : Card
 
         CellHighlightHandler.Instance.CreateHighlightsFor(validCells, Color.green);
 
-        return validCells.Contains(context.CurrentPlayerCell);
+        return validCells.Contains(context.CurrentHoverCell);
     }
 }

@@ -12,10 +12,10 @@ public class PlaceSettlement : Card
     }
     public override bool TryPlay(CardValidationContext context)
     {
-        if (context.CurrentPlayerCell.CellType != VALID)
+        if (context.CurrentHoverCell.CellType != VALID)
             return false;
 
-        context.CurrentPlayerCell.ChangeCellType(CellType.Settlement);
+        context.CurrentHoverCell.ChangeCellType(CellType.Settlement);
         return true;
     }
     public override bool RefreshValidation(CardValidationContext context)
@@ -24,6 +24,6 @@ public class PlaceSettlement : Card
         List<Cell> validCells = context.Map.Cells.FilterByCellType(VALID);
         CellHighlightHandler.Instance.CreateHighlightsFor(validCells, Color.green);
 
-        return validCells.Contains(context.CurrentPlayerCell);
+        return validCells.Contains(context.CurrentHoverCell);
     }
 }
