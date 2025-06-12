@@ -4,16 +4,15 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-
-public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>
+public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>, ICanReceive<RessourceCard>
 {
     public static new CellType AssociatedCellType => CellType.Settlement;
     public SettlementBuildingModule Buildings = new();
     public float ProgressMultiplier => (1 + directNeightboursthatAreFieldsCount) * .1f;
     private int directNeightboursthatAreFieldsCount = 0;
-    public  int DirectNeightboursthatAreFieldsCount => directNeightboursthatAreFieldsCount;
+    public int DirectNeightboursthatAreFieldsCount => directNeightboursthatAreFieldsCount;
+    private List<Transform> buildingsTransforms = new();
 
-    List<Transform> buildingsTransforms = new();
     public override void Enter()
     {
         Buildings.Handover(AddBuildingVisualsCallback);
@@ -29,7 +28,7 @@ public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>
         BuildingBehaviour instance = GameObject.Instantiate(prefab);
         instance.GiveContext(Context);
         buildingsTransforms.Add(instance.transform);
-        
+
         var pois = Context.Cell.GetPOIS(buildingsTransforms.Count);
         for (int i = 0; i < pois.Length; i++)
         {
@@ -40,10 +39,12 @@ public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>
 
         return instance;
     }
+
     private void OnChangedCellType()
     {
         directNeightboursthatAreFieldsCount = Neightbours.Where(n => n.CellType == CellType.Farmland).Count();
     }
+
     public override void Exit()
     {
         foreach (var building in buildingsTransforms)
@@ -52,15 +53,58 @@ public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>
         foreach (var neightbour in Neightbours)
             neightbour.OnChangedCellTypeEvent.RemoveListener(OnChangedCellType);
     }
+
     public bool CanReceiveCard(Stonemason card)
     {
         return Buildings.HasEmptySlots;
     }
+
     public void DoReceiveCard(Stonemason card)
     {
         Buildings.Place(card);
     }
+
+    public bool CanReceiveCard(RessourceCard card)
+    {
+        if (CurrentDropAction != null)
+            return CurrentDropAction.CanReceiveCard(card);
+
+        switch (card.AssociatedRessourceType)
+        {
+            case RessourceType.Wood:
+                return true;
+        }
+        
+        return false;
+    }
+
+    public void DoReceiveCard(RessourceCard card)
+    {
+        Debug.Log("DoReceiveCard");
+        
+        if (CurrentDropAction != null)
+        {
+            CurrentDropAction.DoReceiveCard(card);
+            return;
+        }
+        
+        switch (card.AssociatedRessourceType)
+        {
+            case RessourceType.Wood:
+                CurrentDropAction = new DropAction(Context.Cell, RessourceType.Wood, new PotentialCard(3, CardID.Settlement));
+                break;
+        }
+        
+        CurrentDropAction?.OnEndEvent.AddListener(RemoveDropAction);
+    }
+
+    private void RemoveDropAction()
+    {
+        CurrentDropAction.OnEndEvent.RemoveListener(RemoveDropAction);
+        CurrentDropAction = null;
+    }
 }
+
 [Serializable]
 public class SettlementBuildingModule
 {
@@ -69,6 +113,7 @@ public class SettlementBuildingModule
     public bool HasEmptySlots => Count < MaxCount;
     public int Count => PlacedBuildings.Count;
     public int MaxCount = 2;
+
     public void Place(Card card)
     {
         if (BuildingProvider.Instance.TryGetPrefab(card, out var prefab))
@@ -78,14 +123,18 @@ public class SettlementBuildingModule
             placed.OnAddBuilding();
         }
     }
-    public void Handover(Func<BuildingBehaviour, BuildingBehaviour> placementCallback) => this.placementCallback = placementCallback;
+
+    public void Handover(Func<BuildingBehaviour, BuildingBehaviour> placementCallback) =>
+        this.placementCallback = placementCallback;
+
     public BuildingBehaviour GetAt(int index)
     {
         if (index < 0 || index >= PlacedBuildings.Count)
             return null;
-        
+
         return PlacedBuildings[index];
-    }   
+    }
+
     public bool TryGetAt(int index, out BuildingBehaviour buildingBehaviour)
     {
         if (index < 0 || index >= PlacedBuildings.Count)
@@ -98,6 +147,7 @@ public class SettlementBuildingModule
         return true;
     }
 }
+
 public abstract class BuildingBehaviour : MonoBehaviour, IPositionProvider, IFromToDataProvider, IProcedureProvider
 {
     protected BehaviourCellContext Context;
@@ -108,12 +158,14 @@ public abstract class BuildingBehaviour : MonoBehaviour, IPositionProvider, IFro
     private void OnDisable() => OnRemoveBuilding();
     public abstract void OnAddBuilding();
     protected abstract void OnRemoveBuilding();
+
     public virtual bool TryGetFromToData(out FromToData data)
     {
         data = default;
         return false;
     }
 }
+
 public interface IProcedureProvider
 {
     public ProcedureBase Procedure { get; }

@@ -16,7 +16,9 @@ public class CustomCursorUI : MonoBehaviour
             // Get the current mouse position and apply the offset
             Vector2 mousePosition = Input.mousePosition;
             cursorImage.transform.position = mousePosition + cursorOffset;
+            #if !UNITY_EDITOR
             Cursor.visible = false;
+            #endif
         }
     }
 

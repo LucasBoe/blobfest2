@@ -53,9 +53,6 @@ internal class CardUISlice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         
         if (!tween && !isBeingDragged)
             return;
-
-        if (isBeingDragged)
-            Debug.Log("drag");
         
         targetPosition = isBeingDragged ? (Vector2)Input.mousePosition - dragOffset : (Vector2)transform.position + (isSelected ? selectedOffset : Vector2.zero);
         followRoot.position = Vector3.Lerp(followRoot.position, targetPosition, Time.deltaTime * 8f);
@@ -92,7 +89,6 @@ internal class CardUISlice : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
             return;
 
         CardPlayHandler.Instance.TryPlay(activeRequest);
-        
         CardPlayHandler.Instance.RemoveValidationRequest(activeRequest);
         activeRequest = null;
     }

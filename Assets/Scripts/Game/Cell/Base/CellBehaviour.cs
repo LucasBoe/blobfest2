@@ -9,6 +9,7 @@ public abstract class CellBehaviour : object, IDealProvider
     protected Cell[] Neightbours => Context.Cell.Neightbours;
     public Deal[] Deals { get; protected set; }
     public bool HasDeals => Deals != null && Deals.Length > 0; 
+    protected DropAction CurrentDropAction;
 
     public void Init(BehaviourCellContext behaviourCellContext)
     {
