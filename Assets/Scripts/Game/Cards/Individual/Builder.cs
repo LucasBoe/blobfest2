@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlaceSettlement : Card
+public class Builder : Card
 {
     public const CellType VALID = CellType.Meadow;
-    public override PrefabRefID BuildingPrefabRefID => PrefabRefID.Houses;
+    public override PrefabRefID BuildingPrefabRefID => PrefabRefID.StonemasonHut;
     public override void EndValidation(CardValidationContext context)
     {
         CellHighlightHandler.Instance.DestroyAllHighlights();

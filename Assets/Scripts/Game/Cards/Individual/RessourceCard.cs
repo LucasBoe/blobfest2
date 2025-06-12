@@ -7,6 +7,7 @@ public class RessourceCard : Card
 {
     [FormerlySerializedAs("AssociatedType")] [SerializeField]
     public RessourceType AssociatedRessourceType;
+    public Sprite ResourceIcon;
 
     public override bool TryPlay(CardValidationContext context)
     {
@@ -45,7 +46,8 @@ public enum RessourceType
 {
     Wood,
     Stone,
-    Yield
+    Yield,
+    Villager
 }
 
 public static class RessourceTypeIconUtil
@@ -56,11 +58,18 @@ public static class RessourceTypeIconUtil
         {
             case RessourceType.Wood:
                 return FromCard(CardID.Wood);
+            
+            case RessourceType.Villager:
+                return FromCard(CardID.Villager);
         }
 
         Sprite FromCard(CardID card)
         {
-            return card.ToCard().GetIcon();
+            var c = card.ToCard();
+            if (c is RessourceCard rc && rc.ResourceIcon != null)
+                return rc.ResourceIcon;
+            
+            return c.GetIcon();
         }
 
         Debug.LogError("Trying to get icon from RessourceTypeIconUtil which was not set up properly.");

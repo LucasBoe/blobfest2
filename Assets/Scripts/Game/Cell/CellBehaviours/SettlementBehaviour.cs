@@ -16,8 +16,8 @@ public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>, ICanR
     public override void Enter()
     {
         Buildings.Handover(AddBuildingVisualsCallback);
-        Deals = new Deal[] { new Deal(CardID.Settlement, TokenID.Grain, 12) };
-        Buildings.Place(CardID.Settlement.ToCard());
+        Deals = new Deal[] { new Deal(CardID.Settler, TokenID.Grain, 12) };
+        Buildings.Place(CardID.Settler.ToCard());
 
         foreach (var neightbour in Neightbours)
             neightbour.OnChangedCellTypeEvent.AddListener(OnChangedCellType);
@@ -72,7 +72,9 @@ public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>, ICanR
         switch (card.AssociatedRessourceType)
         {
             case RessourceType.Wood:
+            case RessourceType.Villager:
                 return true;
+            
         }
         
         return false;
@@ -91,7 +93,11 @@ public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>, ICanR
         switch (card.AssociatedRessourceType)
         {
             case RessourceType.Wood:
-                CurrentDropAction = new DropAction(Context.Cell, RessourceType.Wood, new PotentialCard(3, CardID.Settlement));
+                CurrentDropAction = new DropAction(Context.Cell, RessourceType.Wood, new PotentialCard(3, CardID.Builder));
+                break;
+            
+            case RessourceType.Villager:
+                CurrentDropAction = new DropAction(Context.Cell, RessourceType.Villager, new PotentialCard(2, CardID.Settler));
                 break;
         }
         

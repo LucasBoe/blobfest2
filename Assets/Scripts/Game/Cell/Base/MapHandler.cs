@@ -83,6 +83,7 @@ public enum CellType
     Meadow,
     Forest,
     Settlement,
+    Camp,
     Mill,
     Farmland,
     Stonefield,

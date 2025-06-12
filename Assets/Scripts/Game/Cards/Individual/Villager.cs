@@ -1,2 +1,2 @@
 ﻿
-public class Villager : GenericCard<Villager> { }
+public class Villager : RessourceCard { }
