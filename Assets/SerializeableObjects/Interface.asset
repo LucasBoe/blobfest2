@@ -1,5 +1,27 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4986803628737767146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72527e59cbfe0e94e902be4c01aecd1b, type: 3}
+  m_Name: builder_placing
+  m_EditorClassIdentifier: 
+  myLibrary: {fileID: 11400000}
+  clip: {fileID: 8300000, guid: 91ebe8f5de335ad4a852e10f941bfbde, type: 3}
+  useMultipleClipVariants: 0
+  clips: []
+  volume: 0.5
+  pitch: 1
+  pitchMin: 0.8
+  pitchMax: 1.2
+  randomizePitch: 1
+  customName: 
 --- !u!114 &-4028915554607716536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38,6 +60,7 @@ MonoBehaviour:
   _sounds:
   - {fileID: 1095337415136446268}
   - {fileID: -4028915554607716536}
+  - {fileID: -4986803628737767146}
 --- !u!114 &1095337415136446268
 MonoBehaviour:
   m_ObjectHideFlags: 0
