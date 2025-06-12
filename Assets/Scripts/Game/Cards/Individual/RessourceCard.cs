@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 public class RessourceCard : Card
 {
     [FormerlySerializedAs("AssociatedType")] [SerializeField]
-    public RessourceType AssociatedRessourceType;
+    public ResourceType AssociatedResourceType;
     public Sprite ResourceIcon;
 
     public override bool TryPlay(CardValidationContext context)
@@ -42,7 +42,7 @@ public class RessourceCard : Card
     }
 }
 
-public enum RessourceType
+public enum ResourceType
 {
     Wood,
     Stone,
@@ -50,16 +50,27 @@ public enum RessourceType
     Villager
 }
 
+public class ResourceAmountPair
+{
+    public ResourceType ResourceType;
+    public int Amount;
+    public ResourceAmountPair(ResourceType type, int amount)
+    {
+        ResourceType = type;
+        Amount = amount;
+    }
+}
+
 public static class RessourceTypeIconUtil
 {
-    public static Sprite ToIcon(this RessourceType type)
+    public static Sprite ToIcon(this ResourceType type)
     {
         switch (type)
         {
-            case RessourceType.Wood:
+            case ResourceType.Wood:
                 return FromCard(CardID.Wood);
             
-            case RessourceType.Villager:
+            case ResourceType.Villager:
                 return FromCard(CardID.Villager);
         }
 

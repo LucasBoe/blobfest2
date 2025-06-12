@@ -4,29 +4,53 @@ using Engine;
 using UnityEngine;
 using Event = Engine.Event;
 
-public class DropAction
+public class ActionBase
 {
     public Cell Cell { get; private set; }
-    public RessourceType InputRessourceType { get; private set; }
-    public PotentialCard[] Cards { get; private set; }
+}
+
+public class ConstructionSelectionAction : ActionBase
+{
+    public ConstructionSelectionAction(Cell cell, params PotentialConstruction[] potentialConstructions)
+    {
+        
+    }
+}
+
+public class PotentialConstruction
+{
+    public CellType ConstructionType { get; set; }
+    public List<ResourceAmountPair> resourcesNeeded { get; set; }
+    public PotentialConstruction(CellType type, params ResourceAmountPair[] resources)
+    {
+        ConstructionType = type;
+        resourcesNeeded = new List<ResourceAmountPair>(resources);
+    }
+}
+
+public class DropAction : ActionBase
+{
+    public Cell Cell { get; private set; }
+    public ResourceType InputResourceType { get; private set; }
+    public PotentialDropCard[] Cards { get; private set; }
     public int CurrentAmount { get; private set; } = 1;
     
     public Event OnEndEvent = new();
     public Event OnRefreshValidationsEvent = new();
-    public DropAction(Cell cell, RessourceType inputRessourceType, params PotentialCard[] cards)
+    public DropAction(Cell cell, ResourceType inputResourceType, params PotentialDropCard[] cards)
     {
         this.Cell = cell;
-        this.InputRessourceType = inputRessourceType;
+        this.InputResourceType = inputResourceType;
         this.Cards = cards;
         
-        foreach (PotentialCard card in cards)
+        foreach (PotentialDropCard card in cards)
             card.DropAction = this;
         
         ActionHandler.Instance.OnStartNewDropActionEvent?.Invoke(this);
     }
     public bool CanReceiveCard(RessourceCard card)
     {
-        if (InputRessourceType != card.AssociatedRessourceType)
+        if (InputResourceType != card.AssociatedResourceType)
             return false;
         
         return true;
@@ -43,11 +67,11 @@ public class DropAction
         
         OnRefreshValidationsEvent?.Invoke();
     }
-    public void Select(PotentialCard potentialCard)
+    public void Select(PotentialDropCard potentialDropCard)
     {
         OnEndEvent?.Invoke();
         ActionHandler.Instance.OnEndDropActionEvent?.Invoke(this);
-        CollectibleSpawner.Instance.SpawnAt(potentialCard.Card.ToCard(), Cell.Center);
+        CollectibleSpawner.Instance.SpawnAt(potentialDropCard.Card.ToCard(), Cell.Center);
     }
 }
 
@@ -63,13 +87,13 @@ public class ActionHandler : Singleton<ActionHandler>
     }
 }
 
-public class PotentialCard
+public class PotentialDropCard
 {
     public int Amount;
     public CardID Card;
     public bool IsReached = false;
     public DropAction DropAction;
-    public PotentialCard(int amount, CardID card)
+    public PotentialDropCard(int amount, CardID card)
     {
         Amount = amount;
         Card = card;

@@ -15,7 +15,7 @@ public class Builder : Card
         if (context.CurrentHoverCell.CellType != VALID)
             return false;
 
-        context.CurrentHoverCell.ChangeCellType(CellType.Settlement);
+        context.CurrentHoverCell.ChangeCellType(CellType.ConstructionSite);
         return true;
     }
     public override bool RefreshValidation(CardValidationContext context)

@@ -13,7 +13,7 @@ public class DropActionUISlice : MonoBehaviour
     [SerializeField] private Image ressourceIconImage;
     
     [SerializeField] private DropActionUICardSlice cardSliceDummy;
-    [SerializeField] private Dictionary<PotentialCard, DropActionUICardSlice> cardSlices = new();
+    [SerializeField] private Dictionary<PotentialDropCard, DropActionUICardSlice> cardSlices = new();
     private void Awake()
     {
         cardSliceDummy.gameObject.SetActive(false);
@@ -21,7 +21,7 @@ public class DropActionUISlice : MonoBehaviour
     public void Init(DropAction dropAction)
     {
         this.dropAction = dropAction;
-        ressourceIconImage.sprite = dropAction.InputRessourceType.ToIcon();
+        ressourceIconImage.sprite = dropAction.InputResourceType.ToIcon();
         
         dropAction.OnRefreshValidationsEvent.AddListener(RefreshValidations);
 

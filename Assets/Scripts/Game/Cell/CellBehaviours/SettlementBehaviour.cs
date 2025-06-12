@@ -69,10 +69,10 @@ public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>, ICanR
         if (CurrentDropAction != null)
             return CurrentDropAction.CanReceiveCard(card);
 
-        switch (card.AssociatedRessourceType)
+        switch (card.AssociatedResourceType)
         {
-            case RessourceType.Wood:
-            case RessourceType.Villager:
+            case ResourceType.Wood:
+            case ResourceType.Villager:
                 return true;
             
         }
@@ -90,14 +90,14 @@ public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>, ICanR
             return;
         }
         
-        switch (card.AssociatedRessourceType)
+        switch (card.AssociatedResourceType)
         {
-            case RessourceType.Wood:
-                CurrentDropAction = new DropAction(Context.Cell, RessourceType.Wood, new PotentialCard(3, CardID.Builder));
+            case ResourceType.Wood:
+                CurrentDropAction = new DropAction(Context.Cell, ResourceType.Wood, new PotentialDropCard(3, CardID.Builder));
                 break;
             
-            case RessourceType.Villager:
-                CurrentDropAction = new DropAction(Context.Cell, RessourceType.Villager, new PotentialCard(2, CardID.Settler));
+            case ResourceType.Villager:
+                CurrentDropAction = new DropAction(Context.Cell, ResourceType.Villager, new PotentialDropCard(2, CardID.Settler));
                 break;
         }
         

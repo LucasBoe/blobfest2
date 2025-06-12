@@ -7,11 +7,11 @@ internal class DropActionUICardSlice : MonoBehaviour
     [SerializeField] private Image cardImage;
     [SerializeField] private TMP_Text cardCostText;
     [SerializeField] private Button cardButton;
-    public void Init(PotentialCard card)
+    public void Init(PotentialDropCard dropCard)
     {
-        cardButton.onClick.AddListener(card.Select);
-        cardImage.sprite = card.Card.ToCard().SpriteRegular;
-        cardCostText.text = card.Amount.ToString();
+        cardButton.onClick.AddListener(dropCard.Select);
+        cardImage.sprite = dropCard.Card.ToCard().SpriteRegular;
+        cardCostText.text = dropCard.Amount.ToString();
     }
     public void SetValid(bool keyIsReached)
     {
