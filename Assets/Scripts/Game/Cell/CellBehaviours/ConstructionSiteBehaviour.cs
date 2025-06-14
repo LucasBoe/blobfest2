@@ -5,6 +5,7 @@ using Engine;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UIElements;
+using Object = UnityEngine.Object;
 
 public class ConstructionSiteBehaviour : CellBehaviour, ICanReceive<RessourceCard>
 {
@@ -12,6 +13,7 @@ public class ConstructionSiteBehaviour : CellBehaviour, ICanReceive<RessourceCar
     PotentialConstruction selectedConstruction;
     private ConstructionSelectionAction constructionSelectionAction;
     private Dictionary<ResourceType, int> paidResources = new ();
+    private GameObject visuals;
     public override void Enter()
     {
         constructionSelectionAction = new ConstructionSelectionAction(
@@ -21,6 +23,9 @@ public class ConstructionSiteBehaviour : CellBehaviour, ICanReceive<RessourceCar
                 new ResourceAmountPair(ResourceType.Wood, 3), 
                 new ResourceAmountPair(ResourceType.Stone, 2)
                 ));
+        
+        var prefab = PrefabRefID.ConstructionSite.TryGetPrefab<Transform>();
+        visuals = Instantiate(prefab, Context.Cell.Center).gameObject;
     }
     private void SelectionCallback(PotentialConstruction construction)
     {
@@ -28,7 +33,7 @@ public class ConstructionSiteBehaviour : CellBehaviour, ICanReceive<RessourceCar
     }
     public override void Exit()
     {
-        
+        Object.Destroy(visuals);
     }
     public bool CanReceiveCard(RessourceCard card)
     {

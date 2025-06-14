@@ -60,13 +60,14 @@ MonoBehaviour:
   AllowInstancesForBaseType: 1
   OnlyAllowOneInstancePerChildType: 0
   Contained:
-  - {fileID: -37787752940256169}
+  - {fileID: 8042341618782615358}
   - {fileID: 6144284535410469593}
   - {fileID: 2494186021907322058}
   - {fileID: 4538016506357037980}
-  - {fileID: -6275763027209015815}
   - {fileID: 6926336665773359304}
+  - {fileID: -37787752940256169}
   - {fileID: -38847951830290120}
+  - {fileID: -6275763027209015815}
 --- !u!114 &2494186021907322058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +128,18 @@ MonoBehaviour:
   Container: {fileID: 11400000}
   assetGUID: -61480
   Prefab: {fileID: 0}
+--- !u!114 &8042341618782615358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d2040ab5bec487ab177420a5582389, type: 3}
+  m_Name: ConstructionSite
+  m_EditorClassIdentifier: 
+  Container: {fileID: 11400000}
+  assetGUID: -5622
+  Prefab: {fileID: 7088122634920410664, guid: 028b40a401360474083db0f87a8cf264, type: 3}
