@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Engine;
@@ -11,9 +12,20 @@ public class ActionBase
 
 public class ConstructionSelectionAction : ActionBase
 {
-    public ConstructionSelectionAction(Cell cell, params PotentialConstruction[] potentialConstructions)
+    public Cell Cell;
+    public PotentialConstruction[] PotentialConstructions;
+    private Action<PotentialConstruction> callback;
+    public ConstructionSelectionAction(Cell cell, Action<PotentialConstruction> callback, params PotentialConstruction[] potentialConstructions)
     {
-        
+        this.Cell = cell;
+        this.callback = callback;
+        this.PotentialConstructions = potentialConstructions;
+    }
+
+    public void Select(PotentialConstruction potentialConstruction)
+    {
+        callback?.Invoke(potentialConstruction);
+        ActionHandler.Instance.OnEndConstructionSelectionActionEvent?.Invoke(this);
     }
 }
 
@@ -80,11 +92,8 @@ public class ActionHandler : Singleton<ActionHandler>
 {
     public Event<DropAction> OnStartNewDropActionEvent = new();
     public Event<DropAction> OnEndDropActionEvent = new();
-    protected override void OnCreate()
-    {
-        base.OnCreate();
-        
-    }
+    public Event<ConstructionSelectionAction> OnStartNewConstructionSelectionActionEvent = new();
+    public Event<ConstructionSelectionAction> OnEndConstructionSelectionActionEvent = new();
 }
 
 public class PotentialDropCard

@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-internal class DropActionUICardSlice : MonoBehaviour
+internal class DropActionUICardSlice : MonoBehaviour, IUISlice<PotentialDropCard>
 {
     [SerializeField] private Image cardImage;
     [SerializeField] private TMP_Text cardCostText;

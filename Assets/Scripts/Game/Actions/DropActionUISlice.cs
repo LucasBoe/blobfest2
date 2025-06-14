@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DropActionUISlice : MonoBehaviour
+public class DropActionUISlice : MonoBehaviour, IUISlice<DropAction>
 {
     private DropAction dropAction;
 
@@ -26,12 +26,7 @@ public class DropActionUISlice : MonoBehaviour
         dropAction.OnRefreshValidationsEvent.AddListener(RefreshValidations);
 
         foreach (var card in dropAction.Cards)
-        {
-            var instance = Instantiate(cardSliceDummy, cardSliceDummy.transform.parent);
-            instance.gameObject.SetActive(true);
-            instance.Init(card);
-            cardSlices.Add(card, instance);
-        }
+            InstantiationUtil.InstantiateFromDummy(cardSliceDummy, card, cardSlices);
         
         RefreshValidations();
     }
@@ -45,4 +40,9 @@ public class DropActionUISlice : MonoBehaviour
         foreach (var slice in cardSlices)
             slice.Value.SetValid(slice.Key.IsReached);
     }
+}
+
+public interface IUISlice<T>
+{
+    void Init(T data);
 }

@@ -6,23 +6,24 @@ using UnityEngine.Serialization;
 
 public class ConstructionSiteBehaviour : CellBehaviour, ICanReceive<RessourceCard>
 {
-    public ConstructionSiteBehaviour()
-    {
-        
-    }
-
+    PotentialConstruction selectedConstruction;
     public static new CellType AssociatedCellType => CellType.ConstructionSite;
     private ConstructionSelectionAction constructionSelectionAction;
     public override void Enter()
     {
         constructionSelectionAction = new ConstructionSelectionAction(
             Context.Cell,
+            SelectionCallback,
             new PotentialConstruction(CellType.Mill, 
                 new ResourceAmountPair(ResourceType.Wood, 3), 
                 new ResourceAmountPair(ResourceType.Stone, 2)
                 ));
     }
 
+    private void SelectionCallback(PotentialConstruction construction)
+    {
+        selectedConstruction = construction;
+    }
     public override void Exit()
     {
         
