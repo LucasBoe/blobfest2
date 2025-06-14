@@ -12,7 +12,7 @@ public static class InstantiationUtil
     /// <param name="dummy">A disabled dummy in the scene.</param>
     /// <param name="data">The data to pass into Init.</param>
     /// <returns>The newly instantiated slice.</returns>
-    public static U InstantiateFromDummy<T, U>(U dummy, T data, Vector3? optPosition = null, Dictionary<T, U> optDictionary = null)
+    public static U InstantiateFromDummy<T, U>(U dummy, T data, Vector3? optPosition, Dictionary<T, U> optDictionary)
         where U : MonoBehaviour, IUISlice<T>
     {
         var instance = UnityEngine.Object.Instantiate(dummy, dummy.transform.parent);
@@ -27,18 +27,16 @@ public static class InstantiationUtil
         
         return instance;
     }
-    
     public static U InstantiateFromDummy<T, U>(U dummy, T data, Dictionary<T, U> optDictionary = null)
         where U : MonoBehaviour, IUISlice<T>
     {
-        return InstantiateFromDummy(dummy, data, optDictionary: optDictionary);
+        return InstantiateFromDummy(dummy, data, optPosition: null, optDictionary: optDictionary);
     }    
     public static U InstantiateFromDummy<T, U>(U dummy, T data)
         where U : MonoBehaviour, IUISlice<T>
     {
-        return InstantiateFromDummy(dummy, data);
+        return InstantiateFromDummy(dummy, data, optPosition: null, optDictionary: null);
     }
-    
     public static void DestroyAndRemove<T, U>(T identifier, Dictionary<T, U> dictionary)
         where U : MonoBehaviour
     {

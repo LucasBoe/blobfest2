@@ -20,6 +20,8 @@ public class ConstructionSelectionAction : ActionBase
         this.Cell = cell;
         this.callback = callback;
         this.PotentialConstructions = potentialConstructions;
+        
+        ActionHandler.Instance.OnStartNewConstructionSelectionActionEvent?.Invoke(this);
     }
 
     public void Select(PotentialConstruction potentialConstruction)

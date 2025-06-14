@@ -19,7 +19,11 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
     public Vector2 Center => transform.position;
     public const int MAX_POI_COUNT = 10;
 
-    public CellType CellType { get => cellType; private set => cellType = value; }
+    public CellType CellType
+    {
+        get => cellType;
+        private set => cellType = value;
+    }
 
     public Transform ContentTransform;
 
@@ -36,11 +40,13 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
         cell.Init(voronoiCellData);
         return cell;
     }
+
     public void DelayedStart()
     {
         if (CurrentBehavior != null)
             CurrentBehavior.OnDelayedStart();
     }
+
     private void Init(VoronoiCellData voronoiCellData)
     {
         Edges = TransformToGamePos(voronoiCellData.Edges);
@@ -58,18 +64,20 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
             if (i <= 1)
             {
                 POIs[0] = new Vector2[0];
-                POIs[1] = new [] { Center };
+                POIs[1] = new[] { Center };
             }
             else
             {
-               POIs[i] = NewPolygonUtil.CalculateDynamicPointsInPolygon(Edges, i).ToArray();
+                POIs[i] = NewPolygonUtil.CalculateDynamicPointsInPolygon(Edges, i).ToArray();
             }
         }
     }
+
     internal void ConnectNeightbours(Cell[] cells)
     {
         Neightbours = cells.Where(c => NeightbourGUIDs.Contains(c.GUID)).ToArray();
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
@@ -82,7 +90,9 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
             Gizmos.DrawLine(a, b);
         }
     }
-#region SPACE TRANSFORMATION
+
+    #region SPACE TRANSFORMATION
+
     public static Vector2[] TransformToGamePos(Vector2[] points)
     {
         Vector2[] result = new Vector2[points.Length];
@@ -92,6 +102,7 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
 
         return result;
     }
+
     public static Vector2[] TransformGameToTopPos(Vector2[] point)
     {
         Vector2[] result = new Vector2[point.Length];
@@ -101,14 +112,17 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
 
         return result;
     }
+
     public static Vector2 TransformToGamePos(Vector2 point)
     {
         return new Vector2(point.x, point.y / 2f);
     }
+
     public static Vector2 TransformGameToTopPos(Vector2 point)
     {
         return new Vector2(point.x, point.y * 2f);
     }
+
     #endregion
 
     private void Update()
@@ -116,6 +130,7 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
         if (CurrentBehavior != null)
             CurrentBehavior.Update();
     }
+
     public void ChangeCellType(CellType cellType, bool refreshBehaviour = true)
     {
         CellType = cellType;
@@ -125,10 +140,12 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
 
         OnChangedCellTypeEvent?.Invoke();
     }
+
     public void ChangeBehaviourTo<T>() where T : CellBehaviour
     {
         ChangeBehaviourTo((T)Activator.CreateInstance(typeof(T)));
     }
+
     public void ChangeBehaviourTo(Type behaviourType)
     {
         if (Activator.CreateInstance(behaviourType) is CellBehaviour behaviour)
@@ -136,6 +153,7 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
             ChangeBehaviourTo(behaviour);
         }
     }
+
     private void ChangeBehaviourTo<T>(T behaviour) where T : CellBehaviour
     {
         if (CurrentBehavior != null)
@@ -152,21 +170,37 @@ public partial class Cell : MonoBehaviour, IDelayedStartObserver, INPCPositionPr
 
     internal void RefreshBehaviourToMatchTypeFrom(IEnumerable<Type> behaviourTypes)
     {
-        // Find the behavior type that matches the cell's type
-        var behaviourType = behaviourTypes.FirstOrDefault(bt =>
-            (CellType)bt.GetProperty("AssociatedCellType").GetValue(null) == CellType);
+        Debug.Log("Starting RefreshBehaviourToMatchTypeFrom...");
 
-        if (behaviourType != null)
+        foreach (var bt in behaviourTypes)
         {
-            ChangeBehaviourTo(behaviourType);
+            var associatedCellTypeProp = bt.GetProperty("AssociatedCellType");
+            if (associatedCellTypeProp == null)
+            {
+                Debug.Log($"Type {bt.Name} does not have an 'AssociatedCellType' property.");
+                continue;
+            }
+
+            var value = associatedCellTypeProp.GetValue(null);
+            Debug.Log($"Checking type: {bt.Name}, AssociatedCellType: {value}");
+
+            if ((CellType)value == CellType)
+            {
+                Debug.Log($"Match found: {bt.Name}");
+                ChangeBehaviourTo(bt);
+                return;
+            }
         }
 
+        Debug.Log("No matching behavior type found.");
     }
+
     public Vector2 RequestPosition(NPCBehaviour npc) => Center;
 
     public Vector2[] GetPOIS(int i)
     {
         return POIs[i];
     }
+
     public void NotifyRefresh() => OnTryRefreshEvent?.Invoke();
 }

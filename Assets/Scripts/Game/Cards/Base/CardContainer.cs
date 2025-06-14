@@ -18,5 +18,8 @@ public class CardContainer : ScriptableObjectContainer<Card>
         MakeFarm = -309634,
         Villager = -119086,
         Stonemason = -9118,
+        Stone = -668576,
+        Yield = -668720,
+        Farmer = -668854,
     }
 #endregion GENERATED (ScriptableObjectContainer)

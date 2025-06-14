@@ -16,7 +16,7 @@ MonoBehaviour:
   assetGUID: -34392
   SpriteRegular: {fileID: 21300000, guid: cff7a4dfb50e381408bc69ea513ae421, type: 3}
   HasNPC: 0
-  AssociatedRessourceType: 0
+  AssociatedResourceType: 0
   ResourceIcon: {fileID: 21300000, guid: 5cb782f76053a412aaca9a0f83037bd7, type: 3}
 --- !u!114 &-6510878058381164040
 MonoBehaviour:
@@ -34,7 +34,7 @@ MonoBehaviour:
   assetGUID: -668720
   SpriteRegular: {fileID: 21300000, guid: fb50956e3a217e44eb35555902ed9e8e, type: 3}
   HasNPC: 0
-  AssociatedRessourceType: 2
+  AssociatedResourceType: 0
   ResourceIcon: {fileID: 21300000, guid: 98e4537fd2cc342c398447da974e8365, type: 3}
 --- !u!114 &-6169304890753435576
 MonoBehaviour:
@@ -68,7 +68,7 @@ MonoBehaviour:
   assetGUID: -119086
   SpriteRegular: {fileID: 21300000, guid: eedefba67ed0f4aa2a4916b3f34a324f, type: 3}
   HasNPC: 1
-  AssociatedRessourceType: 3
+  AssociatedResourceType: 0
   ResourceIcon: {fileID: 0}
 --- !u!114 &-3350308523534543427
 MonoBehaviour:
@@ -102,7 +102,7 @@ MonoBehaviour:
   assetGUID: -668854
   SpriteRegular: {fileID: 21300000, guid: 00aabf7ebee0d2c4fb001f627cfb8808, type: 3}
   HasNPC: 0
-  AssociatedRessourceType: 3
+  AssociatedResourceType: 0
   ResourceIcon: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
@@ -176,5 +176,5 @@ MonoBehaviour:
   assetGUID: -668576
   SpriteRegular: {fileID: 21300000, guid: 46023889c3feee1499780d6cb5b9d8dc, type: 3}
   HasNPC: 0
-  AssociatedRessourceType: 1
+  AssociatedResourceType: 0
   ResourceIcon: {fileID: 21300000, guid: dbca1e989106f4a31a982864c89f1143, type: 3}

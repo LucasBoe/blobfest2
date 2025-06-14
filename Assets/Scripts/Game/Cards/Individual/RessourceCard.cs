@@ -70,6 +70,9 @@ public static class RessourceTypeIconUtil
             case ResourceType.Wood:
                 return FromCard(CardID.Wood);
             
+            case ResourceType.Stone:
+                return FromCard(CardID.Stone);
+            
             case ResourceType.Villager:
                 return FromCard(CardID.Villager);
         }
@@ -83,7 +86,7 @@ public static class RessourceTypeIconUtil
             return c.GetIcon();
         }
 
-        Debug.LogError("Trying to get icon from RessourceTypeIconUtil which was not set up properly.");
+        Debug.LogError($"Trying to get icon from RessourceTypeIconUtil which was not set up properly. {type}");
         return null;
     }
 }

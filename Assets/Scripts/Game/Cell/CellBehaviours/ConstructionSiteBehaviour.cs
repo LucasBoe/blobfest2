@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Engine;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
 
 public class ConstructionSiteBehaviour : CellBehaviour, ICanReceive<RessourceCard>
 {
-    PotentialConstruction selectedConstruction;
     public static new CellType AssociatedCellType => CellType.ConstructionSite;
+    PotentialConstruction selectedConstruction;
     private ConstructionSelectionAction constructionSelectionAction;
+    private Dictionary<ResourceType, int> paidResources = new ();
     public override void Enter()
     {
         constructionSelectionAction = new ConstructionSelectionAction(
@@ -19,7 +22,6 @@ public class ConstructionSiteBehaviour : CellBehaviour, ICanReceive<RessourceCar
                 new ResourceAmountPair(ResourceType.Stone, 2)
                 ));
     }
-
     private void SelectionCallback(PotentialConstruction construction)
     {
         selectedConstruction = construction;
@@ -30,47 +32,36 @@ public class ConstructionSiteBehaviour : CellBehaviour, ICanReceive<RessourceCar
     }
     public bool CanReceiveCard(RessourceCard card)
     {
-        if (CurrentDropAction != null)
-            return CurrentDropAction.CanReceiveCard(card);
+        if (selectedConstruction == null)
+            return false;
 
-        switch (card.AssociatedResourceType)
+        var type = card.AssociatedResourceType;
+        foreach (var resource in selectedConstruction.resourcesNeeded)
         {
-            case ResourceType.Wood:
-            case ResourceType.Villager:
-                return true;
-            
+            if (resource.ResourceType == type)
+            {
+                if (!paidResources.ContainsKey(type) || paidResources[type] < resource.Amount)
+                    return true;
+            }
         }
         
         return false;
     }
-
     public void DoReceiveCard(RessourceCard card)
     {
-        Debug.Log("DoReceiveCard");
-        
-        if (CurrentDropAction != null)
-        {
-            CurrentDropAction.DoReceiveCard(card);
-            return;
-        }
-        
-        switch (card.AssociatedResourceType)
-        {
-            case ResourceType.Wood:
-                CurrentDropAction = new DropAction(Context.Cell, ResourceType.Wood, new PotentialDropCard(3, CardID.Builder));
-                break;
-            
-            case ResourceType.Villager:
-                CurrentDropAction = new DropAction(Context.Cell, ResourceType.Villager, new PotentialDropCard(2, CardID.Settler));
-                break;
-        }
-        
-        CurrentDropAction?.OnEndEvent.AddListener(RemoveDropAction);
-    }
+        var type = card.AssociatedResourceType;
+        paidResources.AddOrInit(type, 1);
 
-    private void RemoveDropAction()
-    {
-        CurrentDropAction.OnEndEvent.RemoveListener(RemoveDropAction);
-        CurrentDropAction = null;
+        
+        foreach (var resource in selectedConstruction.resourcesNeeded)
+        {
+            if (resource.ResourceType == type)
+            {
+                if (!paidResources.ContainsKey(type) || paidResources[type] < resource.Amount)
+                    return;
+            }
+        }
+        
+        Context.Cell.ChangeCellType(selectedConstruction.ConstructionType);
     }
 }
