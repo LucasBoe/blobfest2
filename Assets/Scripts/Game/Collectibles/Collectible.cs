@@ -33,7 +33,12 @@ public class Collectible : MonoBehaviour
             token = t;
 
         if (_object is Card c)
+        {
             card = c;
+
+            if (c is RessourceCard ressourceCard)
+                iconRenderer.sprite = ressourceCard.ResourceIcon;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

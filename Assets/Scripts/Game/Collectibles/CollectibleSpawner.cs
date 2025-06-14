@@ -14,7 +14,7 @@ public class CollectibleSpawner : SingletonBehaviour<CollectibleSpawner>
             SpawnAtCursor(CardID.Villager.ToCard());
 
         if (Input.GetKeyUp(KeyCode.Alpha2))
-            SpawnAtCursor(CardID.MakeFarm.ToCard());
+            SpawnAtCursor(CardID.Farmer.ToCard());
 
         if (Input.GetKeyUp(KeyCode.Alpha3))
             SpawnAtCursor(CardID.Settler.ToCard());

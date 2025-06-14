@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Forest : CellBehaviour, ICanReceive<Villager>
+public class Forest : CellBehaviour, ICanReceive<RessourceCard>
 {
     public static new CellType AssociatedCellType => CellType.Forest;
 
     List<Tree> trees = new();
-
     public bool HasTrees => trees.Count > 0;
     public bool HasActiveProcedure => activeProcedure != null && activeProcedure.IsRunning;
     private ProcedureBase activeProcedure;
@@ -32,14 +31,19 @@ public class Forest : CellBehaviour, ICanReceive<Villager>
         foreach (var tree in trees)
             UnityEngine.Object.Destroy(tree.gameObject);
     }
-    public bool CanReceiveCard(Villager card) => !HasActiveProcedure && HasTrees;
+    public bool CanReceiveCard(RessourceCard card)
+    {
+        if (HasActiveProcedure || !HasTrees)
+            return false;
 
-    public void DoReceiveCard(Villager card)
+        return card.AssociatedResourceType == ResourceType.Villager;
+    }
+    public void DoReceiveCard(RessourceCard card)
     {
         activeProcedure = ProcedureHandler.Instance.StartNewProcedure(10)
             .At(Context.Cell)
             .WithNPC()
-            .WithReward(TokenID.Wood)
+            .WithReward(CardID.Wood)
             .WithCallback(() =>
             {
                 var tree = trees[0];

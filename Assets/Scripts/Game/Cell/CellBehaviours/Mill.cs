@@ -8,7 +8,7 @@ public class Mill : CellBehaviour
 
     public override void Enter()
     {
-        Deals = new Deal[] { new Deal(CardID.MakeFarm, TokenID.Wood, 4)};
+        Deals = new Deal[] { new Deal(CardID.Farmer, TokenID.Wood, 4)};
 
         var prefab = PrefabRefID.Mill.TryGetPrefab<Transform>();
         mill = Instantiate(prefab, Context.Cell.Center);

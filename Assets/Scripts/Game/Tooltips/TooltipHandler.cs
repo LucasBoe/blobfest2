@@ -13,15 +13,15 @@ public class TooltipHandler : SingletonBehaviour<TooltipHandler>
         dummy.gameObject.SetActive(false);
     }
 
-    public void ShowUI(Vector2 screenPosition, string content, object requestor)
+    public void ShowUI(Vector2 screenPosition, string content, object requestor, Color? overrideColor = null)
     {
-        Show(screenPosition, content, requestor, uiSpaceParent);
+        Show(screenPosition, content, requestor, uiSpaceParent, overrideColor);
     }
-    public void ShowWorld(Vector3 worldPosition, string content, object requestor)
+    public void ShowWorld(Vector3 worldPosition, string content, object requestor, Color? overrideColor = null)
     {
-        Show(worldPosition, content, requestor, worldSpaceParent);
+        Show(worldPosition, content, requestor, worldSpaceParent, overrideColor);
     }
-    private void Show(Vector3 position, string content, object requestor, Transform parent)
+    private void Show(Vector3 position, string content, object requestor, Transform parent, Color? overrideColor = null)
     {
         if (activeTooltips.Exists(t => t.Requestor == requestor))
         {
@@ -32,7 +32,9 @@ public class TooltipHandler : SingletonBehaviour<TooltipHandler>
         TooltipUISlice tooltipUISlice = Instantiate(dummy, parent);
         TooltipData tooltipData = new TooltipData
         {
-            Content = content
+            Content = content,
+            OverrideColor = overrideColor,
+            AllCaps = overrideColor != null
         };
 
         tooltipUISlice.Init(tooltipData);
@@ -73,4 +75,6 @@ public class TooltipHandler : SingletonBehaviour<TooltipHandler>
 public class TooltipData
 {
     public string Content;
+    public Color? OverrideColor;
+    public bool AllCaps;
 }

@@ -51,6 +51,13 @@ public class CellHoverTooltipHandler : Singleton<CellHoverTooltipHandler>
         // ShowUI the tooltip for the new hovered cell
         var text = cell.CellType.ToString();
         var position = cell.Center;
-        TooltipHandler.Instance.ShowWorld(position, text, this);
+        
+        Color? overrideColor = null;
+
+        if (cell.CurrentBehavior != null)
+            if (cell.CurrentBehavior is SettlementBehaviour || cell.CurrentBehavior is ConstructionSiteBehaviour)
+                overrideColor = new Color(.2f, .7f, 1f);
+        
+        TooltipHandler.Instance.ShowWorld(position, text, this, overrideColor);
     }
 }

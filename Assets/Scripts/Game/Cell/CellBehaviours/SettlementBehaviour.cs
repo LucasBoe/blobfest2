@@ -96,6 +96,10 @@ public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>, ICanR
                 CurrentDropAction = new DropAction(Context.Cell, ResourceType.Wood, new PotentialDropCard(3, CardID.Builder));
                 break;
             
+            case ResourceType.Yield:
+                CurrentDropAction = new DropAction(Context.Cell, ResourceType.Yield, new PotentialDropCard(3, CardID.Farmer));
+                break;
+            
             case ResourceType.Villager:
                 CurrentDropAction = new DropAction(Context.Cell, ResourceType.Villager, new PotentialDropCard(2, CardID.Settler));
                 break;

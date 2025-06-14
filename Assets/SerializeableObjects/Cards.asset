@@ -34,7 +34,7 @@ MonoBehaviour:
   assetGUID: -668720
   SpriteRegular: {fileID: 21300000, guid: fb50956e3a217e44eb35555902ed9e8e, type: 3}
   HasNPC: 0
-  AssociatedResourceType: 0
+  AssociatedResourceType: 2
   ResourceIcon: {fileID: 21300000, guid: 98e4537fd2cc342c398447da974e8365, type: 3}
 --- !u!114 &-6169304890753435576
 MonoBehaviour:
@@ -68,7 +68,7 @@ MonoBehaviour:
   assetGUID: -119086
   SpriteRegular: {fileID: 21300000, guid: eedefba67ed0f4aa2a4916b3f34a324f, type: 3}
   HasNPC: 1
-  AssociatedResourceType: 0
+  AssociatedResourceType: 3
   ResourceIcon: {fileID: 0}
 --- !u!114 &-3350308523534543427
 MonoBehaviour:
@@ -80,30 +80,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 050c355af459d4212a1f5c48197ce099, type: 3}
-  m_Name: MakeFarm
-  m_EditorClassIdentifier: 
-  Container: {fileID: 11400000}
-  assetGUID: -309634
-  SpriteRegular: {fileID: 21300000, guid: b36a908d53d6a4c49859ae6fac5c9008, type: 3}
-  HasNPC: 0
---- !u!114 &-1994512037339297632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4edc2933204a6d4e8b89564d8a9881d, type: 3}
   m_Name: Farmer
   m_EditorClassIdentifier: 
   Container: {fileID: 11400000}
-  assetGUID: -668854
+  assetGUID: -309634
   SpriteRegular: {fileID: 21300000, guid: 00aabf7ebee0d2c4fb001f627cfb8808, type: 3}
   HasNPC: 0
-  AssociatedResourceType: 0
-  ResourceIcon: {fileID: 0}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +109,6 @@ MonoBehaviour:
   - {fileID: 319133233190635619}
   - {fileID: 3390103076821283450}
   - {fileID: -6510878058381164040}
-  - {fileID: -1994512037339297632}
 --- !u!114 &167049508482969079
 MonoBehaviour:
   m_ObjectHideFlags: 0

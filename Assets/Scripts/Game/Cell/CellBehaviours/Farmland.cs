@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Farmland : CellBehaviour, ICanReceive<Villager>
+public class Farmland : CellBehaviour, ICanReceive<RessourceCard>
 {
     public static new CellType AssociatedCellType => CellType.Farmland;
 
     List<Grain> grain = new();
-
     public bool HasGrainTrees => grain.Count > 0;
     public bool HasActiveProcedure => activeProcedure != null && activeProcedure.IsRunning;
     private ProcedureBase activeProcedure;
@@ -36,14 +35,20 @@ public class Farmland : CellBehaviour, ICanReceive<Villager>
         foreach (var tree in grain)
             UnityEngine.Object.Destroy(tree.gameObject);
     }
-    public bool CanReceiveCard(Villager card) => !HasActiveProcedure && HasGrainTrees;
+    public bool CanReceiveCard(RessourceCard card)
+    {
+        if (HasActiveProcedure || !HasGrainTrees)
+            return false;
+        
+        return card.AssociatedResourceType == ResourceType.Villager;
+    }
 
-    public void DoReceiveCard(Villager card)
+    public void DoReceiveCard(RessourceCard card)
     {
         activeProcedure = ProcedureHandler.Instance.StartNewProcedure(10)
             .At(Context.Cell)
             .WithNPC()
-            .WithReward(TokenID.Grain)
+            .WithReward(CardID.Yield)
             .WithCallback(() =>
             {
 
