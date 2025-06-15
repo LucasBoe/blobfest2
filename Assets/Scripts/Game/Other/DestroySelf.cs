@@ -14,8 +14,12 @@ public class DestroySelf : MonoBehaviour
     void Start()
     {
         if (destroyTimed)
-            Destroy(gameObject, destroyTime);
+        {
 
-        Destroy(gameObject);
+            Destroy(gameObject, destroyTime);
+        }
+
+        else 
+            Destroy(gameObject);
     }
 }
