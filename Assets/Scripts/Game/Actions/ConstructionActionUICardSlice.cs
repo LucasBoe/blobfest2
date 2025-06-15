@@ -20,7 +20,7 @@ public class ConstructionActionUICardSlice : MonoBehaviour, IUISlice<PotentialCo
         var dummy = CostContainer.GetChild(0);
         foreach (var resource in this.data.resourcesNeeded)
         {
-            var instance = Instantiate(dummy);
+            var instance = Instantiate(dummy, dummy.transform.parent);
             instance.GetComponentInChildren<Image>().sprite = resource.ResourceType.ToIcon();
             instance.GetComponentInChildren<TMP_Text>().text = resource.Amount.ToString();
         }

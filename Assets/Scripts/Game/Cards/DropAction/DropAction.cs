@@ -20,6 +20,9 @@ public class ConstructionSelectionAction : ActionBase
         this.Cell = cell;
         this.callback = callback;
         this.PotentialConstructions = potentialConstructions;
+
+        foreach (var construction in PotentialConstructions)
+            construction.Cell = Cell;
         
         ActionHandler.Instance.OnStartNewConstructionSelectionActionEvent?.Invoke(this);
     }
@@ -33,12 +36,18 @@ public class ConstructionSelectionAction : ActionBase
 
 public class PotentialConstruction
 {
+    public Cell Cell;
     public CellType ConstructionType { get; set; }
     public List<ResourceAmountPair> resourcesNeeded { get; set; }
+    public Event OnRefreshEvent = new();
     public PotentialConstruction(CellType type, params ResourceAmountPair[] resources)
     {
         ConstructionType = type;
         resourcesNeeded = new List<ResourceAmountPair>(resources);
+    }
+    public void Refresh()
+    {
+        OnRefreshEvent?.Invoke();
     }
 }
 

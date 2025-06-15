@@ -6,18 +6,21 @@ public class ActionUIHandler : MonoBehaviour, IDelayedStartObserver
 {
     [SerializeField] private Canvas inWorldCanvas;
     [SerializeField] private DropActionUISlice dropActionDummy;
-    [SerializeField] private ConstructionActionUISlice constructionSelectionActionDummy; 
+    [SerializeField] private ConstructionActionUISlice constructionSelectionActionDummy;
+    [SerializeField] private ConstructionUISlice constructionDummy;
     // the construction selection action now runs in parallel to the drop action
 
     // track active UI slices
     private Dictionary<DropAction, DropActionUISlice> dropActionUIs = new();
     private Dictionary<ConstructionSelectionAction, ConstructionActionUISlice> constructionActionUIs = new();
+    private Dictionary<PotentialConstruction, ConstructionUISlice> constructionUIs = new();
 
     private void Awake()
     {
         // hide both dummies until needed
         dropActionDummy.gameObject.SetActive(false);
         constructionSelectionActionDummy.gameObject.SetActive(false);
+        constructionDummy.gameObject.SetActive(false);
     }
 
     public void DelayedStart()
@@ -34,6 +37,9 @@ public class ActionUIHandler : MonoBehaviour, IDelayedStartObserver
         // construction selection events
         handler.OnStartNewConstructionSelectionActionEvent.AddListener(OnStartNewConstructionSelectionAction);
         handler.OnEndConstructionSelectionActionEvent.AddListener(OnEndConstructionSelectionAction);
+        // construction action
+        ConstructionHandler.Instance.OnStartNewConstructionEvent.AddListener(OnStartNewConstruction);
+        ConstructionHandler.Instance.OnEndConstructionEvent.AddListener(OnEndConstruction);
     }
     private void OnDisable()
     {
@@ -44,6 +50,9 @@ public class ActionUIHandler : MonoBehaviour, IDelayedStartObserver
         // construction selection events
         handler.OnStartNewConstructionSelectionActionEvent.RemoveListener(OnStartNewConstructionSelectionAction);
         handler.OnEndConstructionSelectionActionEvent.RemoveListener(OnEndConstructionSelectionAction);
+        // construction action
+        ConstructionHandler.Instance.OnStartNewConstructionEvent.RemoveListener(OnStartNewConstruction);
+        ConstructionHandler.Instance.OnEndConstructionEvent.RemoveListener(OnEndConstruction);
     }
     private void OnStartNewDropAction(DropAction dropAction)
     {
@@ -60,5 +69,34 @@ public class ActionUIHandler : MonoBehaviour, IDelayedStartObserver
     private void OnEndConstructionSelectionAction(ConstructionSelectionAction action)
     {
         InstantiationUtil.DestroyAndRemove(action, constructionActionUIs);
+    }    
+    private void OnStartNewConstruction(PotentialConstruction construction)
+    {
+        InstantiationUtil.InstantiateFromDummy(constructionDummy, construction, construction.Cell.Center, constructionUIs);
+    }
+    private void OnEndConstruction(PotentialConstruction construction)
+    {
+        InstantiationUtil.DestroyAndRemove(construction, constructionUIs);
+    }
+}
+
+[SingletonSettings(SingletonLifetime.Scene, _eager: true, _canBeGenerated: true)]
+internal class ConstructionHandler : Singleton<ConstructionHandler>
+{
+    public Event<PotentialConstruction> OnStartNewConstructionEvent = new();
+    public Event<PotentialConstruction> OnRefreshConstructionEvent = new();
+    public Event<PotentialConstruction> OnEndConstructionEvent = new();
+
+    public void StartConstruction(PotentialConstruction construction)
+    {
+        OnStartNewConstructionEvent?.Invoke(construction);
+    }
+    public void EndConstruction(PotentialConstruction construction)
+    {
+        OnEndConstructionEvent?.Invoke(construction);
+    }
+    public void RefreshProgression(PotentialConstruction construction)
+    {
+        construction.Refresh();
     }
 }

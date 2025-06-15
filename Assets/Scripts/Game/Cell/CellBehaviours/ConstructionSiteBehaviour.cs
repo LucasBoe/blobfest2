@@ -12,7 +12,6 @@ public class ConstructionSiteBehaviour : CellBehaviour, ICanReceive<RessourceCar
     public static new CellType AssociatedCellType => CellType.ConstructionSite;
     PotentialConstruction selectedConstruction;
     private ConstructionSelectionAction constructionSelectionAction;
-    private Dictionary<ResourceType, int> paidResources = new ();
     private GameObject visuals;
     public override void Enter()
     {
@@ -30,6 +29,7 @@ public class ConstructionSiteBehaviour : CellBehaviour, ICanReceive<RessourceCar
     private void SelectionCallback(PotentialConstruction construction)
     {
         selectedConstruction = construction;
+        ConstructionHandler.Instance.StartConstruction(construction);
     }
     public override void Exit()
     {
@@ -45,7 +45,7 @@ public class ConstructionSiteBehaviour : CellBehaviour, ICanReceive<RessourceCar
         {
             if (resource.ResourceType == type)
             {
-                if (!paidResources.ContainsKey(type) || paidResources[type] < resource.Amount)
+                if (resource.Amount > 0)
                     return true;
             }
         }
@@ -55,18 +55,20 @@ public class ConstructionSiteBehaviour : CellBehaviour, ICanReceive<RessourceCar
     public void DoReceiveCard(RessourceCard card)
     {
         var type = card.AssociatedResourceType;
-        paidResources.AddOrInit(type, 1);
+        selectedConstruction.resourcesNeeded.Where(r => r.ResourceType == type).Select(s => s.Amount--);
+        ConstructionHandler.Instance.RefreshProgression(selectedConstruction);
 
         
         foreach (var resource in selectedConstruction.resourcesNeeded)
         {
             if (resource.ResourceType == type)
             {
-                if (!paidResources.ContainsKey(type) || paidResources[type] < resource.Amount)
+                if (resource.Amount > 0)
                     return;
             }
         }
-        
+
+        ConstructionHandler.Instance.EndConstruction(selectedConstruction);
         Context.Cell.ChangeCellType(selectedConstruction.ConstructionType);
     }
 }
