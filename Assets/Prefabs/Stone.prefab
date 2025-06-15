@@ -69,7 +69,8 @@ PrefabInstance:
       value: Stone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6100678829915581550, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 908754757402535459, guid: b6142edd831c14a6fa55003970d34d03, type: 3}
