@@ -73,6 +73,7 @@ public class SettlementBehaviour : CellBehaviour, ICanReceive<Stonemason>, ICanR
         {
             case ResourceType.Wood:
             case ResourceType.Villager:
+            case ResourceType.Yield:
                 return true;
             
         }
