@@ -157,5 +157,5 @@ MonoBehaviour:
   assetGUID: -668576
   SpriteRegular: {fileID: 21300000, guid: 46023889c3feee1499780d6cb5b9d8dc, type: 3}
   HasNPC: 0
-  AssociatedResourceType: 0
+  AssociatedResourceType: 1
   ResourceIcon: {fileID: 21300000, guid: dbca1e989106f4a31a982864c89f1143, type: 3}

@@ -13,6 +13,7 @@ public class CellContentPrefabRefContainer : ScriptableObjectContainer<CellConte
 #region GENERATED (ScriptableObjectContainer)
     public enum PrefabRefID : long
     {
+        Woodcutter = -1317930,
         ConstructionSite = -5622,
         Grain = -30326,
         Houses = -1056142,

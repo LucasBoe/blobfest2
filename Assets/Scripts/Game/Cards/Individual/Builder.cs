@@ -17,7 +17,7 @@ public class Builder : Card
     public override bool RefreshValidation(CardValidationContext context)
     {
         CellHighlightHandler.Instance.DestroyAllHighlights();
-        List<Cell> validCells = context.Map.Cells.FilterByCellType(CellType.Meadow, CellType.Forest);
+        List<Cell> validCells = context.Map.Cells.FilterByCellType(CellType.Meadow, CellType.Forest, CellType.Stonefield);
         CellHighlightHandler.Instance.CreateHighlightsFor(validCells, Color.green);
 
         return validCells.Contains(context.CurrentHoverCell);

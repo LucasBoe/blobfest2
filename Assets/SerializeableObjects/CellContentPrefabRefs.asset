@@ -60,6 +60,7 @@ MonoBehaviour:
   AllowInstancesForBaseType: 1
   OnlyAllowOneInstancePerChildType: 0
   Contained:
+  - {fileID: 7438172297325705267}
   - {fileID: 8042341618782615358}
   - {fileID: 6144284535410469593}
   - {fileID: 2494186021907322058}
@@ -128,6 +129,21 @@ MonoBehaviour:
   Container: {fileID: 11400000}
   assetGUID: -61480
   Prefab: {fileID: 0}
+--- !u!114 &7438172297325705267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91d2040ab5bec487ab177420a5582389, type: 3}
+  m_Name: Woodcutter
+  m_EditorClassIdentifier: 
+  Container: {fileID: 11400000}
+  assetGUID: -1317930
+  Prefab: {fileID: 7088122634920410664, guid: 8738b54fee0b24116a3e49d9041f58ef, type: 3}
 --- !u!114 &8042341618782615358
 MonoBehaviour:
   m_ObjectHideFlags: 0

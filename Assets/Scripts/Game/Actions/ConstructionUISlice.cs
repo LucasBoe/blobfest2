@@ -27,6 +27,7 @@ internal class ConstructionUISlice : MonoBehaviour, IUISlice<PotentialConstructi
     }
     private void OnRefresh()
     {
+        List<ResourceType> justFinished = new();
         foreach (var entry in costTexts)
         {
             int amount = data.resourcesNeeded.First(r => r.ResourceType == entry.Key).Amount;
@@ -34,13 +35,16 @@ internal class ConstructionUISlice : MonoBehaviour, IUISlice<PotentialConstructi
             if (amount <= 0)
             {
                 Destroy(entry.Value);
-                costTexts.Remove(entry.Key);
+                justFinished.Add(entry.Key);
             }
             else
             {
                 costTexts[entry.Key].text = amount.ToString();
             }
         }
+
+        foreach (var entry in justFinished)
+            costTexts.Remove(entry);
     }
     private void OnDestroy()
     {

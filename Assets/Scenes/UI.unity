@@ -8980,6 +8980,13 @@ MonoBehaviour:
   Button: {fileID: 1803853929}
   CardNameLabel: {fileID: 1073741832}
   CostContainer: {fileID: 1949553753}
+  cellTypeSpritePairs:
+  - CellType: 5
+    Sprite: {fileID: 21300000, guid: 4182ff11d2fd8644ea8b41762972297c, type: 3}
+  - CellType: 8
+    Sprite: {fileID: 21300000, guid: e92881a5025b34a12acdc58c9f3f9efd, type: 3}
+  - CellType: 9
+    Sprite: {fileID: 21300000, guid: 026b6792faecf2e4eb1741e85b5a846f, type: 3}
 --- !u!1 &1846939067
 GameObject:
   m_ObjectHideFlags: 0

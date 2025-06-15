@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stonefield : CellBehaviour
+public class Stonefield : CellBehaviour, ICanReceive<Builder>
 {
     public static new CellType AssociatedCellType => CellType.Stonefield;
     List<Stone> stones = new();
@@ -11,7 +11,7 @@ public class Stonefield : CellBehaviour
     }    
     public override void Exit()
     {
-        ClearStones();
+        //ClearStones();
     }
     private List<Stone> SpawnStones()
     {
@@ -28,5 +28,14 @@ public class Stonefield : CellBehaviour
         foreach (var stone in stones)
             GameObject.Destroy(stone.gameObject);
         stones.Clear();
+    }
+
+    public bool CanReceiveCard(Builder card)
+    {
+        return true;
+    }
+    public void DoReceiveCard(Builder card)
+    {
+        Context.Cell.ChangeCellType(CellType.ConstructionSite);
     }
 }

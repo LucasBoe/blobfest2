@@ -87,6 +87,8 @@ public enum CellType
     Mill,
     Farmland,
     Stonefield,
+    StonemasonHut,
+    Woodcutter
 }
 
 [System.Serializable]
