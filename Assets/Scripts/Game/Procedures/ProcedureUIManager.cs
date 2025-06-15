@@ -5,7 +5,7 @@ using UnityEngine;
 internal class ProcedureUIManager : MonoBehaviour
 {
     [SerializeField] private ProcedureUISlice procedureUISliceDummy;
-    private const float BAR_OFFSET = .5f;
+    private const float BAR_OFFSET = 1f;
 
     private Dictionary<ProcedureBase, ProcedureUISlice> activeSlices = new();
     private void Awake()
